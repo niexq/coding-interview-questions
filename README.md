@@ -16,7 +16,7 @@
 
 > Lodash 是一个 JavaScript 工具库
 
-### Lodash 函数列表
+### Lodash函数列表
 
 **[数组](#数组)**
 
@@ -3912,9 +3912,9 @@ transform(
 
 > 一款实用的 JavaScript 函数式编程库
 
-### Ramda 函数列表
+### Ramda函数列表
 
-### JavaScript 高级程序设计第 4 版学习笔记
+### JavaScript高级程序设计第4版学习笔记
 
 ![](https://raw.githubusercontent.com/niexq/picbed/main/picgo/JavaScriptredbook.jpg)
 
@@ -3925,7 +3925,7 @@ transform(
 
 ## 常见的 React 面试题
 
-### React 面试题
+### React面试题
 
 | 序号 | 问题                                                                                                  |
 | ---- | ----------------------------------------------------------------------------------------------------- |
