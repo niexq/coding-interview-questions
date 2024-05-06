@@ -16,7 +16,7 @@
 
 > Lodash 是一个 JavaScript 工具库
 
-### Lodash函数列表
+### Lodash 函数列表
 
 **[数组](#数组)**
 
@@ -35,22 +35,22 @@
 1. [head：返回数组中的第一个元素](#head)
 1. [flatten：将多维数组转化为一维数组](#flatten)
 1. [flattenDeep：将多维数组转化为一维数组，递归进行](#flattendeep)
-1. [fromPairs：将一个二维数组转化为一个对象](#fromPairs)
-1. [indexOf：返回一个元素在数组中的下标，从前往后找](#indexOf)
+1. [fromPairs：将一个二维数组转化为一个对象](#frompairs)
+1. [indexOf：返回一个元素在数组中的下标，从前往后找](#indexof)
 1. [initial：返回一个新数组，去掉原数组中的最后一个元素](#initial)
 1. [intersection：返回一个数组，包含在所有数组中都存在的元素](#intersection)
 1. [join：将数组转化为字符串，并用指定的分隔符分隔](#join)
 1. [last：返回数组中的最后一个元素](#last)
-1. [lastIndexOf：返回一个元素在数组中的下标，从后往前找](#lastIndexOf)
+1. [lastIndexOf：返回一个元素在数组中的下标，从后往前找](#lastindexof)
 1. [pull：从数组中去掉指定的元素](#pull)
-1. [pullAt：从数组中取出指定下标的元素，并返回一个新数组](#pullAt)
+1. [pullAt：从数组中取出指定下标的元素，并返回一个新数组](#pullat)
 1. [reverse：反转数组](#reverse)
 1. [slice：返回一个新数组，从原数组中截取指定范围的元素](#slice)
-1. [sortedIndex：返回一个元素应该插入到数组中的下标](#sortedIndex)
+1. [sortedIndex：返回一个元素应该插入到数组中的下标](#sortedindex)
 1. [tail：返回一个新数组，去掉原数组中的第一个元素](#tail)
 1. [take：返回一个新数组，包含原数组中前 n 个元素](#take)
-1. [takeRight：返回一个新数组，包含原数组中后 n 个元素](#takeRight)
-1. [union：返回一个新数组，包含所有数组中的不重复元素](#fromPairs)
+1. [takeRight：返回一个新数组，包含原数组中后 n 个元素](#takeright)
+1. [union：返回一个新数组，包含所有数组中的不重复元素](#frompairs)
 1. [uniq：返回一个新数组，包含所有数组中的不重复元素](#uniq)
 1. [without：返回一个新数组，去掉原数组中指定的元素](#without)
 1. [xor：返回一个新数组，包含只在其中一个数组中出现过的元素](#xor)
@@ -82,7 +82,7 @@
 1. [find：遍历数组或对象，返回第一个符合条件的元素](#find)
 1. [flatMap：遍历数组，将每个元素映射成一个新的数组，再将多个数组合并成一个新数组](#flatmap)
 1. [flatMapDeep：遍历数组，将每个元素映射成一个新的数组，递归进行，再将多个数组合并成一个新数组](#flatmapdeep)
-1. [flatMapDepth：遍历数组，将每个元素映射成一个新的数组，指定递归的深度，再将多个数组合并成一个新数组](#flatMapDepth)
+1. [flatMapDepth：遍历数组，将每个元素映射成一个新的数组，指定递归的深度，再将多个数组合并成一个新数组](#flatmapdepth)
 1. [forEach：遍历数组或对象，并对每个元素执行指定的函数，与 each 函数类似](#foreach)
 1. [includes：判断一个元素是否在数组或对象中](#includes)
 1. [invokeMap：对数组中的每个元素调用指定的方法，并返回结果](#invokemap)
@@ -116,7 +116,7 @@
 1. [memoize：对指定函数进行记忆化处理，缓存函数的计算结果](#memoize)
 1. [negate：对指定函数进行封装，返回原函数的否定值](#negate)
 1. [once：指定一个函数只能被调用一次](#once)
-1. [overArgs：对指定函数进行封装，转换参数的形式](#overArgs)
+1. [overArgs：对指定函数进行封装，转换参数的形式](#overargs)
 1. [partial：对指定函数进行部分应用，指定部分参数](#partial)
 1. [partialRight：与 partial 类似，但是从右到左指定部分参数](#partialright)
 1. [rearg：对指定函数进行封装，调整参数的位置](#rearg)
@@ -128,7 +128,7 @@
 
 1. [assign：合并对象的属性，后面的对象的属性会覆盖前面的对象](#assign)
 1. [defaults：对指定对象进行封装，将默认值合并进去](#defaults)
-1. [defaultsDeep：与 defaults 类似，但是支持嵌套对象](#defaultsDeep)
+1. [defaultsDeep：与 defaults 类似，但是支持嵌套对象](#defaultsdeep)
 1. [findKey：遍历对象，返回第一个符合条件的键名](#findkey)
 1. [findLastKey：与 findKey 类似，但是从对象的末尾开始](#findlastkey)
 1. [forIn：遍历对象，对每个属性调用指定的函数](#forin)
@@ -147,7 +147,7 @@
 1. [mapKeys：遍历对象上的每个属性，返回一个新对象，其中每个属性的名称由指定的函数计算得出](#mapkeys)
 1. [mapValues：遍历对象上的每个属性，返回一个新对象，其中每个属性的值由指定的函数计算得出](#mapvalues)
 1. [merge：合并对象和源对象的属性，并返回合并后的对象](#merge)
-1. [mergeWith：与 merge 类似，但是指定合并函数，用于处理冲突的属性值](#mergeWith)
+1. [mergeWith：与 merge 类似，但是指定合并函数，用于处理冲突的属性值](#mergewith)
 1. [omit：返回一个新对象，其中省略了指定属性的属性值](#omit)
 1. [omitBy：与 omit 类似，但是根据指定函数判断是否省略属性](#omitby)
 1. [pick：返回一个新对象，其中只包含指定属性的属性值](#pick)
@@ -3912,20 +3912,20 @@ transform(
 
 > 一款实用的 JavaScript 函数式编程库
 
-### Ramda函数列表
+### Ramda 函数列表
 
-### JavaScript高级程序设计第4版学习笔记
+### JavaScript 高级程序设计第 4 版学习笔记
 
 ![](https://raw.githubusercontent.com/niexq/picbed/main/picgo/JavaScriptredbook.jpg)
 
 👆 上述是截图，点击无效 👆
 
 👇 详细内容请点击，或留言联系获取笔记源文件 👇
-语雀地址：https://www.yuque.com/u1907104/pvxyxw/ff8h7vmgfx0wlgog
+语雀地址：<https://www.yuque.com/u1907104/pvxyxw/ff8h7vmgfx0wlgog>
 
 ## 常见的 React 面试题
 
-### React面试题
+### React 面试题
 
 | 序号 | 问题                                                                                                  |
 | ---- | ----------------------------------------------------------------------------------------------------- |
@@ -3966,6 +3966,7 @@ function App() {
 **[⬆ 返回顶部](#react面试题)**
 
 2. ### refs 属性有什么作用？
+
    `refs` 属性用于引用组件或 DOM 元素。它可以在函数组件和类组件中使用。
 
 ```jsx
@@ -3989,6 +3990,7 @@ function App() {
 **[⬆ 返回顶部](#react面试题)**
 
 3. ### PureComponent 组件有什么作用？
+
    `PureComponent` 是一个基于 Component 的优化版本，它会在 shouldComponentUpdate 生命周期方法中使用浅比较来判断是否需要重新渲染。如果所有的 props 和 state 都没有改变，`PureComponent` 将不会重新渲染。
 
 ```jsx
@@ -4048,6 +4050,7 @@ function App() {
 ```
 
 6. ### 什么是受控组件和非受控组件？
+
    在 React 中，表单元素（如 input、textarea 和 select）通常分为受控组件和非受控组件。
 
 `受控组件`是指表单元素的值受到 React 组件的状态的控制。当用户输入内容时，React 会更新组件的状态，从而实时更新表单元素的值。此时，表单元素的值由 React 负责维护，而与 DOM 本身无关。受控组件通常需要实现 onChange 事件处理函数，以便在用户输入内容时更新组件的状态。
@@ -4112,6 +4115,7 @@ class Input extends React.Component {
 在上述代码中，我们定义了一个 Input 组件作为非受控组件，它的值由 DOM 本身维护。当用户点击按钮时，我们可以通过 ref 获取表单元素的值，从而进行后续处理。
 
 7. ### 什么是高阶组件
+
    `高阶组件`（Higher-Order Component，简称 HOC）是指一个函数，它接受一个组件作为参数，返回一个新的组件。HOC 本质上是一种组件复用的方式，用于增强组件的功能，或者封装一些通用的逻辑，从而实现代码复用。
 
 以下是一个使用高阶组件的示例代码：
@@ -4147,6 +4151,7 @@ ReactDOM.render(<EnhancedComponent />, document.getElementById('root'));
 在上述示例中，withLogger 高阶组件用于记录组件的挂载信息，以便在开发调试时更加方便。当我们需要对多个组件进行类似的操作时，就可以使用 withLogger 高阶组件，而不需要在每个组件中都编写相同的挂载逻辑。这样，我们就可以实现代码的复用，同时使代码更加简洁易懂。
 
 7. ### 生命周期方法有哪些和它们的执行顺序是什么？
+
    React 中的生命周期方法可以分为三类：挂载、更新和卸载。它们的执行顺序如下：
 
 - 挂载：
@@ -4236,6 +4241,7 @@ class MyComponent extends React.Component {
 ```
 
 11. ### 什么是 React context？
+
     React context 是一种跨组件层级共享数据的方式，可以避免通过 props 层层传递数据的麻烦。它由两部分组成：`Provider` 和 `Consumer`。
 
 `Provider` 是一个组件，它接受一个 value 属性，表示共享的数据，将它包裹的子组件的 `Consumer` 都可以访问这个数据。

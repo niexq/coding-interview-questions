@@ -111,6 +111,19 @@ const pull = (arr, ...args) => arr.filter(item => !args.includes(item));
 const pullAt = (arr, ...args) => args.map(index => arr.splice(index, 1)[0]);
 const reverse = arr => [...arr].reverse();
 const slice = (arr, start, end) => arr.slice(start, end);
+const sortedIndex = (arr, value) => {
+  let left = 0;
+  let right = arr.length;
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2);
+    if (arr[mid] < value) {
+      left = mid + 1;
+    } else {
+      right = mid;
+    }
+  }
+  return right;
+};
 
 module.exports = {
   chunk,
@@ -139,4 +152,5 @@ module.exports = {
   pullAt,
   reverse,
   slice,
+  sortedIndex,
 };
