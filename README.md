@@ -4,13 +4,13 @@
 
 ### 目录
 
-| 序号 | 系列                                                                              | 测试    |
-| ---- | --------------------------------------------------------------------------------- | ------- |
-| 1    | [✅ Lodash 函数列表](#lodash函数列表)                                             | ✅ 通过 |
-| 2    | [✅ Ramda 函数列表](#ramda函数列表)                                               | ✅ 通过 |
-| 3    | [✅ JavaScript 高级程序设计第 4 版学习笔记](#javascript高级程序设计第4版学习笔记) | 💻 无   |
-| 4    | [✅ React 面试题](#react面试题)                                                   | 💻 TODO |
-| n    | [💻 TODO](#TODO)                                                                  | 💻 TODO |
+| 序号 | 系列                                                                                 | 测试    |
+| ---- | ------------------------------------------------------------------------------------ | ------- |
+| 1    | [✅ Lodash 函数列表](#lodash-函数列表)                                               | ✅ 通过 |
+| 2    | [✅ Ramda 函数列表](#ramda-函数列表)                                                 | 💻 TODO |
+| 3    | [✅ JavaScript 高级程序设计第 4 版学习笔记](#javascript-高级程序设计第-4-版学习笔记) | 💻 TODO |
+| 4    | [✅ React 面试题](#react-面试题)                                                     | 💻 TODO |
+| n    | [💻 TODO](#TODO)                                                                     | 💻 TODO |
 
 ## Lodash
 
@@ -188,7 +188,7 @@ chunk(['a', 'b', 'c', 'd'], 3);
 
 思路：根据指定的大小将数组切割成多个小数组，使用 ES6 的 Array.from()方法，创建一个长度为切割后数组个数的新数组，使用 slice()方法将原数组按照切割后的大小进行分割，然后将每个小数组存储在新数组中返回。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### compact
 
@@ -203,7 +203,7 @@ compact([0, 1, false, 2, '', 3]);
 
 思路：使用 filter()方法，过滤出数组中的真值，Boolean()函数将所有假值转化为 false，所有真值转化为 true。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### concat
 
@@ -224,7 +224,7 @@ console.log(array);
 
 思路：使用 ES6 的扩展运算符(...)将传入的参数转化为数组，然后使用 concat()方法将所有数组合并成一个新数组并返回。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### difference
 
@@ -243,7 +243,7 @@ difference([3, 2, 1], [4, 2]);
 
 思路：使用 filter()方法遍历第一个数组，使用 every()方法遍历其他数组，将第一个数组中不包含在其他数组中的元素过滤出来，返回一个新数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### differenceBy
 
@@ -266,7 +266,7 @@ differenceBy([{ x: 2 }, { x: 1 }], [{ x: 1 }], 'x');
 
 思路：先判断第三个参数是否为函数，如果是则使用函数对比数组中的元素进行差异筛选，否则直接使用 lodash 的差异筛选函数来实现。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### differenceWith
 
@@ -287,7 +287,7 @@ _.differenceWith(objects, [{ x: 1, y: 2 }], _.isEqual);
 
 思路：利用高阶函数 filter 和 some 对两个数组进行比较，返回第一个数组中不包含在第二个数组中的元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### drop
 
@@ -311,7 +311,7 @@ drop([1, 2, 3], 0);
 
 思路：使用 slice()方法将原数组中的前 n 个元素删除并返回。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### dropRight
 
@@ -336,7 +336,7 @@ dropRight([1, 2, 3], 0);
 
 思路：根据 n 的值，通过数组的 slice 方法获取新的数组，从而实现删除末尾元素的操作。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### dropRightWhile
 
@@ -389,7 +389,7 @@ dropRightWhile(users, 'active');
 
 思路：该函数实现了一个从数组末尾开始遍历，当元素满足传入的迭代器条件时，将该元素从数组中删除并返回删除后的新数组的函数。迭代器可以是函数、对象或数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### fill
 
@@ -414,7 +414,7 @@ fill([4, 6, 8, 10], '*', 1, 3);
 
 思路：使用 fill()方法将数组的指定位置开始到指定位置结束的元素替换成指定的值，并返回修改后的数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### findIndex
 
@@ -447,7 +447,7 @@ findIndex(users, 'active');
 
 思路：使用 findIndex()方法查找符合条件的元素在数组中的下标，如果没有找到则返回-1。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### findLastIndex
 
@@ -510,7 +510,7 @@ findLastIndex(users, 'active');
 
 思路：使用 findLastIndex()方法，返回数组中满足提供的测试函数条件的最后一个元素的索引。若没有找到对应元素，则返回 -1
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### head
 
@@ -528,7 +528,7 @@ head([]);
 
 思路：直接返回数组的第一个元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### flatten
 
@@ -543,7 +543,7 @@ flatten([1, [2, [3, [4]], 5]]);
 
 思路：使用扩展运算符展开多维数组，再使用 concat 方法将展开后的一维数组拼接起来，得到最终的一维数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### flattenDeep
 
@@ -559,7 +559,7 @@ flattenDeep([1, [2, [3, [4]], 5]]);
 
 思路：使用 Array.map 遍历数组，对于数组中的每个元素，如果是数组则递归调用 flattenDeep 函数，否则直接返回该元素，最终使用扩展运算符展开数组，并使用 concat 方法拼接起来。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### fromPairs
 
@@ -578,7 +578,7 @@ fromPairs([
 
 思路：使用 Array.reduce 遍历数组，对于数组中的每个元素，将其解构为 key 和 val，并将其添加到一个新对象中，最终得到一个包含所有 key-value 对的对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### indexOf
 
@@ -598,7 +598,7 @@ indexOf([1, 2, 1, 2], 2, 2);
 
 思路：使用数组的 findIndex 方法查找，并且支持从指定索引位置开始查找。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### initial
 
@@ -613,7 +613,7 @@ initial([1, 2, 3]);
 
 思路：使用数组的 slice 方法截取出除了最后一个元素的部分，得到一个新数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### intersection
 
@@ -630,7 +630,7 @@ intersection([2, 1], [4, 2], [1, 2]);
 
 思路：使用数组的 reduce 方法遍历所有数组，使用 filter 方法筛选出在当前数组中也存在的元素，最后使用 Set 去重并转换为数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### join
 
@@ -646,7 +646,7 @@ join(['a', 'b', 'c'], '~');
 
 思路：使用 reduce 方法遍历数组，将每个元素和分隔符拼接起来，最终得到一个拼接好的字符串。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### last
 
@@ -661,7 +661,7 @@ last([1, 2, 3]);
 
 思路：返回数组中的最后一个元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### lastIndexOf
 
@@ -680,7 +680,7 @@ lastIndexOf([1, 2, 1, 2], 2, 2);
 
 思路：使用数组的 lastIndexOf 方法查找元素在数组中的下标。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### pull
 
@@ -698,7 +698,7 @@ console.log(array);
 
 思路：通过 filter 方法筛选掉不需要的元素即可。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### pullAt
 
@@ -719,7 +719,7 @@ console.log(evens);
 
 思路：map() 方法遍历传入的下标数组，通过 splice() 方法从原数组中删除相应的元素并返回。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### reverse
 
@@ -739,7 +739,7 @@ console.log(array);
 
 思路：利用解构赋值和 reverse() 方法即可。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### slice
 
@@ -751,7 +751,7 @@ const slice = (arr, start, end) => arr.slice(start, end);
 
 思路：直接调用原生的 slice() 方法。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sortedIndex
 
@@ -778,7 +778,7 @@ sortedIndex([30, 50], 40);
 
 思路：二分查找算法实现，找到元素应该插入的位置。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### tail
 
@@ -793,7 +793,7 @@ tail([1, 2, 3]);
 
 思路：利用 slice() 方法去掉第一个元素即可。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### take
 
@@ -817,7 +817,7 @@ take([1, 2, 3], 0);
 
 思路：直接调用原生的 slice() 方法，注意默认参数。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### takeRight
 
@@ -841,7 +841,7 @@ takeRight([1, 2, 3], 0);
 
 思路：同样直接调用原生的 slice() 方法，注意负数下标的使用。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### union
 
@@ -856,7 +856,7 @@ union([2], [1, 2]);
 
 思路：flat() 方法将多维数组转为一维，Set 数据结构去重，再转回数组即可。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### uniq
 
@@ -871,7 +871,7 @@ uniq([2, 1, 2]);
 
 思路：同样利用 Set() 数据结构去重。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### without
 
@@ -886,7 +886,7 @@ without([2, 1, 2, 3], 1, 2);
 
 思路：同 pull 方法。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### xor
 
@@ -906,7 +906,7 @@ xor([2, 1], [2, 3]);
 
 思路：flat() 方法转换成一维数组，然后利用 filter() 方法和 indexOf()、lastIndexOf() 方法判断出只在一个数组中出现过的元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### zip
 
@@ -922,7 +922,7 @@ zip(['fred', 'barney'], [30, 40], [true, false]);
 
 思路：使用了 Rest 参数，首先取出第一个数组，然后使用 map 遍历第一个数组的长度，通过索引遍历所有数组的该索引元素，将其组合成一个新的数组并返回。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### unzip
 
@@ -944,7 +944,7 @@ unzip(zipped);
 
 思路：使用 reduce 遍历 zip 函数生成的数组，将每个元素的每个值取出来，根据索引组成新的数组返回。在 reduce 函数的初始值中，使用了 Math.max 获取所有元素中最大长度，并通过 Array.from 创建对应长度的二维数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### dropWhile
 
@@ -978,7 +978,7 @@ dropWhile(users, 'active');
 
 思路：使用 findIndex 函数找到第一个不符合条件的元素，然后使用 slice 函数截取该元素之后的数组并返回。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### intersectionBy
 
@@ -1000,7 +1000,7 @@ intersectionBy([{ x: 1 }], [{ x: 2 }, { x: 1 }], 'x');
 
 思路：使用数组的 filter 方法遍历第一个数组，并使用参数指定的函数对比第二个数组的每一个元素，最终返回两个数组的交集。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### pullAll
 
@@ -1018,7 +1018,7 @@ console.log(array);
 
 思路：使用数组的 filter 方法遍历原数组，排除传入的数组中存在的元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### pullAllBy
 
@@ -1040,7 +1040,7 @@ console.log(array);
 
 思路：使用数组的 filter 方法遍历原数组，排除传入的数组中存在的元素，使用参数指定的函数对比两个数组中的元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### pullAllWith
 
@@ -1063,7 +1063,7 @@ console.log(array);
 
 思路：使用数组的 filter 方法遍历原数组，排除传入的数组中存在的元素，使用参数指定的函数对比两个数组中的元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sortedIndexOf
 
@@ -1093,7 +1093,7 @@ sortedIndexOf([4, 5, 5, 5, 6], 5);
 
 思路：使用二分查找算法在已排序的数组中查找指定元素的位置。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sortedLastIndexOf
 
@@ -1124,7 +1124,7 @@ sortedLastIndex([4, 5, 5, 5, 6], 5);
 
 思路：使用二分查找算法在已排序的数组中查找指定元素的最后一个位置。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sortedUniq
 
@@ -1145,7 +1145,7 @@ sortedUniq([1, 1, 2]);
 
 思路：使用数组的 reduce 方法和 indexOf 方法过滤掉重复元素，并返回新数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sortedUniqBy
 
@@ -1167,7 +1167,7 @@ sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
 
 思路：使用 reduce 方法，对原数组进行遍历，将每个元素通过指定函数转化为一个值，并使用 Set 对象来去重，最终返回去重后的数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### takeWhile
 
@@ -1183,7 +1183,7 @@ const takeWhile = (array, predicate) =>
 
 思路：使用 findIndex 方法，查找第一个不符合条件的元素的索引，然后使用 slice 方法截取原数组中符合条件的部分，返回新数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### takeRightWhile
 
@@ -1223,7 +1223,7 @@ takeRightWhile(users, 'active');
 
 思路：使用 reverse 方法反转原数组，然后使用 findIndex 方法查找反转后数组中第一个不符合条件的元素的索引，最终使用 slice 方法截取原数组中从该索引到结尾的部分，返回新数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### unionBy
 
@@ -1248,7 +1248,7 @@ unionBy([{ x: 1 }], [{ x: 2 }, { x: 1 }], 'x');
 
 思路：使用 Set 对象进行数组去重，通过指定函数将多个数组中的元素转化为同一值，最终将去重后的值转化为数组返回。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### uniqBy
 
@@ -1272,7 +1272,7 @@ uniqBy([{ x: 1 }, { x: 2 }, { x: 1 }], 'x');
 
 思路：同 unionBy 方法实现思路类似。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### unzipWith
 
@@ -1301,7 +1301,7 @@ unzipWith(zipped, add);
 
 思路：使用 reduce 方法，对传入的数组进行遍历，将每个子数组进行传入的函数处理后，将处理后的值存储到对应索引位置上，最终返回处理后的数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### xorBy
 
@@ -1326,7 +1326,7 @@ xorBy([{ 'x': 1 }], [{ 'x': 2 }, { 'x': 1 }], 'x');
 
 思路：使用 reduce 方法，对传入的多个数组进行遍历，将每个数组中的元素转化为指定值，并使用 Map 对象统计每个值出现的次数，最后返回出现次数为 1 的元素组成的数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### zipObject
 
@@ -1342,7 +1342,7 @@ zipObject(['a', 'b'], [1, 2]);
 
 思路：使用 reduce 函数遍历 keys 数组，每次将 keys 数组中的一个元素作为属性名，values 数组中相同位置的元素作为属性值，然后将它们存入一个新对象中，最后返回该对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### zipObjectDeep
 
@@ -1366,7 +1366,7 @@ zipObjectDeep(['a.b[0].c', 'a.b[1].d'], [1, 2]);
 
 思路：使用 reduce 函数遍历 keys 数组，每次将 keys 数组中的一个元素拆分成一个路径数组，使用 reduceRight 函数从路径数组的最后一个元素开始遍历，每次将该元素作为属性名，前一个元素对应的对象作为属性值，然后将它们存入一个新对象中，最后返回该对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### 集合
 
@@ -1424,7 +1424,7 @@ forEach({ a: 1, b: 2 }, (value, key) => {
 
 思路：如果是数组，则使用 for 循环遍历，对每个元素执行 fn 函数；如果是对象，则使用 for-in 循环遍历，对每个属性执行 fn 函数
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### filter
 
@@ -1459,7 +1459,7 @@ filter(users, 'active');
 
 思路：使用 filter 方法过滤符合条件的元素，predicate 是函数时直接执行，否则判断元素是否具有对应的属性值
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### find
 
@@ -1495,7 +1495,7 @@ find(users, 'active');
 
 思路：使用 filter 方法过滤符合条件的元素，并返回第一个符合条件的元素，predicate 是函数时直接执行，否则判断元素是否具有对应的属性值
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### flatMap
 
@@ -1514,7 +1514,7 @@ flatMap([1, 2], duplicate);
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### flatMapDeep
 
@@ -1538,7 +1538,7 @@ flatMapDeep([1, 2], duplicate);
 
 思路：使用 reduce 遍历数组，将每个元素映射成一个新的数组，如果是数组则递归进行，最后使用 concat 将多个数组合并成一个新数组
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### flatMapDepth
 
@@ -1567,7 +1567,7 @@ flatMapDepth([1, 2], duplicate, 2);
 
 思路：使用递归的方式实现深度优先遍历数组，然后将每个元素映射成一个新的数组，最后将多个数组合并成一个新数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### forEach
 
@@ -1593,7 +1593,7 @@ forEach({ a: 1, b: 2 }, (value, key) => {
 
 思路：使用 for...of 循环遍历数组或对象，并对每个元素执行指定的函数。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### groupBy：按照指定的方式对数组进行分组
 
@@ -1618,7 +1618,7 @@ groupBy(['one', 'two', 'three'], 'length');
 
 思路：使用 reduce 方法遍历数组，按照指定的方式对数组进行分组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### includes
 
@@ -1642,7 +1642,7 @@ includes('pebbles', 'eb');
 
 思路：使用 Array.includes 方法判断一个元素是否在数组或对象中。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### invokeMap
 
@@ -1670,7 +1670,7 @@ invokeMap([123, 456], String.prototype.split, '');
 
 思路：使用 Array.map 方法对数组中的每个元素调用指定的方法，并返回结果。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### keyBy
 
@@ -1694,7 +1694,7 @@ keyBy(array, 'dir');
 
 思路：使用 reduce 方法遍历数组，将数组转化为对象，对象的键值是指定属性的值，值是该元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### map：遍历数组或对象，将每个元素映射成一个新的元素
 
@@ -1720,7 +1720,7 @@ map(users, 'user');
 
 思路：使用 reduce 方法遍历数组，将每个元素映射成一个新的元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### orderBy
 
@@ -1755,7 +1755,7 @@ orderBy(users, ['user', 'age'], ['asc', 'desc']);
 
 思路：使用 sort 方法对数组进行排序，props 参数表示排序的属性，orders 参数表示排序的顺序。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### partition
 
@@ -1789,7 +1789,7 @@ partition(users, 'active');
 
 思路：使用 reduce 方法遍历数组，按照指定的条件对数组进行分割。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### reduce
 
@@ -1820,7 +1820,7 @@ reduce(
 
 思路：使用 for 循环遍历数组，累加每个元素到累加器中。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### reduceRight
 
@@ -1847,7 +1847,7 @@ reduceRight(array, (flattened, other) => flattened.concat(other), []);
 
 思路：与 reduce 类似，但是从数组的末尾开始遍历。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### reject
 
@@ -1879,7 +1879,7 @@ reject(users, 'active');
 
 思路：使用 filter 方法遍历数组，返回不符合条件的元素即可。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sample
 
@@ -1894,7 +1894,7 @@ sample([1, 2, 3, 4]);
 
 思路：使用 Math.random 方法生成随机数，再根据数组的长度随机获取一个元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sampleSize
 
@@ -1913,7 +1913,7 @@ sampleSize([1, 2, 3], 4);
 
 思路：使用 sort 方法和 Math.random 方法打乱数组顺序，再使用 slice 方法截取指定数量的元素。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### shuffle
 
@@ -1928,7 +1928,7 @@ shuffle([1, 2, 3, 4]);
 
 思路：使用 sort 方法和 Math.random 方法打乱数组顺序即可。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### size
 
@@ -1949,7 +1949,7 @@ size('pebbles');
 
 思路：使用 Object.keys 方法获取对象属性的数组，再使用 length 属性获取长度即可。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### some
 
@@ -1981,7 +1981,7 @@ some(users, 'active');
 
 思路：使用 some 方法判断是否至少有一个元素符合条件。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sortBy
 
@@ -2009,7 +2009,7 @@ sortBy(users, 'user', o => Math.floor(o.age / 10));
 
 思路：使用 sort 方法和传入的函数进行排序即可。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### 函数
 
@@ -2042,7 +2042,7 @@ forEach(saves, type => {
 
 思路：返回一个函数，该函数在被调用 n 次后执行指定的函数。利用闭包记录当前已调用次数，判断是否达到执行条件。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### ary：对指定函数进行封装，指定最多接收多少个参数
 
@@ -2058,7 +2058,7 @@ map(['6', '8', '10'], ary(parseInt, 1));
 
 思路：对指定函数进行封装，指定最多接收 n 个参数。返回一个新函数，限制函数参数个数。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### before：指定一个函数在被调用多少次前执行
 
@@ -2079,7 +2079,7 @@ jQuery(element).on('click', before(5, addContactToList));
 
 思路：返回一个函数，该函数在被调用 n 次前执行指定的函数。利用闭包记录当前已调用次数，判断是否达到执行条件。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### bind
 
@@ -2109,7 +2109,7 @@ bound('hi');
 
 思路：绑定函数的 this 值和指定的参数，并返回一个新的函数。利用 apply 和 bind 方法实现。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### bindKey
 
@@ -2147,7 +2147,7 @@ bound('hi');
 
 思路：与 bind 类似，但是绑定的是对象上的指定方法。利用 apply 和 bind 方法实现。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### curry
 
@@ -2179,7 +2179,7 @@ curried(1)(_, 3)(2);
 
 思路：对指定函数进行柯里化。返回一个新函数，当参数数量不足时，继续返回一个新函数，直到参数数量足够执行原函数。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### curryRight
 
@@ -2213,7 +2213,7 @@ curried(3)(1, _)(2);
 
 思路：与 curry 类似，但是从右到左处理参数。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### debounce
 
@@ -2259,7 +2259,7 @@ jQuery(window).on('popstate', debounced.cancel);
 
 思路：对指定函数进行防抖处理。返回一个新函数，在一段时间内只执行一次。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### defer
 
@@ -2276,7 +2276,7 @@ defer(text => {
 
 思路：将指定函数延迟执行。利用 setTimeout 实现。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### delay
 
@@ -2297,7 +2297,7 @@ delay(
 
 思路：将指定函数延迟一段时间后执行。利用 setTimeout 实现。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### flip
 
@@ -2319,7 +2319,7 @@ flipped('a', 'b', 'c', 'd');
 
 思路：反转函数的参数顺序，返回一个新的函数
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### memoize
 
@@ -2361,7 +2361,7 @@ memoize.Cache = WeakMap;
 
 思路：缓存函数的计算结果，返回一个新的函数
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### negate
 
@@ -2383,7 +2383,7 @@ filter([1, 2, 3, 4, 5, 6], negate(isEven));
 
 思路：返回一个新的函数，该函数执行原函数的结果取反
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### once
 
@@ -2408,7 +2408,7 @@ initialize();
 
 思路：返回一个新的函数，该函数只能被调用一次
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### overArgs
 
@@ -2439,7 +2439,7 @@ func(10, 5);
 
 思路：返回一个新的函数，该函数对原函数的指定参数进行转换
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### partial
 
@@ -2467,7 +2467,7 @@ greetFred('hi');
 
 思路：返回一个新的函数，该函数部分应用原函数的指定参数
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### partialRight
 
@@ -2495,7 +2495,7 @@ sayHelloTo('fred');
 
 思路：返回一个新的函数，该函数从右到左部分应用原函数的指定参数
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### rearg
 
@@ -2515,7 +2515,7 @@ rearged('b', 'c', 'a');
 
 思路：返回一个新的函数，该函数调整原函数的参数顺序
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### rest
 
@@ -2540,7 +2540,7 @@ say('hello', 'fred', 'barney', 'pebbles');
 
 思路：返回一个新的函数，该函数将原函数的参数集合成一个数组传入
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### spread
 
@@ -2562,7 +2562,7 @@ numbers.then(spread((x, y) => x + y));
 
 思路：返回一个新的函数，该函数将原函数的参数数组展开作为多个参数传入
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### throttle
 
@@ -2594,7 +2594,7 @@ jQuery(window).on('popstate', throttled.cancel);
 
 思路：返回一个新的函数，该函数对原函数进行节流处理
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### 对象
 
@@ -2636,7 +2636,7 @@ defaults({ a: 1 }, { b: 2 }, { a: 3 });
 
 思路：使用 Object.assign 方法将默认值对象合并到目标对象上，如果目标对象中已经存在相同属性，则不会被覆盖。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### defaultsDeep
 
@@ -2665,7 +2665,7 @@ defaultsDeep({ a: { b: 2 } }, { a: { b: 1, c: 3 } });
 
 思路：使用 Object.assign 和 typeof 方法进行递归遍历，将嵌套的对象也合并进去。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### findKey
 
@@ -2704,7 +2704,7 @@ findKey(users, 'active');
 
 思路：使用 for...in 循环遍历对象，对每个属性调用指定的函数进行判断，如果返回真值则返回当前属性名。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### findLastKey
 
@@ -2738,7 +2738,7 @@ findLastKey(users, 'active');
 
 思路：使用 Object.keys 方法获取对象的键名数组，然后使用 reverse 方法翻转数组，再使用 findKey 函数进行查找。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### forIn
 
@@ -2769,7 +2769,7 @@ forIn(new Foo(), (value, key) => {
 
 思路：使用 for...in 循环遍历对象，对每个属性调用指定的函数。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### forInRight
 
@@ -2799,7 +2799,7 @@ forInRight(new Foo(), (value, key) => {
 
 思路：使用 for...in 循环倒序遍历对象的所有属性，并对每个属性调用指定的函数。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### forOwn
 
@@ -2829,7 +2829,7 @@ forOwn(new Foo(), (value, key) => {
 
 思路：遍历对象自身的可枚举属性，对每个属性调用指定的函数，使用 for-in 循环遍历对象的所有属性，判断属性是否是自身的可枚举属性，如果是则调用指定的函数。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### forOwnRight
 
@@ -2858,7 +2858,7 @@ forOwnRight(new Foo(), (value, key) => {
 
 思路：与 forOwn 类似，但是从对象的末尾开始遍历，可以将对象的键数组进行 reverse 操作后再遍历。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### functions
 
@@ -2881,7 +2881,7 @@ functions(new Foo());
 
 思路：返回指定对象上的所有函数名，使用 Object.keys()获取对象的所有属性名，再使用 filter()方法筛选出属性值的类型为 function 的属性名。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### get
 
@@ -2905,7 +2905,7 @@ get(object, 'a.b.c', 'default');
 
 思路：使用 reduce 函数将属性路径分割后进行遍历并获取对应属性值，支持使用点和方括号的方式指定属性路径
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### has
 
@@ -2932,7 +2932,7 @@ has(other, 'a');
 
 思路：使用 in 操作符判断对象上是否有指定属性
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### hasIn
 
@@ -2958,7 +2958,7 @@ hasIn(object, 'b');
 
 思路：使用 get 函数获取属性值，如果返回 undefined 则表示不存在指定路径属性
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### invert
 
@@ -2979,7 +2979,7 @@ invert(object);
 
 思路：遍历对象并将属性值作为键名，属性名作为键值生成新对象
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### invertBy
 
@@ -3007,7 +3007,7 @@ invertBy(object, value => `group${value}`);
 
 思路：遍历对象并将属性值经过回调函数处理后作为键名，属性名作为键值生成新对象
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### invoke
 
@@ -3027,7 +3027,7 @@ invoke(object, 'a[0].b.c.slice', 1, 3);
 
 思路：遍历对象并调用指定方法名的方法
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### keys
 
@@ -3052,7 +3052,7 @@ keys('hi');
 
 思路：使用 Object.keys 函数返回对象上的所有可枚举属性名
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### keysIn
 
@@ -3080,7 +3080,7 @@ keysIn(new Foo());
 
 思路：遍历对象的所有属性名，将其添加到一个数组中，并返回该数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### mapKeys
 
@@ -3099,7 +3099,7 @@ mapKeys({ a: 1, b: 2 }, (value, key) => key + value);
 
 思路：使用 reduce 遍历对象的属性名，将新的属性名通过指定函数计算得出，并与原属性值一起添加到一个新的对象中，并返回该新对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### mapValues
 
@@ -3127,7 +3127,7 @@ mapValues(users, 'age');
 
 思路：使用 reduce 遍历对象的属性名，通过指定函数计算每个属性值，并将计算后的新属性值添加到一个新的对象中，并返回该新对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### merge
 
@@ -3150,7 +3150,7 @@ merge(object, other);
 
 思路：使用 Object.assign 将源对象的属性值合并到目标对象上，并返回合并后的新对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### mergeWith
 
@@ -3180,7 +3180,7 @@ mergeWith(object, other, customizer);
 
 思路：使用 Object.assign 将源对象的属性值合并到目标对象上，并遍历合并后的新对象，通过指定函数自定义处理冲突的属性值，并返回处理后的新对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### omit
 
@@ -3203,7 +3203,7 @@ omit(object, ['a', 'c']);
 
 思路：使用 Object.assign 将原对象的属性值复制到一个新对象上，遍历指定省略的属性，将其从新对象中删除，并返回该新对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### omitBy
 
@@ -3228,7 +3228,7 @@ omitBy(object, isNumber);
 
 思路：使用 Object.assign 将原对象的属性值复制到一个新对象上，遍历新对象的每个属性，根据指定函数判断是否需要删除该属性，并返回处理后的新对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### pick
 
@@ -3251,7 +3251,7 @@ pick(object, ['a', 'c']);
 
 思路：使用 reduce 遍历指定需要选取的属性，将其添加到一个新的对象中，并返回该新对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### pickBy
 
@@ -3272,7 +3272,7 @@ pickBy(object, isNumber);
 
 思路：使用 Object.keys 和 Array.prototype.reduce 方法，返回一个新的对象。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### result
 
@@ -3300,7 +3300,7 @@ result(object, 'a[0].b.c3', constant('default'));
 
 思路：使用 Array.prototype.reduce 方法和 typeof 运算符，支持获取多层路径的值。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### set
 
@@ -3331,7 +3331,7 @@ console.log(object.x[0].y.z);
 
 思路：使用 Array.prototype.reduce 方法，支持设置多层路径的值。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### setWith
 
@@ -3357,7 +3357,7 @@ setWith(object, '[0][1]', 'a', Object);
 
 思路：使用 Array.prototype.reduce 方法，支持设置多层路径的值。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### toPairs
 
@@ -3379,7 +3379,7 @@ toPairs(new Foo());
 
 思路：使用 Object.entries 方法，返回一个由键值对组成的数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### toPairsIn
 
@@ -3407,7 +3407,7 @@ toPairsIn(new Foo());
 
 思路：使用 Object.getOwnPropertyNames 方法，返回一个由键值对组成的数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### transform
 
@@ -3442,7 +3442,7 @@ transform(
 
 思路：使用 Object.entries 方法和 Array.prototype.reduce 方法，返回一个由转换后的对象组成的数组。
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### unset
 
@@ -3454,7 +3454,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### update：获取对象上指定路径的值，并根据情况进行函数调用，最后将值设置回去
 
@@ -3464,7 +3464,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### updateWith：与 update 类似，但是指定自定义函数用于更新属性值
 
@@ -3474,7 +3474,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### values：返回对象上的所有可枚举属性值
 
@@ -3484,7 +3484,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### valuesIn：返回对象上的所有属性值，包括不可枚举属性值
 
@@ -3494,7 +3494,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ```js
 
@@ -3502,7 +3502,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### 集合
 
@@ -3516,7 +3516,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### eachRight：与 each 类似，但是从集合的末尾开始遍历
 
@@ -3526,7 +3526,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### every：遍历集合，返回一个布尔值，指示是否所有元素均满足指定的函数
 
@@ -3536,7 +3536,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### filter：遍历集合，返回一个新集合，其中只包含满足指定函数的元素
 
@@ -3546,7 +3546,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### find：遍历集合，返回第一个满足指定函数的元素
 
@@ -3556,7 +3556,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### findLast：与 find 类似，但是从集合的末尾开始遍历
 
@@ -3566,7 +3566,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### flatMap：遍历集合，对每个元素调用指定函数，并将结果展平到一个新集合中
 
@@ -3576,7 +3576,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### flatMapDeep：与 flatMap 类似，但是对每个元素调用迭代器的结果进行深度展平
 
@@ -3586,7 +3586,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### flatMapDepth：与 flatMap 类似，但是可以指定展平的深度
 
@@ -3596,7 +3596,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### forEach：遍历集合，对每个元素调用指定的函数
 
@@ -3606,7 +3606,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### forEachRight：与 forEach 类似，但是从集合的末尾开始遍历
 
@@ -3616,7 +3616,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### groupBy：遍历集合，返回一个对象，其中键为指定函数计算得出的值，值为该值所对应的元素集合
 
@@ -3626,7 +3626,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### includes：判断集合中是否包含指定元素
 
@@ -3636,7 +3636,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### invokeMap：对集合中的每个元素调用指定方法，并返回结果
 
@@ -3646,7 +3646,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### keyBy：遍历集合，返回一个对象，其中键由指定函数计算得出，值为该元素
 
@@ -3656,7 +3656,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### map：遍历集合，返回一个新集合，其中每个元素由指定函数计算得出
 
@@ -3666,7 +3666,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### orderBy：将集合按指定顺序进行排序
 
@@ -3676,7 +3676,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### partition：遍历集合，返回一个包含满足和不满足指定函数的元素集合的数组
 
@@ -3686,7 +3686,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### reduce：遍历集合，将集合元素进行累积，并返回最终结果
 
@@ -3696,7 +3696,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### reduceRight：与 reduce 类似，但是从集合的末尾开始遍历
 
@@ -3706,7 +3706,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### reject：遍历集合，返回一个新集合，其中不包含满足指定函数的元素
 
@@ -3716,7 +3716,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sample：返回集合中的随机一个元素
 
@@ -3726,7 +3726,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sampleSize：返回集合中的指定数量的随机元素
 
@@ -3736,7 +3736,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### shuffle：返回一个随机排列的集合
 
@@ -3746,7 +3746,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### size：返回集合的大小
 
@@ -3756,7 +3756,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### some：遍历集合，返回一个布尔值，指示是否有任何一个元素满足指定的函数
 
@@ -3766,7 +3766,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### sortBy：遍历集合，按指定顺序对每个元素调用指定函数，并返回结果
 
@@ -3776,7 +3776,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### toArray：将集合转化为一个数组
 
@@ -3786,7 +3786,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### toPairs：将集合转化为键值对数组
 
@@ -3796,7 +3796,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### union：将多个集合合并成一个集合，同时去重
 
@@ -3806,7 +3806,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### uniq：返回一个新集合，其中不包含重复的元素
 
@@ -3816,7 +3816,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### uniqBy：与 uniq 类似，但是根据指定函数进行去重
 
@@ -3826,7 +3826,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### uniqWith：与 uniq 类似，但是使用指定的比较函数进行去重
 
@@ -3836,7 +3836,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### unzip：将分组元素返回到打包前的结构
 
@@ -3846,7 +3846,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### unzipWith：与 unzip 类似，但是使用指定的函数对每个组元素进行合并
 
@@ -3856,7 +3856,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### without：返回一个新集合，其中不包含指定的元素
 
@@ -3866,7 +3866,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### xor：返回一个新集合，其中包含只在其中一个集合中出现的元素
 
@@ -3876,7 +3876,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### zip：将多个集合合并成一个元素组成的新集合，每个元素由每个原集合相应位置的元素组成
 
@@ -3886,7 +3886,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### zipObject：将键数组和值数组组合成一个新对象
 
@@ -3896,7 +3896,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ### zipWith：与 zip 类似，但是使用指定的函数对每个组元素进行合并
 
@@ -3906,7 +3906,7 @@ transform(
 
 思路：
 
-**[⬆ 返回顶部](#lodash函数列表)**
+**[⬆ 返回顶部](#lodash-函数列表)**
 
 ## Ramda
 
@@ -3936,11 +3936,12 @@ transform(
 | 5    | [错误边界有什么作用？](#错误边界有什么作用)                                                           |
 | 6    | [什么是受控组件和非受控组件？](#什么是受控组件和非受控组件)                                           |
 | 7    | [什么是高阶组件？](#什么是高阶组件)                                                                   |
-| 7    | [生命周期方法有哪些和它们的执行顺序是什么？](#生命周期方法有哪些和它们的执行顺序是什么)               |
-| 8    | [getDerivedStateFromProps 生命周期方法有什么作用？](#getderivedstatefromprops-生命周期方法有什么作用) |
-| 9    | [shouldComponentUpdate 生命周期方法有什么作用？](#shouldcomponentupdate-生命周期方法有什么作用)       |
-| 10   | [getSnapshotBeforeUpdate 生命周期方法有什么作用？](#getsnapshotbeforeupdate-生命周期方法有什么作用)   |
-| 11   | [什么是 React context？](#什么是-react-context)                                                       |
+| 8    | [生命周期方法有哪些和它们的执行顺序是什么？](#生命周期方法有哪些和它们的执行顺序是什么)               |
+| 9    | [getDerivedStateFromProps 生命周期方法有什么作用？](#getderivedstatefromprops-生命周期方法有什么作用) |
+| 10   | [shouldComponentUpdate 生命周期方法有什么作用？](#shouldcomponentupdate-生命周期方法有什么作用)       |
+| 11   | [getSnapshotBeforeUpdate 生命周期方法有什么作用？](#getsnapshotbeforeupdate-生命周期方法有什么作用)   |
+| 12   | [什么是 React context？](#什么是-react-context)                                                       |
+| 13   | [React Hook 中的 useState 是什么？](#react-hook-中的-usestate-是什么)                                 |
 
 1. ### key 属性有什么作用？
 
@@ -3963,7 +3964,7 @@ function App() {
 }
 ```
 
-**[⬆ 返回顶部](#react面试题)**
+**[⬆ 返回顶部](#react-面试题)**
 
 2. ### refs 属性有什么作用？
 
@@ -3987,7 +3988,7 @@ function App() {
 }
 ```
 
-**[⬆ 返回顶部](#react面试题)**
+**[⬆ 返回顶部](#react-面试题)**
 
 3. ### PureComponent 组件有什么作用？
 
@@ -4001,6 +4002,8 @@ class MyComponent extends React.PureComponent {
 }
 ```
 
+**[⬆ 返回顶部](#react-面试题)**
+
 4. ### memo 方法有什么作用？
 
 `memo` 方法是一个高阶组件，用于对函数组件进行浅比较优化。它接受一个函数组件并返回一个新的组件，该组件在 props 没有改变的情况下将使用以前的结果。
@@ -4012,6 +4015,8 @@ function MyComponent(props) {
 
 const MemoizedComponent = React.memo(MyComponent);
 ```
+
+**[⬆ 返回顶部](#react-面试题)**
 
 5. ### 错误边界有什么作用？
 
@@ -4048,6 +4053,8 @@ function App() {
   );
 }
 ```
+
+**[⬆ 返回顶部](#react-面试题)**
 
 6. ### 什么是受控组件和非受控组件？
 
@@ -4114,6 +4121,8 @@ class Input extends React.Component {
 
 在上述代码中，我们定义了一个 Input 组件作为非受控组件，它的值由 DOM 本身维护。当用户点击按钮时，我们可以通过 ref 获取表单元素的值，从而进行后续处理。
 
+**[⬆ 返回顶部](#react-面试题)**
+
 7. ### 什么是高阶组件
 
    `高阶组件`（Higher-Order Component，简称 HOC）是指一个函数，它接受一个组件作为参数，返回一个新的组件。HOC 本质上是一种组件复用的方式，用于增强组件的功能，或者封装一些通用的逻辑，从而实现代码复用。
@@ -4150,7 +4159,9 @@ ReactDOM.render(<EnhancedComponent />, document.getElementById('root'));
 
 在上述示例中，withLogger 高阶组件用于记录组件的挂载信息，以便在开发调试时更加方便。当我们需要对多个组件进行类似的操作时，就可以使用 withLogger 高阶组件，而不需要在每个组件中都编写相同的挂载逻辑。这样，我们就可以实现代码的复用，同时使代码更加简洁易懂。
 
-7. ### 生命周期方法有哪些和它们的执行顺序是什么？
+**[⬆ 返回顶部](#react-面试题)**
+
+8. ### 生命周期方法有哪些和它们的执行顺序是什么？
 
    React 中的生命周期方法可以分为三类：挂载、更新和卸载。它们的执行顺序如下：
 
@@ -4240,7 +4251,139 @@ class MyComponent extends React.Component {
 }
 ```
 
-11. ### 什么是 React context？
+**[⬆ 返回顶部](#react-面试题)**
+
+9. ### getDerivedStateFromProps 生命周期方法有什么作用？
+
+`getDerivedStateFromProps` 是 React 组件的一个静态生命周期方法。
+其主要作用是让组件在接收到新的`props`时，能够同步更新组件的`state`。
+
+此方法在以下两种情况下会被 React 调用：
+在组件实例化后、渲染(render)前
+
+在接收新的`props`之前，无论是父组件引起的还是通过外部 API 获取的`props`变化
+`getDerivedStateFromProps`方法接收两个参数：
+
+`props`：最新的`props`
+
+`state`：当前的`state`
+
+该方法应该返回一个对象来更新`state`，或者返回`null`以不更新任何状态。
+
+```jsx
+class MyComponent extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    // 你可以基于props的变化来更新state
+    if (props.value !== state.value) {
+      return {
+        value: props.value,
+      };
+    }
+
+    // 返回 null 不更新 state
+    return null;
+  }
+}
+```
+
+`关键点`：
+`getDerivedStateFromProps`是一个纯函数，不应该产生副作用，如进行网络请求或订阅。
+
+这个方法不推荐频繁使用，因为它可能会导致代码变得复杂和难以维护。
+
+在许多场景下，可以使用其他生命周期方法或 React 新引入的`Hooks`。
+
+当 props 的改变需要映射到`state`时，可以考虑使用它，但在不少情况下，可以直接从`props`计算得到渲染内容而不需要使用`state`。
+
+自 React `v16.3`引入此方法，同时遗弃了`componentWillReceiveProps`，这是因为它更安全，不会被未来的异步渲染特性影响。在 React 的未来版本中，使用基于类的生命周期方法将逐渐让位于使用`Hooks`的函数式组件。
+
+**[⬆ 返回顶部](#react-面试题)**
+
+10. ### shouldComponentUpdate 生命周期方法有什么作用？
+
+`shouldComponentUpdate` 是 React 类组件的一个生命周期方法，其主要作用是决定一个组件的输出是否需要更新，即当组件的`props`或`state`变化时，`shouldComponentUpdate`方法会在渲染执行前被调用，用以指示 React 是否应该继续执行渲染过程。
+
+这个方法默认返回 `true`，意味着每次状态变化组件都会重新渲染。但是，通过返回 `false`，你可以阻止组件不必要的渲染，这可以提高应用的性能，尤其是当组件树非常大时或者计算量很大时。
+
+`shouldComponentUpdate` 接收两个参数：
+
+`nextProps`：将要接收的新的`props`
+
+`nextState`：将要更新的新的`state`
+
+```jsx
+class MyComponent extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    // 比较新旧props或state，只有当它们实际发生变化时才更新组件
+    return (
+      nextProps.someValue !== this.props.someValue ||
+      nextState.someState !== this.state.someState
+    );
+  }
+}
+```
+
+`注意`：
+
+它只在组件`更新过程中`被调用，不会在`首次渲染时`被调用。
+
+如果返回`false`，那么组件不会执行更新操作，`render`方法不会被调用，同时也跳过子组件的渲染。
+它不应该产生任何副作用，应该是一个纯函数。
+
+在大多数情况下，你不需要手动去编写`shouldComponentUpdate`方法。如果你需要优化性能，推荐使用`React.PureComponent`，它已经实现了一个和`shouldComponentUpdate`类似的浅层比较。
+
+从 React `16.3`版本开始，引入了新的“生命周期”API. 如果你在使用新的生命周期方法，或者打算迁移到函数组件和`Hooks`，`shouldComponentUpdate`可能会变得不再常用
+
+特别是`React.memo`对于函数组件是类似 PureComponent 的工作方式，提供了类似的性能提升。
+
+**[⬆ 返回顶部](#react-面试题)**
+
+11. ### getSnapshotBeforeUpdate 生命周期方法有什么作用？
+
+`getSnapshotBeforeUpdate`是 React 类组件中的一个生命周期方法，它允许您在最新的渲染输出被提交到`DOM`之前，捕获组件的某些信息（例如，滚动位置）。
+
+这个生命周期方法在新的渲染输出被绘制之前被调用，它可以返回一个值或`null`。如果返回的值不是`null`，这个返回的值将会作为第三个参数传递给`componentDidUpdate`。
+
+这种机制特别有用，因为有时候更新`DOM`后，您可能需要根据之前的状态来调整滚动位置，或执行类似的操作以保持用户的视图状态不变。
+
+`getSnapshotBeforeUpdate` 接收两个参数：
+
+`prevProps`：更新前的`props`
+
+`prevState`：更新前的`state`
+
+如果你的组件没有使用`getSnapshotBeforeUpdate`，就不需要实现它；只有当你确实需要在更新前捕获一些信息，并在更新后应用这些信息时，才使用它。
+
+```jsx
+class MyComponent extends React.Component {
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    // 检查 prevProps 或 prevState 是否满足特定条件
+    // 例如，你可以捕获旧的滚动位置：
+    if (prevProps.list.length < this.props.list.length) {
+      const list = document.getElementById('list');
+      return list.scrollHeight - list.scrollTop;
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // 如果 `getSnapshotBeforeUpdate` 返回的 `snapshot` 不是 `null`
+    // 可以使用 `snapshot` 做一些事情
+    if (snapshot !== null) {
+      const list = document.getElementById('list');
+      list.scrollTop = list.scrollHeight - snapshot;
+    }
+  }
+}
+```
+
+在上面的示例中，`getSnapshotBeforeUpdate`用于捕获增加新项到列表前的滚动位置，然后通过`componentDidUpdate`使用这个快照信息（`snapshot`）来调整滚动条，以保持滚动位置相对于底部的距离不变，即使列表长度发生变化。
+
+需要注意的是，`getSnapshotBeforeUpdate`和`componentDidUpdate`一起使用时，可以很好地处理那些需要在 DOM 更新后立即执行的操作。
+
+**[⬆ 返回顶部](#react-面试题)**
+
+12. ### 什么是 React context？
 
     React context 是一种跨组件层级共享数据的方式，可以避免通过 props 层层传递数据的麻烦。它由两部分组成：`Provider` 和 `Consumer`。
 
@@ -4268,7 +4411,9 @@ function ChildComponent() {
 }
 ```
 
-12. React Hook 中的 useState 是什么？
+**[⬆ 返回顶部](#react-面试题)**
+
+13. ### React Hook 中的 useState 是什么？
 
 useState 是 React Hook 中的一种，它可以让我们在函数组件中使用状态。
 
@@ -4286,86 +4431,4 @@ function Counter() {
 }
 ```
 
-1. ### 什么是 React?
-
-2.
-
-3.
-
-4.
-
-5.
-
-6.
-
-7.
-
-8.
-
-9.
-
-10.
-
-11.
-
-12.
-
-13.
-
-14.
-
-15.
-
-16.
-
-17.
-
-18.
-
-19.
-
-20.
-
-21.
-
-22.
-
-23.
-
-24.
-
-25.
-
-26.
-
-27.
-
-28.
-
-29.
-
-30.
-
-31.
-
-32.
-
-33.
-
-34.
-
-35.
-
-36.
-
-37.
-
-38.
-
-39.
-
-40.
-
-41.
-
-42.
+**[⬆ 返回顶部](#react-面试题)**
