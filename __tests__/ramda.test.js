@@ -63,21 +63,30 @@ import {
   match,
   replace,
   split,
-  test,
+  test as testRegex,
   toLower,
   toUpper,
-  trim
+  trim,
 } from '../src/ramda';
 
 describe('Ramda 数组方法', () => {
   test('append', () => {
-    expect(append('tests', ['write', 'more'])).toEqual(['write', 'more', 'tests']);
+    expect(append('tests', ['write', 'more'])).toEqual([
+      'write',
+      'more',
+      'tests',
+    ]);
     expect(append('c', ['a', 'b'])).toEqual(['a', 'b', 'c']);
     expect(append('c', [])).toEqual(['c']);
   });
 
   test('prepend', () => {
-    expect(prepend('fee', ['fi', 'fo', 'fum'])).toEqual(['fee', 'fi', 'fo', 'fum']);
+    expect(prepend('fee', ['fi', 'fo', 'fum'])).toEqual([
+      'fee',
+      'fi',
+      'fo',
+      'fum',
+    ]);
     expect(prepend('a', ['b', 'c'])).toEqual(['a', 'b', 'c']);
     expect(prepend('a', [])).toEqual(['a']);
   });
@@ -154,7 +163,7 @@ describe('Ramda 数组方法', () => {
   test('pluck', () => {
     const people = [
       { name: 'fred', age: 29 },
-      { name: 'wilma', age: 27 }
+      { name: 'wilma', age: 27 },
     ];
     expect(pluck('age', people)).toEqual([29, 27]);
     expect(pluck('name', people)).toEqual(['fred', 'wilma']);
@@ -211,7 +220,11 @@ describe('Ramda 数组方法', () => {
   });
 
   test('zip', () => {
-    expect(zip([1, 2, 3], ['a', 'b', 'c'])).toEqual([[1, 'a'], [2, 'b'], [3, 'c']]);
+    expect(zip([1, 2, 3], ['a', 'b', 'c'])).toEqual([
+      [1, 'a'],
+      [2, 'b'],
+      [3, 'c'],
+    ]);
   });
 
   test('zipObj', () => {
@@ -240,7 +253,7 @@ describe('Ramda 对象方法', () => {
   test('lens', () => {
     const nameLens = lens(
       obj => obj.name,
-      (val, obj) => ({ ...obj, name: val })
+      (val, obj) => ({ ...obj, name: val }),
     );
     const person = { name: 'Alice', age: 30 };
     expect(nameLens.get(person)).toBe('Alice');
@@ -252,7 +265,10 @@ describe('Ramda 对象方法', () => {
   });
 
   test('omit', () => {
-    expect(omit(['a', 'c'], { a: 1, b: 2, c: 3, d: 4 })).toEqual({ b: 2, d: 4 });
+    expect(omit(['a', 'c'], { a: 1, b: 2, c: 3, d: 4 })).toEqual({
+      b: 2,
+      d: 4,
+    });
   });
 
   test('path', () => {
@@ -261,7 +277,10 @@ describe('Ramda 对象方法', () => {
   });
 
   test('pick', () => {
-    expect(pick(['a', 'c'], { a: 1, b: 2, c: 3, d: 4 })).toEqual({ a: 1, c: 3 });
+    expect(pick(['a', 'c'], { a: 1, b: 2, c: 3, d: 4 })).toEqual({
+      a: 1,
+      c: 3,
+    });
   });
 
   test('prop', () => {
@@ -270,7 +289,11 @@ describe('Ramda 对象方法', () => {
   });
 
   test('toPairs', () => {
-    expect(toPairs({ a: 1, b: 2, c: 3 })).toEqual([['a', 1], ['b', 2], ['c', 3]]);
+    expect(toPairs({ a: 1, b: 2, c: 3 })).toEqual([
+      ['a', 1],
+      ['b', 2],
+      ['c', 3],
+    ]);
   });
 
   test('values', () => {
@@ -286,9 +309,12 @@ describe('Ramda 函数方法', () => {
   });
 
   test('compose', () => {
-    const classyGreeting = name => "The name's " + name.last + ", " + name.first + " " + name.last;
+    const classyGreeting = name =>
+      `The name's ${name.last}, ${name.first} ${name.last}`;
     const yellGreeting = compose(s => s.toUpperCase(), classyGreeting);
-    expect(yellGreeting({ first: 'James', last: 'Bond' })).toBe("THE NAME'S BOND, JAMES BOND");
+    expect(yellGreeting({ first: 'James', last: 'Bond' })).toBe(
+      "THE NAME'S BOND, JAMES BOND",
+    );
   });
 
   test('curry', () => {
@@ -324,13 +350,18 @@ describe('Ramda 函数方法', () => {
   });
 
   test('pipe', () => {
-    const f = pipe(x => x + 1, x => x * 2);
+    const f = pipe(
+      x => x + 1,
+      x => x * 2,
+    );
     expect(f(3)).toBe(8); // (3 + 1) * 2 = 8
   });
 
   test('tap', () => {
     let sideEffect = '';
-    const sayX = x => { sideEffect = 'x is ' + x; };
+    const sayX = x => {
+      sideEffect = `x is ${x}`;
+    };
     const result = tap(sayX)(100);
     expect(result).toBe(100);
     expect(sideEffect).toBe('x is 100');
@@ -411,9 +442,9 @@ describe('Ramda 字符串方法', () => {
     expect(split('.', 'a.b.c.xyz.d')).toEqual(['a', 'b', 'c', 'xyz', 'd']);
   });
 
-  test('test', () => {
-    expect(test(/^x/, 'xyz')).toBe(true);
-    expect(test(/^y/, 'xyz')).toBe(false);
+  test('test function', () => {
+    expect(testRegex(/^x/, 'xyz')).toBe(true);
+    expect(testRegex(/^y/, 'xyz')).toBe(false);
   });
 
   test('toLower', () => {
