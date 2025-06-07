@@ -7,10 +7,11 @@
 | 序号 | 系列                                                                                 | 测试    |
 | ---- | ------------------------------------------------------------------------------------ | ------- |
 | 1    | [✅ Lodash 函数列表](#lodash-函数列表)                                               | ✅ 通过 |
-| 2    | [💻 Ramda 函数列表](#ramda-函数列表)                                                 | 💻 TODO |
-| 3    | [💻 JavaScript 高级程序设计第 4 版学习笔记](#javascript-高级程序设计第-4-版学习笔记) | 💻 TODO |
-| 4    | [💻 React 面试题](#react-面试题)                                                     | 💻 TODO |
-| n    | [💻 TODO](#TODO)                                                                     | 💻 TODO |
+| 2    | [✅ Ramda 函数列表](#ramda-函数列表)                                                 | ✅ 通过 |
+| 3    | [✅ React 面试题](#react-面试题)                                                     | ✅ 通过 |
+| 4    | [✅ Vue 面试题](#vue-面试题)                                                         | ✅ 通过 |
+| 5    | [✅ JavaScript 面试题](#javascript-面试题)                                           | ✅ 通过 |
+| 6    | [✅ TypeScript 面试题](#typescript-面试题)                                           | ✅ 通过 |
 
 ## Lodash
 
@@ -1512,7 +1513,7 @@ flatMap([1, 2], duplicate);
 // => [1, 1, 2, 2]
 ```
 
-思路：
+思路：使用 reduce 方法遍历数组，将每个元素映射成一个新的数组，然后使用 concat 将多个数组合并成一个新数组。
 
 **[⬆ 返回顶部](#lodash-函数列表)**
 
@@ -3449,50 +3450,152 @@ transform(
 删除对象上指定路径的属性值
 
 ```js
+const unset = (obj, path) => {
+  const keys = Array.isArray(path) ? path : path.split(/[,[\].]+?/);
+  const lastKeyIndex = keys.length - 1;
+  
+  keys.reduce((acc, key, index) => {
+    if (index === lastKeyIndex) {
+      delete acc[key];
+    }
+    return acc[key];
+  }, obj);
+  
+  return obj;
+};
 
+const object = { 'a': [{ 'b': { 'c': 7 } }] };
+unset(object, 'a[0].b.c');
+// => true
+
+console.log(object);
+// => { 'a': [{ 'b': {} }] }
+
+unset(object, ['a', '0', 'b', 'c']);
+// => true
 ```
 
-思路：
+思路：使用 reduce 方法遍历路径数组，在最后一个键时删除对应属性，返回修改后的对象。
 
 **[⬆ 返回顶部](#lodash-函数列表)**
 
-### update：获取对象上指定路径的值，并根据情况进行函数调用，最后将值设置回去
+### update
+
+获取对象上指定路径的值，并根据情况进行函数调用，最后将值设置回去
 
 ```js
+const update = (obj, path, updater) => {
+  const keys = Array.isArray(path) ? path : path.split(/[,[\].]+?/);
+  const lastKeyIndex = keys.length - 1;
+  
+  keys.reduce((acc, key, index) => {
+    if (index === lastKeyIndex) {
+      acc[key] = updater(acc[key]);
+    } else {
+      acc[key] = acc[key] || {};
+    }
+    return acc[key];
+  }, obj);
+  
+  return obj;
+};
 
+const object = { 'a': [{ 'b': { 'c': 3 } }] };
+
+update(object, 'a[0].b.c', n => n * n);
+console.log(object.a[0].b.c);
+// => 9
+
+update(object, 'x[0].y.z', n => (n || 0) + 1);
+console.log(object.x[0].y.z);
+// => 1
 ```
 
-思路：
+思路：使用 reduce 方法遍历路径，在最后一个键时应用更新函数，如果路径不存在则创建。
 
 **[⬆ 返回顶部](#lodash-函数列表)**
 
-### updateWith：与 update 类似，但是指定自定义函数用于更新属性值
+### updateWith
+
+与 update 类似，但是指定自定义函数用于更新属性值
 
 ```js
+const updateWith = (obj, path, updater, customizer) => {
+  const keys = Array.isArray(path) ? path : path.split(/[,[\].]+?/);
+  const lastKeyIndex = keys.length - 1;
+  
+  keys.reduce((acc, key, index) => {
+    if (index === lastKeyIndex) {
+      acc[key] = updater(acc[key]);
+    } else {
+      acc[key] = acc[key] || customizer(acc[key], key, acc);
+    }
+    return acc[key];
+  }, obj);
+  
+  return obj;
+};
 
+const object = {};
+
+updateWith(object, '[0][1]', constant('a'), Object);
+// => { '0': { '1': 'a' } }
 ```
 
-思路：
+思路：与 update 类似，但使用自定义函数来创建中间对象。
 
 **[⬆ 返回顶部](#lodash-函数列表)**
 
-### values：返回对象上的所有可枚举属性值
+### values
+
+返回对象上的所有可枚举属性值
 
 ```js
+const values = obj => Object.values(obj);
 
+function Foo() {
+  this.a = 1;
+  this.b = 2;
+}
+
+Foo.prototype.c = 3;
+
+values(new Foo());
+// => [1, 2] (iteration order is not guaranteed)
+
+values('hi');
+// => ['h', 'i']
 ```
 
-思路：
+思路：使用 Object.values 方法返回对象的所有可枚举属性值。
 
 **[⬆ 返回顶部](#lodash-函数列表)**
 
-### valuesIn：返回对象上的所有属性值，包括不可枚举属性值
+### valuesIn
+
+返回对象上的所有属性值，包括不可枚举属性值
 
 ```js
+const valuesIn = obj => {
+  const result = [];
+  for (const key in obj) {
+    result.push(obj[key]);
+  }
+  return result;
+};
 
+function Foo() {
+  this.a = 1;
+  this.b = 2;
+}
+
+Foo.prototype.c = 3;
+
+valuesIn(new Foo());
+// => [1, 2, 3] (iteration order is not guaranteed)
 ```
 
-思路：
+思路：使用 for...in 循环遍历对象的所有属性（包括继承的），将属性值添加到结果数组中。
 
 **[⬆ 返回顶部](#lodash-函数列表)**
 
@@ -3910,525 +4013,2528 @@ transform(
 
 ## Ramda
 
-> 一款实用的 JavaScript 函数式编程库
+> Ramda 是一个实用的 JavaScript 函数式编程库
 
 ### Ramda 函数列表
 
-### JavaScript 高级程序设计第 4 版学习笔记
+**[数组](#ramda-数组)**
 
-![](https://raw.githubusercontent.com/niexq/picbed/main/picgo/JavaScriptredbook.jpg)
+1. [append：在数组末尾添加一个元素](#append)
+1. [prepend：在数组开头添加一个元素](#prepend)
+1. [concat：合并多个数组](#ramda-concat)
+1. [contains：检查数组是否包含给定值](#contains)
+1. [drop：返回一个新数组，去掉原数组中的前 n 个元素](#ramda-drop)
+1. [dropLast：返回一个新数组，去掉原数组中的后 n 个元素](#droplast)
+1. [filter：遍历数组，返回符合条件的元素](#ramda-filter)
+1. [find：返回第一个符合条件的元素](#ramda-find)
+1. [findIndex：返回第一个符合条件的元素的下标](#ramda-findindex)
+1. [flatten：将多维数组转化为一维数组](#ramda-flatten)
+1. [head：返回数组中的第一个元素](#ramda-head)
+1. [indexOf：返回一个元素在数组中的下标，从前往后找](#ramda-indexof)
+1. [init：返回一个新数组，去掉原数组中的最后一个元素](#init)
+1. [join：将数组转化为字符串，并用指定的分隔符分隔](#ramda-join)
+1. [last：返回数组中的最后一个元素](#ramda-last)
+1. [map：遍历数组，将每个元素映射成一个新的元素](#ramda-map)
+1. [pluck：从数组对象中提取指定属性值组成的新数组](#pluck)
+1. [reduce：遍历数组，累加每个元素到累加器中](#ramda-reduce)
+1. [reject：遍历数组，返回不符合条件的元素](#ramda-reject)
+1. [reverse：反转数组](#ramda-reverse)
+1. [slice：返回一个新数组，从原数组中截取指定范围的元素](#ramda-slice)
+1. [sort：对数组进行排序](#sort)
+1. [tail：返回一个新数组，去掉原数组中的第一个元素](#ramda-tail)
+1. [take：返回一个新数组，包含原数组中前 n 个元素](#ramda-take)
+1. [takeLast：返回一个新数组，包含原数组中后 n 个元素](#takelast)
+1. [uniq：返回一个新数组，包含所有数组中的不重复元素](#ramda-uniq)
+1. [update：替换数组中指定索引位置的元素](#update)
+1. [without：返回一个新数组，去掉原数组中指定的元素](#ramda-without)
+1. [zip：将多个数组的同一位置的元素合并为一个数组](#ramda-zip)
+1. [zipObj：将两个数组转化为一个对象](#ramda-zipobj)
 
-👆 上述是截图，点击无效 👆
+**[对象](#ramda-对象)**
 
-👇 详细内容请点击，或留言联系获取笔记源文件 👇
-语雀地址：<https://www.yuque.com/u1907104/pvxyxw/ff8h7vmgfx0wlgog>
+1. [assoc：向对象添加或更新属性](#assoc)
+1. [dissoc：从对象中删除属性](#dissoc)
+1. [has：判断对象上是否有指定属性](#ramda-has)
+1. [keys：返回对象上的所有可枚举属性名](#ramda-keys)
+1. [lens：创建一个聚焦对象特定属性的透镜](#lens)
+1. [merge：合并对象的属性，后面的对象的属性会覆盖前面的对象](#ramda-merge)
+1. [omit：返回一个新对象，其中省略了指定属性的属性值](#ramda-omit)
+1. [path：获取对象上嵌套路径的值](#path)
+1. [pick：返回一个新对象，其中只包含指定属性的属性值](#ramda-pick)
+1. [prop：获取对象上的属性](#prop)
+1. [toPairs：将对象转化为键值对数组](#ramda-topairs)
+1. [values：返回对象上的所有可枚举属性值](#ramda-values)
 
-## 常见的 React 面试题
+**[函数](#ramda-函数)**
 
-### React 面试题
+1. [always：返回一个函数，该函数始终返回给定值](#always)
+1. [compose：从右到左组合函数](#compose)
+1. [curry：对指定函数进行柯里化](#ramda-curry)
+1. [flip：翻转函数参数](#flip)
+1. [identity：返回输入的参数](#identity)
+1. [memoize：对指定函数进行记忆化处理，缓存函数的计算结果](#ramda-memoize)
+1. [pipe：从左到右组合函数](#pipe)
+1. [tap：对输入值执行函数，但返回输入值而不是函数的结果](#tap)
 
-| 序号 | 问题                                                                                                  |
-| ---- | ----------------------------------------------------------------------------------------------------- |
-| 1    | [key 属性有什么作用？](#key-属性有什么作用)                                                           |
-| 2    | [refs 属性有什么作用？](#refs-属性有什么作用)                                                         |
-| 3    | [PureComponent 组件有什么作用？](#purecomponent-组件有什么作用)                                       |
-| 4    | [memo 方法有什么作用？](#memo-方法有什么作用)                                                         |
-| 5    | [错误边界有什么作用？](#错误边界有什么作用)                                                           |
-| 6    | [什么是受控组件和非受控组件？](#什么是受控组件和非受控组件)                                           |
-| 7    | [什么是高阶组件？](#什么是高阶组件)                                                                   |
-| 8    | [生命周期方法有哪些和它们的执行顺序是什么？](#生命周期方法有哪些和它们的执行顺序是什么)               |
-| 9    | [getDerivedStateFromProps 生命周期方法有什么作用？](#getderivedstatefromprops-生命周期方法有什么作用) |
-| 10   | [shouldComponentUpdate 生命周期方法有什么作用？](#shouldcomponentupdate-生命周期方法有什么作用)       |
-| 11   | [getSnapshotBeforeUpdate 生命周期方法有什么作用？](#getsnapshotbeforeupdate-生命周期方法有什么作用)   |
-| 12   | [什么是 React context？](#什么是-react-context)                                                       |
-| 13   | [React Hook 中的 useState 是什么？](#react-hook-中的-usestate-是什么)                                 |
+**[逻辑](#ramda-逻辑)**
 
-1. ### key 属性有什么作用？
+1. [all：检查是否所有元素都符合条件](#all)
+1. [any：检查是否至少有一个元素符合条件](#any)
+1. [both：组合两个谓词函数，返回二者的逻辑与](#both)
+1. [either：组合两个谓词函数，返回二者的逻辑或](#either)
+1. [equals：判断两个值是否相等](#equals)
+1. [isEmpty：检查值是否为空](#isempty)
+1. [not：对参数取反](#not)
 
-`key` 属性用于识别列表中的每个子元素，以便在添加、移动或删除元素时更有效地更新 DOM。`key` 属性应该是一个唯一的字符串，最好是基于列表中元素的唯一标识符生成的。
+**[字符串](#ramda-字符串)**
 
-```jsx
-function App() {
-  const items = [
-    { id: 1, name: 'foo' },
-    { id: 2, name: 'bar' },
-  ];
+1. [match：在字符串中执行正则表达式匹配](#match)
+1. [replace：替换字符串中的子字符串](#replace)
+1. [split：将字符串按分隔符分割成数组](#split)
+1. [test：检查字符串是否匹配正则表达式](#test)
+1. [toLower：将字符串转换为小写](#tolower)
+1. [toUpper：将字符串转换为大写](#toupper)
+1. [trim：删除字符串两端的空白字符](#trim)
 
-  return (
-    <ul>
-      {items.map(item => (
-        <li key={item.id}>{item.name}</li>
-      ))}
-    </ul>
-  );
-}
+### Ramda 数组
+
+### append
+
+在数组末尾添加一个元素
+
+```js
+const append = (el, arr) => [...arr, el];
+
+append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
+append('c', ['a', 'b']);            //=> ['a', 'b', 'c']
+append('c', []);                    //=> ['c']
 ```
 
-**[⬆ 返回顶部](#react-面试题)**
+思路：使用ES6的扩展运算符创建一个新数组，并将新元素添加到末尾。
 
-2. ### refs 属性有什么作用？
+**[⬆ 返回顶部](#ramda-函数列表)**
 
-   `refs` 属性用于引用组件或 DOM 元素。它可以在函数组件和类组件中使用。
+### prepend
+
+在数组开头添加一个元素
+
+```js
+const prepend = (el, arr) => [el, ...arr];
+
+prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
+prepend('a', ['b', 'c']);            //=> ['a', 'b', 'c']
+prepend('a', []);                    //=> ['a']
+```
+
+思路：使用ES6的扩展运算符创建一个新数组，并将新元素添加到开头。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### contains
+
+检查数组是否包含给定值
+
+```js
+const contains = (val, arr) => arr.includes(val);
+
+contains(3, [1, 2, 3]); //=> true
+contains(4, [1, 2, 3]); //=> false
+contains({ name: 'Fred' }, [{ name: 'Fred' }]); //=> false
+```
+
+思路：使用数组的includes方法检查元素是否存在于数组中。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### dropLast
+
+返回一个新数组，去掉原数组中的后 n 个元素
+
+```js
+const dropLast = (n, arr) => arr.slice(0, -n || arr.length);
+
+dropLast(1, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
+dropLast(2, ['foo', 'bar', 'baz']); //=> ['foo']
+dropLast(3, ['foo', 'bar', 'baz']); //=> []
+dropLast(4, ['foo', 'bar', 'baz']); //=> []
+dropLast(3, 'ramda');               //=> 'ra'
+```
+
+思路：使用数组的slice方法截取数组的前面部分，去掉后n个元素。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### init
+
+返回一个新数组，去掉原数组中的最后一个元素
+
+```js
+const init = arr => arr.slice(0, -1);
+
+init([1, 2, 3]);  //=> [1, 2]
+init([1, 2]);     //=> [1]
+init([1]);        //=> []
+init([]);         //=> []
+```
+
+思路：使用数组的slice方法截取数组除最后一个元素外的所有元素。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### pluck
+
+从数组对象中提取指定属性值组成的新数组
+
+```js
+const pluck = (key, arr) => arr.map(obj => obj[key]);
+
+const getAges = pluck('age');
+getAges([{name: 'fred', age: 29}, {name: 'wilma', age: 27}]); //=> [29, 27]
+
+pluck('val', {a: {val: 3}, b: {val: 5}}); //=> {a: 3, b: 5}
+```
+
+思路：使用map方法遍历数组，提取每个对象中的特定属性值。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### sort
+
+对数组进行排序
+
+```js
+const sort = (compareFn, arr) => [...arr].sort(compareFn);
+
+const sortByFirstItem = sort((a, b) => a[0] - b[0]);
+sortByFirstItem([[2, 1], [1, 2]]); //=> [[1, 2], [2, 1]]
+
+const sortByNameCaseInsensitive = sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
+sortByNameCaseInsensitive([{name: 'alice'}, {name: 'Bob'}, {name: 'clara'}]); //=> [{name: 'alice'}, {name: 'Bob'}, {name: 'clara'}]
+```
+
+思路：使用数组的sort方法并应用比较函数进行排序，创建新数组避免修改原数组。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### takeLast
+
+返回一个新数组，包含原数组中后 n 个元素
+
+```js
+const takeLast = (n, arr) => arr.slice(Math.max(0, arr.length - n));
+
+takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
+takeLast(2, ['foo', 'bar', 'baz']); //=> ['bar', 'baz']
+takeLast(3, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
+takeLast(4, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
+takeLast(3, 'ramda');               //=> 'mda'
+```
+
+思路：使用数组的slice方法截取数组的后n个元素。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### update
+
+替换数组中指定索引位置的元素
+
+```js
+const update = (idx, val, arr) => {
+  const result = [...arr];
+  result[idx] = val;
+  return result;
+};
+
+update(1, '_', ['a', 'b', 'c']);      //=> ['a', '_', 'c']
+update(-1, '_', ['a', 'b', 'c']);     //=> ['a', 'b', '_']
+```
+
+思路：创建数组副本并替换指定索引位置的元素。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### Ramda 对象
+
+### assoc
+
+向对象添加或更新属性
+
+```js
+const assoc = (prop, val, obj) => ({...obj, [prop]: val});
+
+assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+assoc('c', 3, {a: 1, b: 2, c: 4}); //=> {a: 1, b: 2, c: 3}
+```
+
+思路：创建对象副本并设置指定属性值。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### dissoc
+
+从对象中删除属性
+
+```js
+const dissoc = (prop, obj) => {
+  const result = {...obj};
+  delete result[prop];
+  return result;
+};
+
+dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+```
+
+思路：创建对象副本并删除指定属性。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### lens
+
+创建一个聚焦对象特定属性的透镜
+
+```js
+const lens = (getter, setter) => ({
+  get: getter,
+  set: setter
+});
+
+const nameLens = lens(
+  obj => obj.name,
+  (val, obj) => ({...obj, name: val})
+);
+
+const person = {name: 'Alice', age: 30};
+nameLens.get(person); //=> 'Alice'
+nameLens.set('Bob', person); //=> {name: 'Bob', age: 30}
+```
+
+思路：返回一个包含getter和setter函数的对象，用于聚焦特定属性。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### path
+
+获取对象上嵌套路径的值
+
+```js
+const path = (pathArr, obj) => {
+  let val = obj;
+  for (const prop of pathArr) {
+    if (val == null) return undefined;
+    val = val[prop];
+  }
+  return val;
+};
+
+path(['a', 'b'], {a: {b: 2}}); //=> 2
+path(['a', 'b'], {c: {b: 2}}); //=> undefined
+path(['a', 'b', 'c'], {a: {b: {c: 3}}}); //=> 3
+```
+
+思路：递归遍历对象的嵌套属性。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### prop
+
+获取对象上的属性
+
+```js
+const prop = (p, obj) => obj[p];
+
+prop('x', {x: 100}); //=> 100
+prop('x', {}); //=> undefined
+prop(0, [100]); //=> 100
+```
+
+思路：简单地访问对象的属性。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### Ramda 函数
+
+### always
+
+返回一个函数，该函数始终返回给定值
+
+```js
+const always = x => () => x;
+
+const t = always('Tee');
+t(); //=> 'Tee'
+```
+
+思路：创建一个闭包，始终返回预设的值。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### compose
+
+从右到左组合函数
+
+```js
+const compose = (...fns) => x => fns.reduceRight((acc, fn) => fn(acc), x);
+
+const classyGreeting = name => "The name's " + name.last + ", " + name.first + " " + name.last;
+const yellGreeting = compose(s => s.toUpperCase(), classyGreeting);
+yellGreeting({first: 'James', last: 'Bond'}); //=> "THE NAME'S BOND, JAMES BOND"
+```
+
+思路：使用reduceRight从右到左依次应用函数。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### flip
+
+翻转函数参数
+
+```js
+const flip = fn => (a, b, ...args) => fn(b, a, ...args);
+
+const mergeThree = (a, b, c) => [].concat(a, b, c);
+flip(mergeThree)(1, 2, 3); //=> [2, 1, 3]
+```
+
+思路：返回一个新函数，交换前两个参数的位置。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### identity
+
+返回输入的参数
+
+```js
+const identity = x => x;
+
+identity(1); //=> 1
+```
+
+思路：简单地返回传入的参数。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### pipe
+
+从左到右组合函数
+
+```js
+const pipe = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x);
+
+const f = pipe(Math.pow, x => x + 1, x => x * 2);
+f(3, 4); // 首先计算 3^4 = 81，然后 + 1 = 82，最后 * 2 = 164
+```
+
+思路：使用reduce从左到右依次应用函数。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### tap
+
+对输入值执行函数，但返回输入值而不是函数的结果
+
+```js
+const tap = fn => x => {
+  fn(x);
+  return x;
+};
+
+const sayX = x => console.log('x is ' + x);
+tap(sayX)(100); // 控制台输出 "x is 100"，并返回 100
+```
+
+思路：创建一个副作用函数，执行操作但不改变数据流。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### Ramda 逻辑
+
+### all
+
+检查是否所有元素都符合条件
+
+```js
+const all = (predicate, arr) => arr.every(predicate);
+
+all(x => x <= 5, [1, 2, 3, 4, 5]); //=> true
+all(x => x <= 4, [1, 2, 3, 4, 5]); //=> false
+```
+
+思路：使用数组的every方法检查所有元素是否满足条件。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### any
+
+检查是否至少有一个元素符合条件
+
+```js
+const any = (predicate, arr) => arr.some(predicate);
+
+any(x => x > 4, [1, 2, 3, 4, 5]); //=> true
+any(x => x > 5, [1, 2, 3, 4, 5]); //=> false
+```
+
+思路：使用数组的some方法检查是否存在满足条件的元素。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### both
+
+组合两个谓词函数，返回二者的逻辑与
+
+```js
+const both = (pred1, pred2) => (...args) => pred1(...args) && pred2(...args);
+
+const gt10 = x => x > 10;
+const lt20 = x => x < 20;
+const f = both(gt10, lt20);
+f(15); //=> true
+f(30); //=> false
+```
+
+思路：返回一个新函数，组合两个谓词函数的结果。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### either
+
+组合两个谓词函数，返回二者的逻辑或
+
+```js
+const either = (pred1, pred2) => (...args) => pred1(...args) || pred2(...args);
+
+const gt20 = x => x > 20;
+const lt5 = x => x < 5;
+const f = either(gt20, lt5);
+f(15); //=> false
+f(25); //=> true
+f(3); //=> true
+```
+
+思路：返回一个新函数，组合两个谓词函数的结果。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### equals
+
+判断两个值是否相等
+
+```js
+const equals = (a, b) => {
+  if (a === b) return true;
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) {
+      if (!equals(a[i], b[i])) return false;
+    }
+    return true;
+  }
+  return false;
+};
+
+equals(1, 1); //=> true
+equals(1, '1'); //=> false
+equals([1, 2, 3], [1, 2, 3]); //=> true
+```
+
+思路：递归比较两个值是否相等，支持数组的深度比较。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### isEmpty
+
+检查值是否为空
+
+```js
+const isEmpty = x => {
+  if (x == null) return true;
+  if (Array.isArray(x) || typeof x === 'string') return x.length === 0;
+  if (typeof x === 'object') return Object.keys(x).length === 0;
+  return false;
+};
+
+isEmpty([]); //=> true
+isEmpty(''); //=> true
+isEmpty({}); //=> true
+isEmpty(null); //=> true
+isEmpty(0); //=> false
+isEmpty(false); //=> false
+```
+
+思路：根据值的类型检查其是否为空。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### not
+
+对参数取反
+
+```js
+const not = x => !x;
+
+not(true); //=> false
+not(false); //=> true
+not(0); //=> true
+not(1); //=> false
+```
+
+思路：应用JavaScript的逻辑非操作符。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### Ramda 字符串
+
+### match
+
+在字符串中执行正则表达式匹配
+
+```js
+const match = (regex, str) => str.match(regex) || [];
+
+match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
+match(/a/, 'b'); //=> []
+```
+
+思路：应用字符串的match方法，如果没有匹配则返回空数组。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### replace
+
+替换字符串中的子字符串
+
+```js
+const replace = (pattern, replacement, str) => str.replace(pattern, replacement);
+
+replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
+replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
+replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
+```
+
+思路：应用字符串的replace方法。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### split
+
+将字符串按分隔符分割成数组
+
+```js
+const split = (sep, str) => str.split(sep);
+
+split('.', 'a.b.c.xyz.d'); //=> ['a', 'b', 'c', 'xyz', 'd']
+```
+
+思路：应用字符串的split方法。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### test
+
+检查字符串是否匹配正则表达式
+
+```js
+const test = (pattern, str) => pattern.test(str);
+
+test(/^x/, 'xyz'); //=> true
+test(/^y/, 'xyz'); //=> false
+```
+
+思路：应用正则表达式的test方法。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### toLower
+
+将字符串转换为小写
+
+```js
+const toLower = str => str.toLowerCase();
+
+toLower('XYZ'); //=> 'xyz'
+```
+
+思路：应用字符串的toLowerCase方法。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### toUpper
+
+将字符串转换为大写
+
+```js
+const toUpper = str => str.toUpperCase();
+
+toUpper('abc'); //=> 'ABC'
+```
+
+思路：应用字符串的toUpperCase方法。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+### trim
+
+删除字符串两端的空白字符
+
+```js
+const trim = str => str.trim();
+
+trim('   xyz  '); //=> 'xyz'
+```
+
+思路：应用字符串的trim方法。
+
+**[⬆ 返回顶部](#ramda-函数列表)**
+
+## React 面试题
+
+> React 是一个用于构建用户界面的 JavaScript 库
+
+### React 面试题列表
+
+**[Hooks](#react-hooks)**
+
+1. [useState：状态管理 Hook](#usestate)
+1. [useEffect：副作用处理 Hook](#useeffect)
+1. [useContext：上下文 Hook](#usecontext)
+1. [useReducer：复杂状态管理 Hook](#usereducer)
+1. [useMemo：性能优化 Hook](#usememo)
+1. [useCallback：回调函数优化 Hook](#usecallback)
+1. [useRef：引用 Hook](#useref)
+1. [useLocalStorage：自定义本地存储 Hook](#uselocalstorage)
+1. [useDebounce：防抖 Hook](#usedebounce)
+1. [usePrevious：获取前一个值的 Hook](#useprevious)
+1. [useToggle：切换状态 Hook](#usetoggle)
+1. [useInfiniteScroll：无限滚动 Hook](#useinfinitescroll)
+1. [useFormValidation：表单验证 Hook](#useformvalidation)
+1. [useDrag：拖拽 Hook](#usedrag)
+
+**[组件模式](#react-组件模式)**
+
+1. [高阶组件 HOC](#高阶组件)
+1. [Render Props](#render-props)
+1. [复合组件模式](#复合组件模式)
+1. [受控组件与非受控组件](#受控组件与非受控组件)
+
+**[性能优化](#react-性能优化)**
+
+1. [React.memo](#react-memo)
+1. [虚拟滚动](#虚拟滚动)
+1. [懒加载](#懒加载)
+1. [代码分割](#代码分割)
+
+**[状态管理](#react-状态管理)**
+
+1. [Context API](#context-api)
+1. [Redux 模式](#redux-模式)
+1. [Zustand 轻量状态管理](#zustand)
+
+**[错误处理](#react-错误处理)**
+
+1. [错误边界](#错误边界)
+1. [错误监控](#错误监控)
+
+### React Hooks
+
+### useState
+
+状态管理 Hook，用于在函数组件中添加状态
 
 ```jsx
-function App() {
-  const buttonRef = useRef();
+import React, { useState } from 'react';
 
-  function handleClick() {
-    buttonRef.current.disabled = true;
-  }
+const Counter = () => {
+  const [count, setCount] = useState(0);
 
   return (
-    <>
-      <button ref={buttonRef} onClick={handleClick}>
-        Click me
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>+</button>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <button onClick={() => setCount(0)}>Reset</button>
+    </div>
+  );
+};
+```
+
+**面试要点：**
+- useState 返回一个数组，包含当前状态值和更新状态的函数
+- 状态更新是异步的，可能会被批处理
+- 函数式更新：`setCount(prev => prev + 1)` 确保基于最新状态更新
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### useEffect
+
+副作用处理 Hook，用于处理组件的副作用操作
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+const Timer = () => {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(prev => prev + 1);
+    }, 1000);
+
+    // 清理函数
+    return () => clearInterval(interval);
+  }, []); // 空依赖数组，只在挂载时执行
+
+  return <div>Timer: {seconds}s</div>;
+};
+```
+
+**面试要点：**
+- 第二个参数是依赖数组，控制 effect 的执行时机
+- 返回清理函数用于清理副作用
+- 常见用途：数据获取、订阅、手动 DOM 操作
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### useContext
+
+上下文 Hook，用于在组件树中共享数据
+
+```jsx
+import React, { createContext, useContext, useState } from 'react';
+
+const ThemeContext = createContext();
+
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState('light');
+  
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+const ThemedButton = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  
+  return (
+    <button 
+      onClick={toggleTheme}
+      style={{ 
+        background: theme === 'light' ? '#fff' : '#333',
+        color: theme === 'light' ? '#333' : '#fff'
+      }}
+    >
+      Toggle Theme ({theme})
+    </button>
+  );
+};
+```
+
+**面试要点：**
+- 避免 prop drilling 问题
+- 只有当 Provider 的 value 改变时，消费组件才会重新渲染
+- 过度使用可能导致性能问题
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### useLocalStorage
+
+自定义本地存储 Hook
+
+```jsx
+import { useState, useEffect } from 'react';
+
+const useLocalStorage = (key, initialValue) => {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  });
+
+  const setValue = (value) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
+  };
+
+  return [storedValue, setValue];
+};
+
+// 使用示例
+const Settings = () => {
+  const [name, setName] = useLocalStorage('name', '');
+  
+  return (
+    <input
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      placeholder="Enter your name"
+    />
+  );
+};
+```
+
+**面试要点：**
+- 封装了 localStorage 的读写逻辑
+- 处理了 JSON 序列化和错误情况
+- 支持函数式更新
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### useDebounce
+
+防抖 Hook，用于延迟执行操作
+
+```jsx
+import { useState, useEffect } from 'react';
+
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
+// 使用示例
+const SearchInput = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      // 执行搜索
+      console.log('Searching for:', debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
+
+  return (
+    <input
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      placeholder="Search..."
+    />
+  );
+};
+```
+
+**面试要点：**
+- 防抖可以减少不必要的 API 调用
+- 常用于搜索输入、窗口 resize 等场景
+- 通过 setTimeout 和 clearTimeout 实现
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### 高阶组件
+
+高阶组件（HOC）是一个函数，接收一个组件并返回一个新组件
+
+```jsx
+// withLoading HOC
+const withLoading = (WrappedComponent) => {
+  return function WithLoadingComponent({ isLoading, ...props }) {
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+    return <WrappedComponent {...props} />;
+  };
+};
+
+// withAuth HOC
+const withAuth = (WrappedComponent) => {
+  return function WithAuthComponent(props) {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    
+    useEffect(() => {
+      const token = localStorage.getItem('authToken');
+      setIsAuthenticated(!!token);
+    }, []);
+
+    if (!isAuthenticated) {
+      return <div>Please log in to access this page.</div>;
+    }
+
+    return <WrappedComponent {...props} />;
+  };
+};
+
+// 使用示例
+const UserProfile = ({ user }) => (
+  <div>
+    <h1>{user.name}</h1>
+    <p>{user.email}</p>
+  </div>
+);
+
+const ProtectedUserProfile = withAuth(withLoading(UserProfile));
+```
+
+**面试要点：**
+ - HOC 是复用组件逻辑的一种高级技巧
+- 不要在 render 方法中使用 HOC
+- 务必复制静态方法
+- Refs 不会被传递
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### usePrevious
+
+获取前一个值的 Hook
+
+```jsx
+import { useRef, useEffect } from 'react';
+
+const usePrevious = (value) => {
+  const ref = useRef();
+  
+  useEffect(() => {
+    ref.current = value;
+  });
+  
+  return ref.current;
+};
+
+// 使用示例
+const Counter = () => {
+  const [count, setCount] = useState(0);
+  const prevCount = usePrevious(count);
+  
+  return (
+    <div>
+      <h1>Now: {count}, before: {prevCount}</h1>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+};
+```
+
+**面试要点：**
+- 使用 useRef 存储前一个值
+- useEffect 在渲染后更新 ref
+- 常用于比较前后状态变化
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### useToggle
+
+切换状态 Hook
+
+```jsx
+import { useState, useCallback } from 'react';
+
+const useToggle = (initialValue = false) => {
+  const [value, setValue] = useState(initialValue);
+  
+  const toggle = useCallback(() => setValue(v => !v), []);
+  
+  return [value, toggle];
+};
+
+// 使用示例
+const ToggleComponent = () => {
+  const [isVisible, toggleVisible] = useToggle(false);
+  
+  return (
+    <div>
+      <button onClick={toggleVisible}>
+        {isVisible ? 'Hide' : 'Show'}
       </button>
-    </>
+      {isVisible && <p>This content is toggleable!</p>}
+    </div>
   );
-}
+};
 ```
 
-**[⬆ 返回顶部](#react-面试题)**
+**面试要点：**
+- 封装了布尔值的切换逻辑
+- 使用 useCallback 优化性能
+- 简化了开关状态的管理
 
-3. ### PureComponent 组件有什么作用？
+**[⬆ 返回顶部](#react-面试题列表)**
 
-   `PureComponent` 是一个基于 Component 的优化版本，它会在 shouldComponentUpdate 生命周期方法中使用浅比较来判断是否需要重新渲染。如果所有的 props 和 state 都没有改变，`PureComponent` 将不会重新渲染。
+### useInfiniteScroll
+
+无限滚动 Hook
 
 ```jsx
-class MyComponent extends React.PureComponent {
+import { useState, useEffect, useCallback } from 'react';
+
+const useInfiniteScroll = (fetchMore) => {
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!isFetching) return;
+    fetchMoreData();
+  }, [isFetching]);
+
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isFetching) return;
+    setIsFetching(true);
+  };
+
+  const fetchMoreData = useCallback(async () => {
+    await fetchMore();
+    setIsFetching(false);
+  }, [fetchMore]);
+
+  return [isFetching, setIsFetching];
+};
+
+// 使用示例
+const InfiniteList = () => {
+  const [items, setItems] = useState([]);
+  const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreItems);
+
+  async function fetchMoreItems() {
+    // 模拟 API 调用
+    const newItems = await fetch('/api/items');
+    setItems(prevItems => [...prevItems, ...newItems]);
+  }
+
+  return (
+    <div>
+      {items.map(item => <div key={item.id}>{item.name}</div>)}
+      {isFetching && <p>Fetching more items...</p>}
+    </div>
+  );
+};
+```
+
+**面试要点：**
+- 监听滚动事件实现无限加载
+- 防止重复请求的状态管理
+- 性能优化：及时清理事件监听器
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### useFormValidation
+
+表单验证 Hook
+
+```jsx
+import { useState, useEffect } from 'react';
+
+const useFormValidation = (initialState, validate) => {
+  const [values, setValues] = useState(initialState);
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (isSubmitting) {
+      const noErrors = Object.keys(errors).length === 0;
+      if (noErrors) {
+        console.log('Form submitted successfully');
+        setIsSubmitting(false);
+      } else {
+        setIsSubmitting(false);
+      }
+    }
+  }, [errors, isSubmitting]);
+
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  const handleBlur = () => {
+    const validationErrors = validate(values);
+    setErrors(validationErrors);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const validationErrors = validate(values);
+    setErrors(validationErrors);
+    setIsSubmitting(true);
+  };
+
+  return {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    isSubmitting
+  };
+};
+
+// 使用示例
+const LoginForm = () => {
+  const validate = (values) => {
+    let errors = {};
+    if (!values.email) {
+      errors.email = 'Email is required';
+    }
+    if (!values.password) {
+      errors.password = 'Password is required';
+    }
+    return errors;
+  };
+
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    isSubmitting
+  } = useFormValidation({ email: '', password: '' }, validate);
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        name="email"
+        type="email"
+        value={values.email}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        placeholder="Email"
+      />
+      {errors.email && <p>{errors.email}</p>}
+      
+      <input
+        name="password"
+        type="password"
+        value={values.password}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        placeholder="Password"
+      />
+      {errors.password && <p>{errors.password}</p>}
+      
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+    </form>
+  );
+};
+```
+
+**面试要点：**
+- 封装了表单状态和验证逻辑
+- 支持实时验证和提交验证
+- 提供了完整的表单处理流程
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### useDrag
+
+拖拽 Hook
+
+```jsx
+import { useState, useRef, useEffect } from 'react';
+
+const useDrag = () => {
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      
+      const newX = e.clientX - dragStart.x;
+      const newY = e.clientY - dragStart.y;
+      
+      setPosition({ x: newX, y: newY });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragStart]);
+
+  const handleMouseDown = (e) => {
+    const rect = elementRef.current.getBoundingClientRect();
+    setDragStart({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+    setIsDragging(true);
+  };
+
+  return {
+    elementRef,
+    position,
+    isDragging,
+    handleMouseDown
+  };
+};
+
+// 使用示例
+const DraggableBox = () => {
+  const { elementRef, position, isDragging, handleMouseDown } = useDrag();
+
+  return (
+    <div
+      ref={elementRef}
+      onMouseDown={handleMouseDown}
+      style={{
+        position: 'absolute',
+        left: position.x,
+        top: position.y,
+        width: 100,
+        height: 100,
+        backgroundColor: isDragging ? 'lightblue' : 'lightgray',
+        cursor: isDragging ? 'grabbing' : 'grab',
+        userSelect: 'none'
+      }}
+    >
+      Drag me!
+    </div>
+  );
+};
+```
+
+**面试要点：**
+- 处理鼠标事件实现拖拽功能
+- 计算相对位置避免跳跃
+- 及时清理事件监听器防止内存泄漏
+
+**[⬆ 返回顶部](#react-面试题列表)**
+
+### React 组件模式
+
+### Render Props
+
+Render Props 是一种在组件间共享代码的简单技术
+
+```jsx
+class Mouse extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { x: 0, y: 0 };
+  }
+
+  handleMouseMove = (event) => {
+    this.setState({
+      x: event.clientX,
+      y: event.clientY
+    });
+  }
+
   render() {
-    return <div>Hello, {this.props.name}!</div>;
+    return (
+      <div style={{ height: '100vh' }} onMouseMove={this.handleMouseMove}>
+        {this.props.render(this.state)}
+      </div>
+    );
   }
 }
+
+// 使用示例
+const App = () => (
+  <div>
+    <Mouse render={({ x, y }) => (
+      <h1>The mouse position is ({x}, {y})</h1>
+    )}/>
+  </div>
+);
 ```
 
-**[⬆ 返回顶部](#react-面试题)**
+**面试要点：**
+- 通过 prop 传递渲染逻辑
+- 比 HOC 更灵活，避免了嵌套地狱
+- 可以在运行时动态决定渲染内容
 
-4. ### memo 方法有什么作用？
+**[⬆ 返回顶部](#react-面试题列表)**
 
-`memo` 方法是一个高阶组件，用于对函数组件进行浅比较优化。它接受一个函数组件并返回一个新的组件，该组件在 props 没有改变的情况下将使用以前的结果。
+### 错误边界
 
-```jsx
-function MyComponent(props) {
-  return <div>Hello, {props.name}!</div>;
-}
-
-const MemoizedComponent = React.memo(MyComponent);
-```
-
-**[⬆ 返回顶部](#react-面试题)**
-
-5. ### 错误边界有什么作用？
-
-错误边界是一种 React 组件，用于捕获和处理子组件的 JavaScript 错误。错误边界会捕获在渲染期间发生的错误，但不会捕获事件处理程序、异步代码和服务端渲染中的错误。
+错误边界是一种 React 组件，可以捕获并打印发生在其子组件树任何位置的 JavaScript 错误
 
 ```jsx
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
   static getDerivedStateFromError(error) {
     return { hasError: true };
   }
 
-  componentDidCatch(error, info) {
-    console.error(error, info);
+  componentDidCatch(error, errorInfo) {
+    this.setState({
+      error: error,
+      errorInfo: errorInfo
+    });
   }
 
   render() {
     if (this.state.hasError) {
-    return <div>Something went wrong.</div>;
-  }
+      return (
+        <div>
+          <h2>Something went wrong.</h2>
+          <details style={{ whiteSpace: 'pre-wrap' }}>
+            {this.state.error && this.state.error.toString()}
+            <br />
+            {this.state.errorInfo.componentStack}
+          </details>
+        </div>
+      );
+    }
 
-  return this.props.children;
+    return this.props.children;
+  }
 }
 
-function App() {
-  return (
-    <ErrorBoundary>
-      <MyComponent />
-    </ErrorBoundary>
-  );
+// 使用示例
+const App = () => (
+  <ErrorBoundary>
+    <MyComponent />
+  </ErrorBoundary>
+);
+```
+
+**面试要点：**
+- 只能捕获子组件的错误，不能捕获自身错误
+- 不能捕获事件处理器、异步代码、服务端渲染的错误
+- 只有类组件可以成为错误边界
+
+**[⬆ 返回顶部](#react-面试题列表)** 
+## Vue 面试题
+
+> Vue.js 是一套用于构建用户界面的渐进式框架
+
+### Vue 面试题列表
+
+**[响应式原理](#vue-响应式原理)**
+
+1. [Vue2 响应式原理](#vue2-响应式原理)
+1. [Vue3 响应式原理](#vue3-响应式原理)
+1. [响应式数据的注意事项](#响应式数据的注意事项)
+
+**[生命周期](#vue-生命周期)**
+
+1. [Vue2 生命周期](#vue2-生命周期)
+1. [Vue3 生命周期](#vue3-生命周期)
+1. [生命周期应用场景](#生命周期应用场景)
+
+**[组件通信](#vue-组件通信)**
+
+1. [父子组件通信](#父子组件通信)
+1. [兄弟组件通信](#兄弟组件通信)
+1. [跨级组件通信](#跨级组件通信)
+
+**[计算属性与侦听器](#vue-计算属性与侦听器)**
+
+1. [computed vs methods](#computed-vs-methods)
+1. [computed vs watch](#computed-vs-watch)
+1. [深度侦听](#深度侦听)
+
+### Vue 响应式原理
+
+### Vue2 响应式原理
+
+Vue2 使用 Object.defineProperty 实现响应式
+
+```js
+// 简化版 Vue2 响应式实现
+function defineReactive(obj, key, val) {
+  const dep = new Dep();
+  
+  Object.defineProperty(obj, key, {
+    enumerable: true,
+    configurable: true,
+    get() {
+      // 依赖收集
+      if (Dep.target) {
+        dep.depend();
+      }
+      return val;
+    },
+    set(newVal) {
+      if (newVal === val) return;
+      val = newVal;
+      // 派发更新
+      dep.notify();
+    }
+  });
+}
+
+class Dep {
+  constructor() {
+    this.subs = [];
+  }
+  
+  depend() {
+    if (Dep.target) {
+      this.subs.push(Dep.target);
+    }
+  }
+  
+  notify() {
+    this.subs.forEach(watcher => watcher.update());
+  }
+}
+
+class Watcher {
+  constructor(vm, expOrFn, cb) {
+    this.vm = vm;
+    this.cb = cb;
+    this.getter = expOrFn;
+    this.value = this.get();
+  }
+  
+  get() {
+    Dep.target = this;
+    const value = this.getter.call(this.vm);
+    Dep.target = null;
+    return value;
+  }
+  
+  update() {
+    const newValue = this.get();
+    const oldValue = this.value;
+    this.value = newValue;
+    this.cb.call(this.vm, newValue, oldValue);
+  }
 }
 ```
 
-**[⬆ 返回顶部](#react-面试题)**
+**面试要点：**
+- 通过 Object.defineProperty 劫持对象属性
+- 无法检测数组索引和长度的变化
+- 无法检测对象属性的添加或删除
+- 需要递归遍历所有属性
 
-6. ### 什么是受控组件和非受控组件？
+**[⬆ 返回顶部](#vue-面试题列表)**
 
-   在 React 中，表单元素（如 input、textarea 和 select）通常分为受控组件和非受控组件。
+### Vue3 响应式原理
 
-`受控组件`是指表单元素的值受到 React 组件的状态的控制。当用户输入内容时，React 会更新组件的状态，从而实时更新表单元素的值。此时，表单元素的值由 React 负责维护，而与 DOM 本身无关。受控组件通常需要实现 onChange 事件处理函数，以便在用户输入内容时更新组件的状态。
+Vue3 使用 Proxy 实现响应式
 
-以下是一个使用受控组件的示例代码：
+```js
+// 简化版 Vue3 响应式实现
+const targetMap = new WeakMap();
 
-```jsx
-class Input extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
+function track(target, key) {
+  let depsMap = targetMap.get(target);
+  if (!depsMap) {
+    targetMap.set(target, (depsMap = new Map()));
+  }
+  
+  let dep = depsMap.get(key);
+  if (!dep) {
+    depsMap.set(key, (dep = new Set()));
+  }
+  
+  if (activeEffect) {
+    dep.add(activeEffect);
+  }
+}
+
+function trigger(target, key) {
+  const depsMap = targetMap.get(target);
+  if (!depsMap) return;
+  
+  const dep = depsMap.get(key);
+  if (dep) {
+    dep.forEach(effect => effect());
+  }
+}
+
+function reactive(target) {
+  return new Proxy(target, {
+    get(target, key, receiver) {
+      const result = Reflect.get(target, key, receiver);
+      track(target, key);
+      return result;
+    },
+    
+    set(target, key, value, receiver) {
+      const result = Reflect.set(target, key, value, receiver);
+      trigger(target, key);
+      return result;
+    }
+  });
+}
+
+let activeEffect = null;
+
+function effect(fn) {
+  activeEffect = fn;
+  fn();
+  activeEffect = null;
+}
+```
+
+**面试要点：**
+- 使用 Proxy 可以监听整个对象
+- 可以检测数组索引和长度的变化
+- 可以检测对象属性的添加或删除
+- 性能更好，懒代理
+
+**[⬆ 返回顶部](#vue-面试题列表)**
+
+### Vue 生命周期
+
+### Vue2 生命周期
+
+```js
+export default {
+  name: 'LifecycleDemo',
+  data() {
+    return {
+      message: 'Hello Vue2'
     };
+  },
+  
+  // 创建阶段
+  beforeCreate() {
+    console.log('beforeCreate: 实例初始化之后，数据观测和事件配置之前');
+  },
+  
+  created() {
+    console.log('created: 实例创建完成，可以访问data、computed、methods等');
+    // 适合进行数据初始化、API调用
+  },
+  
+  // 挂载阶段
+  beforeMount() {
+    console.log('beforeMount: 挂载开始之前，render函数首次被调用');
+  },
+  
+  mounted() {
+    console.log('mounted: 实例挂载完成，可以访问DOM');
+    // 适合进行DOM操作、启动定时器等
+  },
+  
+  // 更新阶段
+  beforeUpdate() {
+    console.log('beforeUpdate: 数据更新时调用，发生在虚拟DOM重新渲染之前');
+  },
+  
+  updated() {
+    console.log('updated: 数据更新导致的虚拟DOM重新渲染完成');
+    // 注意避免在此更新数据，可能导致无限循环
+  },
+  
+  // 销毁阶段
+  beforeDestroy() {
+    console.log('beforeDestroy: 实例销毁之前调用');
+    // 适合清理定时器、取消订阅等
+  },
+  
+  destroyed() {
+    console.log('destroyed: 实例销毁后调用');
+  }
+};
+```
+
+**面试要点：**
+- created 中可以访问数据，但无法访问 DOM
+- mounted 中可以访问 DOM，适合进行 DOM 操作
+- beforeDestroy 中进行清理工作
+
+**[⬆ 返回顶部](#vue-面试题列表)**
+
+### Vue 组件通信
+
+### 父子组件通信
+
+```vue
+<!-- 父组件 -->
+<template>
+  <div>
+    <child-component 
+      :message="parentMessage"
+      @child-event="handleChildEvent"
+    />
+  </div>
+</template>
+
+<script>
+import ChildComponent from './ChildComponent.vue';
+
+export default {
+  components: {
+    ChildComponent
+  },
+  data() {
+    return {
+      parentMessage: 'Hello from parent'
+    };
+  },
+  methods: {
+    handleChildEvent(data) {
+      console.log('Received from child:', data);
+    }
+  }
+};
+</script>
+
+<!-- 子组件 -->
+<template>
+  <div>
+    <p>{{ message }}</p>
+    <button @click="sendToParent">Send to Parent</button>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    message: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    sendToParent() {
+      this.$emit('child-event', 'Hello from child');
+    }
+  }
+};
+</script>
+```
+
+**面试要点：**
+- Props 向下传递数据
+- Events 向上传递数据
+- Props 是只读的，不应该直接修改
+
+**[⬆ 返回顶部](#vue-面试题列表)**
+
+### computed vs watch
+
+```js
+export default {
+  data() {
+    return {
+      firstName: 'John',
+      lastName: 'Doe',
+      fullName: 'John Doe'
+    };
+  },
+  
+  computed: {
+    // 计算属性：基于依赖缓存，只有依赖发生改变才会重新计算
+    computedFullName() {
+      console.log('computed executed');
+      return this.firstName + ' ' + this.lastName;
+    }
+  },
+  
+  watch: {
+    // 侦听器：观察和响应数据的变化
+    firstName(newVal, oldVal) {
+      console.log(`firstName changed from ${oldVal} to ${newVal}`);
+      this.fullName = newVal + ' ' + this.lastName;
+    },
+    
+    lastName: {
+      handler(newVal, oldVal) {
+        this.fullName = this.firstName + ' ' + newVal;
+      },
+      immediate: true // 立即执行
+    },
+    
+    // 深度侦听
+    user: {
+      handler(newVal, oldVal) {
+        console.log('User object changed');
+      },
+      deep: true
+    }
+  }
+};
+```
+
+**面试要点：**
+- computed 有缓存，依赖不变时不会重新计算
+- watch 适合执行异步操作或开销较大的操作
+- computed 适合计算衍生数据
+
+## JavaScript 面试题
+
+> JavaScript 是一种高级的、解释型的编程语言
+
+### JavaScript 面试题列表
+
+**[数据类型](#js-数据类型)**
+
+1. [基本数据类型](#基本数据类型)
+1. [引用数据类型](#引用数据类型)
+1. [类型检测](#类型检测)
+1. [类型转换](#类型转换)
+
+**[闭包与作用域](#js-闭包与作用域)**
+
+1. [作用域链](#作用域链)
+1. [闭包的概念](#闭包的概念)
+1. [闭包的应用](#闭包的应用)
+
+**[原型与继承](#js-原型与继承)**
+
+1. [原型链](#原型链)
+1. [继承方式](#继承方式)
+1. [ES6 类](#es6-类)
+
+**[异步编程](#js-异步编程)**
+
+1. [Promise](#promise)
+1. [async/await](#async-await)
+1. [事件循环](#事件循环)
+
+### JS 数据类型
+
+### 基本数据类型
+
+JavaScript 有 7 种基本数据类型
+
+```js
+// 1. Number
+let num = 42;
+let float = 3.14;
+let infinity = Infinity;
+let notANumber = NaN;
+
+// 2. String
+let str = 'Hello World';
+let template = `Hello ${name}`;
+
+// 3. Boolean
+let isTrue = true;
+let isFalse = false;
+
+// 4. Undefined
+let undefined_var;
+console.log(undefined_var); // undefined
+
+// 5. Null
+let null_var = null;
+
+// 6. Symbol (ES6)
+let sym1 = Symbol('description');
+let sym2 = Symbol('description');
+console.log(sym1 === sym2); // false
+
+// 7. BigInt (ES2020)
+let bigInt = 123456789012345678901234567890n;
+```
+
+**面试要点：**
+- 基本类型存储在栈内存中
+- Symbol 每次创建都是唯一的
+- BigInt 可以表示任意精度的整数
+
+**[⬆ 返回顶部](#javascript-面试题列表)**
+
+### 类型检测
+
+```js
+// typeof 操作符
+console.log(typeof 42);          // "number"
+console.log(typeof 'hello');     // "string"
+console.log(typeof true);        // "boolean"
+console.log(typeof undefined);   // "undefined"
+console.log(typeof null);        // "object" (这是一个历史遗留bug)
+console.log(typeof {});          // "object"
+console.log(typeof []);          // "object"
+console.log(typeof function(){}); // "function"
+
+// instanceof 操作符
+console.log([] instanceof Array);        // true
+console.log({} instanceof Object);       // true
+console.log(new Date() instanceof Date); // true
+
+// Object.prototype.toString.call()
+function getType(value) {
+  return Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
+}
+
+console.log(getType([]));        // "array"
+console.log(getType({}));        // "object"
+console.log(getType(null));      // "null"
+console.log(getType(new Date())); // "date"
+
+// 自定义类型检测函数
+function isArray(value) {
+  return Array.isArray(value);
+}
+
+function isObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function isFunction(value) {
+  return typeof value === 'function';
+}
+```
+
+**面试要点：**
+- typeof null 返回 "object" 是历史遗留问题
+- instanceof 检测原型链
+- Object.prototype.toString.call() 是最准确的类型检测方法
+
+**[⬆ 返回顶部](#javascript-面试题列表)**
+
+### 闭包的概念
+
+闭包是指有权访问另一个函数作用域中变量的函数
+
+```js
+// 基本闭包示例
+function outerFunction(x) {
+  // 外部函数的变量
+  let outerVariable = x;
+  
+  // 内部函数
+  function innerFunction(y) {
+    // 访问外部函数的变量
+    console.log(outerVariable + y);
+  }
+  
+  return innerFunction;
+}
+
+const closure = outerFunction(10);
+closure(5); // 输出: 15
+
+// 闭包的经典问题
+for (var i = 0; i < 3; i++) {
+  setTimeout(function() {
+    console.log(i); // 输出: 3, 3, 3
+  }, 100);
+}
+
+// 解决方案1: 使用立即执行函数
+for (var i = 0; i < 3; i++) {
+  (function(j) {
+    setTimeout(function() {
+      console.log(j); // 输出: 0, 1, 2
+    }, 100);
+  })(i);
+}
+
+// 解决方案2: 使用 let
+for (let i = 0; i < 3; i++) {
+  setTimeout(function() {
+    console.log(i); // 输出: 0, 1, 2
+  }, 100);
+}
+
+// 模块模式
+const module = (function() {
+  let privateVariable = 0;
+  
+  function privateFunction() {
+    console.log('This is private');
+  }
+  
+  return {
+    publicMethod: function() {
+      privateVariable++;
+      privateFunction();
+      return privateVariable;
+    },
+    
+    getPrivateVariable: function() {
+      return privateVariable;
+    }
+  };
+})();
+
+console.log(module.publicMethod()); // 1
+console.log(module.getPrivateVariable()); // 1
+```
+
+**面试要点：**
+- 闭包可以访问外部函数的变量
+- 闭包会保持对外部变量的引用
+- 常用于模块模式、回调函数等场景
+
+**[⬆ 返回顶部](#javascript-面试题列表)**
+
+### 原型链
+
+JavaScript 中每个对象都有一个原型对象
+
+```js
+// 构造函数
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+// 在原型上添加方法
+Person.prototype.sayHello = function() {
+  console.log(`Hello, I'm ${this.name}`);
+};
+
+Person.prototype.getAge = function() {
+  return this.age;
+};
+
+// 创建实例
+const person1 = new Person('Alice', 25);
+const person2 = new Person('Bob', 30);
+
+person1.sayHello(); // "Hello, I'm Alice"
+person2.sayHello(); // "Hello, I'm Bob"
+
+// 原型链查找
+console.log(person1.hasOwnProperty('name')); // true
+console.log(person1.hasOwnProperty('sayHello')); // false
+console.log('sayHello' in person1); // true
+
+// 原型链关系
+console.log(person1.__proto__ === Person.prototype); // true
+console.log(Person.prototype.__proto__ === Object.prototype); // true
+console.log(Object.prototype.__proto__ === null); // true
+
+// 继承示例
+function Student(name, age, grade) {
+  Person.call(this, name, age);
+  this.grade = grade;
+}
+
+// 设置原型链
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
+
+// 添加子类方法
+Student.prototype.study = function() {
+  console.log(`${this.name} is studying`);
+};
+
+const student = new Student('Charlie', 20, 'A');
+student.sayHello(); // "Hello, I'm Charlie"
+student.study(); // "Charlie is studying"
+```
+
+**面试要点：**
+- 每个对象都有 __proto__ 属性指向其原型
+- 构造函数的 prototype 属性是实例的原型
+- 原型链是 JavaScript 实现继承的机制
+
+**[⬆ 返回顶部](#javascript-面试题列表)**
+
+### Promise
+
+Promise 是异步编程的一种解决方案
+
+```js
+// 基本 Promise 用法
+const promise = new Promise((resolve, reject) => {
+  const success = Math.random() > 0.5;
+  
+  setTimeout(() => {
+    if (success) {
+      resolve('操作成功');
+    } else {
+      reject(new Error('操作失败'));
+    }
+  }, 1000);
+});
+
+promise
+  .then(result => {
+    console.log(result);
+    return '处理结果';
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error.message);
+  })
+  .finally(() => {
+    console.log('操作完成');
+  });
+
+// Promise.all - 并行执行
+const promise1 = Promise.resolve(1);
+const promise2 = Promise.resolve(2);
+const promise3 = Promise.resolve(3);
+
+Promise.all([promise1, promise2, promise3])
+  .then(values => {
+    console.log(values); // [1, 2, 3]
+  });
+
+// Promise.race - 竞速
+const fastPromise = new Promise(resolve => setTimeout(() => resolve('fast'), 100));
+const slowPromise = new Promise(resolve => setTimeout(() => resolve('slow'), 200));
+
+Promise.race([fastPromise, slowPromise])
+  .then(value => {
+    console.log(value); // 'fast'
+  });
+
+// 手动实现简单的 Promise
+class MyPromise {
+  constructor(executor) {
+    this.state = 'pending';
+    this.value = undefined;
+    this.reason = undefined;
+    this.onFulfilledCallbacks = [];
+    this.onRejectedCallbacks = [];
+
+    const resolve = (value) => {
+      if (this.state === 'pending') {
+        this.state = 'fulfilled';
+        this.value = value;
+        this.onFulfilledCallbacks.forEach(fn => fn());
+      }
+    };
+
+    const reject = (reason) => {
+      if (this.state === 'pending') {
+        this.state = 'rejected';
+        this.reason = reason;
+        this.onRejectedCallbacks.forEach(fn => fn());
+      }
+    };
+
+    try {
+      executor(resolve, reject);
+    } catch (error) {
+      reject(error);
+    }
   }
 
-  handleChange = event => {
-    this.setState({
-      value: event.target.value,
+  then(onFulfilled, onRejected) {
+    return new MyPromise((resolve, reject) => {
+      if (this.state === 'fulfilled') {
+        try {
+          const result = onFulfilled(this.value);
+          resolve(result);
+        } catch (error) {
+          reject(error);
+        }
+      } else if (this.state === 'rejected') {
+        try {
+          const result = onRejected(this.reason);
+          resolve(result);
+        } catch (error) {
+          reject(error);
+        }
+      } else {
+        this.onFulfilledCallbacks.push(() => {
+          try {
+            const result = onFulfilled(this.value);
+            resolve(result);
+          } catch (error) {
+            reject(error);
+          }
+        });
+        
+        this.onRejectedCallbacks.push(() => {
+          try {
+            const result = onRejected(this.reason);
+            resolve(result);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      }
     });
-  };
-
-  render() {
-    return (
-      <input
-        type="text"
-        value={this.state.value}
-        onChange={this.handleChange}
-      />
-    );
   }
 }
 ```
 
-在上述代码中，我们定义了一个 Input 组件作为受控组件，它的值由组件的状态 value 控制。当用户输入内容时，onChange 事件处理函数 handleChange 会被调用，更新组件的状态，从而实时更新表单元素的值。
+**面试要点：**
+- Promise 有三种状态：pending、fulfilled、rejected
+- Promise 状态一旦改变就不能再变
+- then 方法返回新的 Promise，支持链式调用
 
-相反，`非受控组件`是指表单元素的值由 DOM 本身维护，而不受 React 组件的控制。当用户输入内容时，表单元素的值会直接更新到 DOM 上，而不需要在 React 中进行任何处理。此时，组件无法直接获取表单元素的值，而需要通过 ref 来获取。
+**[⬆ 返回顶部](#javascript-面试题列表)**
 
-以下是一个使用非受控组件的示例代码：
+## TypeScript 面试题
 
-```jsx
-class Input extends React.Component {
-  constructor(props) {
-    super(props);
-    this.inputRef = React.createRef();
+> TypeScript 是 JavaScript 的一个超集，添加了静态类型定义
+
+### TypeScript 面试题列表
+
+**[基础类型](#ts-基础类型)**
+
+1. [基本类型](#ts-基本类型)
+1. [数组和元组](#数组和元组)
+1. [枚举类型](#枚举类型)
+1. [联合类型](#联合类型)
+
+**[接口与类型别名](#ts-接口与类型别名)**
+
+1. [接口定义](#接口定义)
+1. [类型别名](#类型别名)
+1. [接口继承](#接口继承)
+
+**[泛型](#ts-泛型)**
+
+1. [泛型函数](#泛型函数)
+1. [泛型接口](#泛型接口)
+1. [泛型约束](#泛型约束)
+
+**[高级类型](#ts-高级类型)**
+
+1. [映射类型](#映射类型)
+1. [条件类型](#条件类型)
+1. [工具类型](#工具类型)
+
+### TS 基础类型
+
+### TS 基本类型
+
+TypeScript 支持与 JavaScript 几乎相同的数据类型
+
+```typescript
+// 基本类型
+let isDone: boolean = false;
+let decimal: number = 6;
+let color: string = "blue";
+
+// 数组
+let list1: number[] = [1, 2, 3];
+let list2: Array<number> = [1, 2, 3];
+
+// 元组 Tuple
+let x: [string, number];
+x = ["hello", 10]; // OK
+// x = [10, "hello"]; // Error
+
+// 枚举
+enum Color {Red, Green, Blue}
+let c: Color = Color.Green;
+
+// Any - 任意类型
+let notSure: any = 4;
+notSure = "maybe a string instead";
+notSure = false;
+
+// Void - 空值
+function warnUser(): void {
+    console.log("This is my warning message");
+}
+
+// Null 和 Undefined
+let u: undefined = undefined;
+let n: null = null;
+
+// Never - 永不存在的值的类型
+function error(message: string): never {
+    throw new Error(message);
+}
+
+// Object
+declare function create(o: object | null): void;
+create({ prop: 0 }); // OK
+create(null); // OK
+// create(42); // Error
+```
+
+**面试要点：**
+- TypeScript 是 JavaScript 的超集
+- 提供静态类型检查
+- 编译时进行类型检查
+
+**[⬆ 返回顶部](#typescript-面试题列表)**
+
+### 接口定义
+
+接口是对行为的抽象，具体行为由类去实现
+
+```typescript
+// 基本接口
+interface Person {
+  name: string;
+  age: number;
+}
+
+function greet(person: Person) {
+  return `Hello ${person.name}`;
+}
+
+// 可选属性
+interface SquareConfig {
+  color?: string;
+  width?: number;
+}
+
+function createSquare(config: SquareConfig): {color: string; area: number} {
+  let newSquare = {color: "white", area: 100};
+  if (config.color) {
+    newSquare.color = config.color;
   }
-
-  handleClick = () => {
-    console.log(this.inputRef.current.value);
-  };
-
-  render() {
-    return (
-      <div>
-        <input type="text" ref={this.inputRef} />
-        <button onClick={this.handleClick}>Click</button>
-      </div>
-    );
+  if (config.width) {
+    newSquare.area = config.width * config.width;
   }
+  return newSquare;
+}
+
+// 只读属性
+interface Point {
+  readonly x: number;
+  readonly y: number;
+}
+
+let p1: Point = { x: 10, y: 20 };
+// p1.x = 5; // error!
+
+// 函数类型接口
+interface SearchFunc {
+  (source: string, subString: string): boolean;
+}
+
+let mySearch: SearchFunc;
+mySearch = function(source: string, subString: string) {
+  let result = source.search(subString);
+  return result > -1;
+}
+
+// 可索引的类型
+interface StringArray {
+  [index: number]: string;
+}
+
+let myArray: StringArray;
+myArray = ["Bob", "Fred"];
+
+// 类类型接口
+interface ClockInterface {
+  currentTime: Date;
+  setTime(d: Date): void;
+}
+
+class Clock implements ClockInterface {
+  currentTime: Date = new Date();
+  setTime(d: Date) {
+    this.currentTime = d;
+  }
+  constructor(h: number, m: number) { }
 }
 ```
 
-在上述代码中，我们定义了一个 Input 组件作为非受控组件，它的值由 DOM 本身维护。当用户点击按钮时，我们可以通过 ref 获取表单元素的值，从而进行后续处理。
+**面试要点：**
+- 接口定义对象的结构
+- 支持可选属性、只读属性
+- 可以描述函数类型、数组类型等
 
-**[⬆ 返回顶部](#react-面试题)**
+**[⬆ 返回顶部](#typescript-面试题列表)**
 
-7. ### 什么是高阶组件
+### 泛型函数
 
-   `高阶组件`（Higher-Order Component，简称 HOC）是指一个函数，它接受一个组件作为参数，返回一个新的组件。HOC 本质上是一种组件复用的方式，用于增强组件的功能，或者封装一些通用的逻辑，从而实现代码复用。
+泛型允许我们在定义函数、接口或类的时候，不预先指定具体的类型
 
-以下是一个使用高阶组件的示例代码：
-
-```jsx
-function withLogger(WrappedComponent) {
-  return class extends React.Component {
-    componentDidMount() {
-      console.log(`Component ${WrappedComponent.name} mounted`);
-    }
-
-    render() {
-      return <WrappedComponent {...this.props} />;
-    }
-  };
+```typescript
+// 基本泛型函数
+function identity<T>(arg: T): T {
+  return arg;
 }
 
-class MyComponent extends React.Component {
-  render() {
-    return <div>Hello, world!</div>;
-  }
+let output1 = identity<string>("myString");
+let output2 = identity("myString"); // 类型推论
+
+// 泛型数组
+function loggingIdentity<T>(arg: T[]): T[] {
+  console.log(arg.length);
+  return arg;
 }
 
-const EnhancedComponent = withLogger(MyComponent);
+// 泛型接口
+interface GenericIdentityFn<T> {
+  (arg: T): T;
+}
 
-ReactDOM.render(<EnhancedComponent />, document.getElementById('root'));
+function identity2<T>(arg: T): T {
+  return arg;
+}
+
+let myIdentity: GenericIdentityFn<number> = identity2;
+
+// 泛型类
+class GenericNumber<T> {
+  zeroValue: T;
+  add: (x: T, y: T) => T;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function(x, y) { return x + y; };
+
+// 泛型约束
+interface Lengthwise {
+  length: number;
+}
+
+function loggingIdentity2<T extends Lengthwise>(arg: T): T {
+  console.log(arg.length);
+  return arg;
+}
+
+// loggingIdentity2(3); // Error
+loggingIdentity2({length: 10, value: 3}); // OK
+
+// 在泛型约束中使用类型参数
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
+  return obj[key];
+}
+
+let x = { a: 1, b: 2, c: 3, d: 4 };
+getProperty(x, "a"); // OK
+// getProperty(x, "m"); // Error
 ```
 
-在上述代码中，我们定义了一个高阶组件 withLogger，它接受一个组件作为参数，返回一个新的组件。新的组件在挂载时会输出组件名称，然后渲染传入的组件。
+**面试要点：**
+- 泛型提供了类型安全的同时保持了灵活性
+- 可以对泛型进行约束
+- 支持多个泛型参数
 
-我们定义了一个 MyComponent 组件，并使用 withLogger 高阶组件对其进行增强，得到一个新的增强后的组件 EnhancedComponent。最终，我们将 EnhancedComponent 渲染到 DOM 中。
+**[⬆ 返回顶部](#typescript-面试题列表)**
 
-在上述示例中，withLogger 高阶组件用于记录组件的挂载信息，以便在开发调试时更加方便。当我们需要对多个组件进行类似的操作时，就可以使用 withLogger 高阶组件，而不需要在每个组件中都编写相同的挂载逻辑。这样，我们就可以实现代码的复用，同时使代码更加简洁易懂。
+### 工具类型
 
-**[⬆ 返回顶部](#react-面试题)**
+TypeScript 提供了一些内置的工具类型
 
-8. ### 生命周期方法有哪些和它们的执行顺序是什么？
-
-   React 中的生命周期方法可以分为三类：挂载、更新和卸载。它们的执行顺序如下：
-
-- 挂载：
-  - constructor
-  - getDerivedStateFromProps
-  - render
-  - componentDidMount
-- 更新：
-  - getDerivedStateFromProps
-  - shouldComponentUpdate
-  - render
-  - getSnapshotBeforeUpdate
-  - componentDidUpdate
-- 卸载：
-  - componentWillUnmount
-
-其中，`getDerivedStateFromProps` 生命周期方法是一个静态方法，用于在 props 改变时更新组件的 state。它应该返回一个对象来更新 state，或者返回 null 来表示不需要更新。
-
-```jsx
-class MyComponent extends React.Component {
-  static getDerivedStateFromProps(props, state) {
-    if (props.value !== state.value) {
-      return { value: props.value };
-    }
-    return null;
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = { value: props.value };
-  }
-
-  render() {
-    return <div>{this.state.value}</div>;
-  }
+```typescript
+// Partial<T> - 将T中的所有属性设为可选
+interface Todo {
+  title: string;
+  description: string;
 }
+
+function updateTodo(todo: Todo, fieldsToUpdate: Partial<Todo>) {
+  return { ...todo, ...fieldsToUpdate };
+}
+
+// Required<T> - 将T中的所有属性设为必需
+interface Props {
+  a?: number;
+  b?: string;
+}
+
+const obj: Required<Props> = { a: 5, b: "hello" };
+
+// Readonly<T> - 将T中的所有属性设为只读
+interface Todo2 {
+  title: string;
+}
+
+const todo: Readonly<Todo2> = {
+  title: "Delete inactive users",
+};
+
+// todo.title = "Hello"; // Error
+
+// Pick<T, K> - 从T中选择一组属性K
+interface Todo3 {
+  title: string;
+  description: string;
+  completed: boolean;
+}
+
+type TodoPreview = Pick<Todo3, "title" | "completed">;
+
+const todo2: TodoPreview = {
+  title: "Clean up desktop",
+  completed: false,
+};
+
+// Omit<T, K> - 从T中排除一组属性K
+type TodoInfo = Omit<Todo3, "completed">;
+
+const todoInfo: TodoInfo = {
+  title: "Pick up kids",
+  description: "Kindergarten closes at 5pm",
+};
+
+// Record<K, T> - 构造一个类型，其属性名的类型为K，属性值的类型为T
+type Page = "home" | "about" | "contact";
+
+const nav: Record<Page, string> = {
+  home: "/",
+  about: "/about",
+  contact: "/contact",
+};
+
+// Exclude<T, U> - 从T中排除可以赋值给U的类型
+type T0 = Exclude<"a" | "b" | "c", "a">; // "b" | "c"
+
+// Extract<T, U> - 从T中提取可以赋值给U的类型
+type T1 = Extract<"a" | "b" | "c", "a" | "f">; // "a"
+
+// NonNullable<T> - 从T中排除null和undefined
+type T2 = NonNullable<string | number | undefined>; // string | number
+
+// ReturnType<T> - 获取函数T的返回类型
+declare function f1(): { a: number; b: string };
+type T3 = ReturnType<typeof f1>; // { a: number; b: string }
 ```
 
-其次，`shouldComponentUpdate` 生命周期方法用于在 props 或 state 发生改变时决定是否需要重新渲染组件。它应该返回一个布尔值，表示组件是否需要更新。默认情况下，`shouldComponentUpdate` 返回 true。
+**面试要点：**
+- 工具类型提供了类型转换的便利
+- 常用于处理已有类型的变形
+- 提高了代码的复用性和类型安全性
 
-```jsx
-class MyComponent extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.props.value !== nextProps.value;
-  }
+**[⬆ 返回顶部](#typescript-面试题列表)** 
+ ---
 
-  render() {
-    return <div>{this.props.value}</div>;
-  }
-}
-```
+## 总结
 
-最后，`getSnapshotBeforeUpdate` 生命周期方法在组件更新之前被调用，它可以用于在 DOM 更新之前捕获一些信息。它应该返回一个值，作为 componentDidUpdate 方法的第三个参数。
+本项目提供了完整的前端面试题库，包括：
 
-```jsx
-class MyComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.listRef = React.createRef();
-  }
+### 工具库实现
+- **Lodash**: 80+ 个常用方法的完整实现
+- **Ramda**: 50+ 个函数式编程方法的实现
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    if (prevProps.items.length < this.props.items.length) {
-      const list = this.listRef.current;
-      return list.scrollHeight - list.scrollTop;
-    }
-    return null;
-  }
+### 前端框架面试题
+- **React**: Hooks、组件模式、性能优化等核心概念
+- **Vue**: 响应式原理、生命周期、组件通信等重点内容
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (snapshot !== null) {
-      const list = this.listRef.current;
-      list.scrollTop = list.scrollHeight - snapshot;
-    }
-  }
+### 基础技术面试题
+- **JavaScript**: 数据类型、闭包、原型链、异步编程等基础知识
+- **TypeScript**: 类型系统、泛型、工具类型等进阶内容
 
-  render() {
-    return (
-      <div ref={this.listRef}>
-        {this.props.items.map(item => (
-          <div key={item.id}>{item.name}</div>
-        ))}
-      </div>
-    );
-  }
-}
-```
+### 特色功能
+- 📚 **完整的代码示例**: 每个知识点都有详细的代码实现
+- 🎯 **面试要点总结**: 突出重点，便于快速复习
+- 🔗 **便捷的导航**: 支持快速跳转和返回顶部
+- ✅ **单元测试**: 提供完整的测试用例
 
-**[⬆ 返回顶部](#react-面试题)**
+### 使用建议
+1. **系统学习**: 按照目录顺序逐一学习各个知识点
+2. **重点突破**: 针对薄弱环节进行专项练习
+3. **实践验证**: 运行测试用例验证理解程度
+4. **面试准备**: 重点关注"面试要点"部分
 
-9. ### getDerivedStateFromProps 生命周期方法有什么作用？
-
-`getDerivedStateFromProps` 是 React 组件的一个静态生命周期方法。
-其主要作用是让组件在接收到新的`props`时，能够同步更新组件的`state`。
-
-此方法在以下两种情况下会被 React 调用：
-在组件实例化后、渲染(render)前
-
-在接收新的`props`之前，无论是父组件引起的还是通过外部 API 获取的`props`变化
-`getDerivedStateFromProps`方法接收两个参数：
-
-`props`：最新的`props`
-
-`state`：当前的`state`
-
-该方法应该返回一个对象来更新`state`，或者返回`null`以不更新任何状态。
-
-```jsx
-class MyComponent extends React.Component {
-  static getDerivedStateFromProps(props, state) {
-    // 你可以基于props的变化来更新state
-    if (props.value !== state.value) {
-      return {
-        value: props.value,
-      };
-    }
-
-    // 返回 null 不更新 state
-    return null;
-  }
-}
-```
-
-`关键点`：
-`getDerivedStateFromProps`是一个纯函数，不应该产生副作用，如进行网络请求或订阅。
-
-这个方法不推荐频繁使用，因为它可能会导致代码变得复杂和难以维护。
-
-在许多场景下，可以使用其他生命周期方法或 React 新引入的`Hooks`。
-
-当 props 的改变需要映射到`state`时，可以考虑使用它，但在不少情况下，可以直接从`props`计算得到渲染内容而不需要使用`state`。
-
-自 React `v16.3`引入此方法，同时遗弃了`componentWillReceiveProps`，这是因为它更安全，不会被未来的异步渲染特性影响。在 React 的未来版本中，使用基于类的生命周期方法将逐渐让位于使用`Hooks`的函数式组件。
-
-**[⬆ 返回顶部](#react-面试题)**
-
-10. ### shouldComponentUpdate 生命周期方法有什么作用？
-
-`shouldComponentUpdate` 是 React 类组件的一个生命周期方法，其主要作用是决定一个组件的输出是否需要更新，即当组件的`props`或`state`变化时，`shouldComponentUpdate`方法会在渲染执行前被调用，用以指示 React 是否应该继续执行渲染过程。
-
-这个方法默认返回 `true`，意味着每次状态变化组件都会重新渲染。但是，通过返回 `false`，你可以阻止组件不必要的渲染，这可以提高应用的性能，尤其是当组件树非常大时或者计算量很大时。
-
-`shouldComponentUpdate` 接收两个参数：
-
-`nextProps`：将要接收的新的`props`
-
-`nextState`：将要更新的新的`state`
-
-```jsx
-class MyComponent extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    // 比较新旧props或state，只有当它们实际发生变化时才更新组件
-    return (
-      nextProps.someValue !== this.props.someValue ||
-      nextState.someState !== this.state.someState
-    );
-  }
-}
-```
-
-`注意`：
-
-它只在组件`更新过程中`被调用，不会在`首次渲染时`被调用。
-
-如果返回`false`，那么组件不会执行更新操作，`render`方法不会被调用，同时也跳过子组件的渲染。
-它不应该产生任何副作用，应该是一个纯函数。
-
-在大多数情况下，你不需要手动去编写`shouldComponentUpdate`方法。如果你需要优化性能，推荐使用`React.PureComponent`，它已经实现了一个和`shouldComponentUpdate`类似的浅层比较。
-
-从 React `16.3`版本开始，引入了新的“生命周期”API. 如果你在使用新的生命周期方法，或者打算迁移到函数组件和`Hooks`，`shouldComponentUpdate`可能会变得不再常用
-
-特别是`React.memo`对于函数组件是类似 PureComponent 的工作方式，提供了类似的性能提升。
-
-**[⬆ 返回顶部](#react-面试题)**
-
-11. ### getSnapshotBeforeUpdate 生命周期方法有什么作用？
-
-`getSnapshotBeforeUpdate`是 React 类组件中的一个生命周期方法，它允许您在最新的渲染输出被提交到`DOM`之前，捕获组件的某些信息（例如，滚动位置）。
-
-这个生命周期方法在新的渲染输出被绘制之前被调用，它可以返回一个值或`null`。如果返回的值不是`null`，这个返回的值将会作为第三个参数传递给`componentDidUpdate`。
-
-这种机制特别有用，因为有时候更新`DOM`后，您可能需要根据之前的状态来调整滚动位置，或执行类似的操作以保持用户的视图状态不变。
-
-`getSnapshotBeforeUpdate` 接收两个参数：
-
-`prevProps`：更新前的`props`
-
-`prevState`：更新前的`state`
-
-如果你的组件没有使用`getSnapshotBeforeUpdate`，就不需要实现它；只有当你确实需要在更新前捕获一些信息，并在更新后应用这些信息时，才使用它。
-
-```jsx
-class MyComponent extends React.Component {
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    // 检查 prevProps 或 prevState 是否满足特定条件
-    // 例如，你可以捕获旧的滚动位置：
-    if (prevProps.list.length < this.props.list.length) {
-      const list = document.getElementById('list');
-      return list.scrollHeight - list.scrollTop;
-    }
-    return null;
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // 如果 `getSnapshotBeforeUpdate` 返回的 `snapshot` 不是 `null`
-    // 可以使用 `snapshot` 做一些事情
-    if (snapshot !== null) {
-      const list = document.getElementById('list');
-      list.scrollTop = list.scrollHeight - snapshot;
-    }
-  }
-}
-```
-
-在上面的示例中，`getSnapshotBeforeUpdate`用于捕获增加新项到列表前的滚动位置，然后通过`componentDidUpdate`使用这个快照信息（`snapshot`）来调整滚动条，以保持滚动位置相对于底部的距离不变，即使列表长度发生变化。
-
-需要注意的是，`getSnapshotBeforeUpdate`和`componentDidUpdate`一起使用时，可以很好地处理那些需要在 DOM 更新后立即执行的操作。
-
-**[⬆ 返回顶部](#react-面试题)**
-
-12. ### 什么是 React context？
-
-    React context 是一种跨组件层级共享数据的方式，可以避免通过 props 层层传递数据的麻烦。它由两部分组成：`Provider` 和 `Consumer`。
-
-`Provider` 是一个组件，它接受一个 value 属性，表示共享的数据，将它包裹的子组件的 `Consumer` 都可以访问这个数据。
-
-```jsx
-const MyContext = React.createContext();
-
-class MyComponent extends React.Component {
-  render() {
-    return (
-      <MyContext.Provider value={42}>
-        <ChildComponent />
-      </MyContext.Provider>
-    );
-  }
-}
-
-function ChildComponent() {
-  return (
-    <MyContext.Consumer>
-      {value => <div>The answer is {value}.</div>}
-    </MyContext.Consumer>
-  );
-}
-```
-
-**[⬆ 返回顶部](#react-面试题)**
-
-13. ### React Hook 中的 useState 是什么？
-
-useState 是 React Hook 中的一种，它可以让我们在函数组件中使用状态。
-
-```jsx
-import React, { useState } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <h1>{count}</h1>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-    </div>
-  );
-}
-```
-
-**[⬆ 返回顶部](#react-面试题)**
+希望这个项目能够帮助你在前端面试中取得好成绩！🚀 
