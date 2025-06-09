@@ -4,14 +4,20 @@
 
 ### 目录
 
-| 序号 | 系列                                                                                 | 测试    |
-| ---- | ------------------------------------------------------------------------------------ | ------- |
-| 1    | [✅ Lodash 函数列表](#lodash-函数列表)                                               | ✅ 通过 |
-| 2    | [✅ Ramda 函数列表](#ramda-函数列表)                                                 | ✅ 通过 |
-| 3    | [✅ React 面试题](#react-面试题)                                                     | ✅ 通过 |
-| 4    | [✅ Vue 面试题](#vue-面试题)                                                         | ✅ 通过 |
-| 5    | [✅ JavaScript 面试题](#javascript-面试题)                                           | ✅ 通过 |
-| 6    | [✅ TypeScript 面试题](#typescript-面试题)                                           | ✅ 通过 |
+| 序号 | 系列                                       | 测试    |
+| ---- | ------------------------------------------ | ------- |
+| 1    | [✅ Lodash 函数列表](#lodash-函数列表)     | ✅ 通过 |
+| 2    | [✅ Ramda 函数列表](#ramda-函数列表)       | ✅ 通过 |
+| 3    | [✅ React 面试题](#react-面试题)           | ✅ 通过 |
+| 4    | [✅ Vue 面试题](#vue-面试题)               | ✅ 无   |
+| 5    | [✅ JavaScript 面试题](#javascript-面试题) | ✅ 无   |
+| 6    | [✅ TypeScript 面试题](#typescript-面试题) | ✅ 无   |
+| 7    | [✅ CSS 面试题](#css-面试题)               | ✅ 无   |
+| 8    | [✅ 浏览器原理](#浏览器原理)               | ✅ 无   |
+| 9    | [✅ 性能优化](#性能优化)                   | ✅ 无   |
+| 10   | [✅ 网络协议](#网络协议)                   | ✅ 无   |
+| 11   | [✅ 算法与数据结构](#算法与数据结构)       | ✅ 无   |
+| 12   | [✅ 工程化工具](#工程化工具)               | ✅ 无   |
 
 ## Lodash
 
@@ -3453,18 +3459,18 @@ transform(
 const unset = (obj, path) => {
   const keys = Array.isArray(path) ? path : path.split(/[,[\].]+?/);
   const lastKeyIndex = keys.length - 1;
-  
+
   keys.reduce((acc, key, index) => {
     if (index === lastKeyIndex) {
       delete acc[key];
     }
     return acc[key];
   }, obj);
-  
+
   return obj;
 };
 
-const object = { 'a': [{ 'b': { 'c': 7 } }] };
+const object = { a: [{ b: { c: 7 } }] };
 unset(object, 'a[0].b.c');
 // => true
 
@@ -3487,7 +3493,7 @@ unset(object, ['a', '0', 'b', 'c']);
 const update = (obj, path, updater) => {
   const keys = Array.isArray(path) ? path : path.split(/[,[\].]+?/);
   const lastKeyIndex = keys.length - 1;
-  
+
   keys.reduce((acc, key, index) => {
     if (index === lastKeyIndex) {
       acc[key] = updater(acc[key]);
@@ -3496,11 +3502,11 @@ const update = (obj, path, updater) => {
     }
     return acc[key];
   }, obj);
-  
+
   return obj;
 };
 
-const object = { 'a': [{ 'b': { 'c': 3 } }] };
+const object = { a: [{ b: { c: 3 } }] };
 
 update(object, 'a[0].b.c', n => n * n);
 console.log(object.a[0].b.c);
@@ -3523,7 +3529,7 @@ console.log(object.x[0].y.z);
 const updateWith = (obj, path, updater, customizer) => {
   const keys = Array.isArray(path) ? path : path.split(/[,[\].]+?/);
   const lastKeyIndex = keys.length - 1;
-  
+
   keys.reduce((acc, key, index) => {
     if (index === lastKeyIndex) {
       acc[key] = updater(acc[key]);
@@ -3532,7 +3538,7 @@ const updateWith = (obj, path, updater, customizer) => {
     }
     return acc[key];
   }, obj);
-  
+
   return obj;
 };
 
@@ -4106,11 +4112,11 @@ valuesIn(new Foo());
 const append = (el, arr) => [...arr, el];
 
 append('tests', ['write', 'more']); //=> ['write', 'more', 'tests']
-append('c', ['a', 'b']);            //=> ['a', 'b', 'c']
-append('c', []);                    //=> ['c']
+append('c', ['a', 'b']); //=> ['a', 'b', 'c']
+append('c', []); //=> ['c']
 ```
 
-思路：使用ES6的扩展运算符创建一个新数组，并将新元素添加到末尾。
+思路：使用 ES6 的扩展运算符创建一个新数组，并将新元素添加到末尾。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4122,11 +4128,11 @@ append('c', []);                    //=> ['c']
 const prepend = (el, arr) => [el, ...arr];
 
 prepend('fee', ['fi', 'fo', 'fum']); //=> ['fee', 'fi', 'fo', 'fum']
-prepend('a', ['b', 'c']);            //=> ['a', 'b', 'c']
-prepend('a', []);                    //=> ['a']
+prepend('a', ['b', 'c']); //=> ['a', 'b', 'c']
+prepend('a', []); //=> ['a']
 ```
 
-思路：使用ES6的扩展运算符创建一个新数组，并将新元素添加到开头。
+思路：使用 ES6 的扩展运算符创建一个新数组，并将新元素添加到开头。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4142,7 +4148,7 @@ contains(4, [1, 2, 3]); //=> false
 contains({ name: 'Fred' }, [{ name: 'Fred' }]); //=> false
 ```
 
-思路：使用数组的includes方法检查元素是否存在于数组中。
+思路：使用数组的 includes 方法检查元素是否存在于数组中。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4157,10 +4163,10 @@ dropLast(1, ['foo', 'bar', 'baz']); //=> ['foo', 'bar']
 dropLast(2, ['foo', 'bar', 'baz']); //=> ['foo']
 dropLast(3, ['foo', 'bar', 'baz']); //=> []
 dropLast(4, ['foo', 'bar', 'baz']); //=> []
-dropLast(3, 'ramda');               //=> 'ra'
+dropLast(3, 'ramda'); //=> 'ra'
 ```
 
-思路：使用数组的slice方法截取数组的前面部分，去掉后n个元素。
+思路：使用数组的 slice 方法截取数组的前面部分，去掉后 n 个元素。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4171,13 +4177,13 @@ dropLast(3, 'ramda');               //=> 'ra'
 ```js
 const init = arr => arr.slice(0, -1);
 
-init([1, 2, 3]);  //=> [1, 2]
-init([1, 2]);     //=> [1]
-init([1]);        //=> []
-init([]);         //=> []
+init([1, 2, 3]); //=> [1, 2]
+init([1, 2]); //=> [1]
+init([1]); //=> []
+init([]); //=> []
 ```
 
-思路：使用数组的slice方法截取数组除最后一个元素外的所有元素。
+思路：使用数组的 slice 方法截取数组除最后一个元素外的所有元素。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4189,12 +4195,15 @@ init([]);         //=> []
 const pluck = (key, arr) => arr.map(obj => obj[key]);
 
 const getAges = pluck('age');
-getAges([{name: 'fred', age: 29}, {name: 'wilma', age: 27}]); //=> [29, 27]
+getAges([
+  { name: 'fred', age: 29 },
+  { name: 'wilma', age: 27 },
+]); //=> [29, 27]
 
-pluck('val', {a: {val: 3}, b: {val: 5}}); //=> {a: 3, b: 5}
+pluck('val', { a: { val: 3 }, b: { val: 5 } }); //=> {a: 3, b: 5}
 ```
 
-思路：使用map方法遍历数组，提取每个对象中的特定属性值。
+思路：使用 map 方法遍历数组，提取每个对象中的特定属性值。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4206,13 +4215,22 @@ pluck('val', {a: {val: 3}, b: {val: 5}}); //=> {a: 3, b: 5}
 const sort = (compareFn, arr) => [...arr].sort(compareFn);
 
 const sortByFirstItem = sort((a, b) => a[0] - b[0]);
-sortByFirstItem([[2, 1], [1, 2]]); //=> [[1, 2], [2, 1]]
+sortByFirstItem([
+  [2, 1],
+  [1, 2],
+]); //=> [[1, 2], [2, 1]]
 
-const sortByNameCaseInsensitive = sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
-sortByNameCaseInsensitive([{name: 'alice'}, {name: 'Bob'}, {name: 'clara'}]); //=> [{name: 'alice'}, {name: 'Bob'}, {name: 'clara'}]
+const sortByNameCaseInsensitive = sort((a, b) =>
+  a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
+);
+sortByNameCaseInsensitive([
+  { name: 'alice' },
+  { name: 'Bob' },
+  { name: 'clara' },
+]); //=> [{name: 'alice'}, {name: 'Bob'}, {name: 'clara'}]
 ```
 
-思路：使用数组的sort方法并应用比较函数进行排序，创建新数组避免修改原数组。
+思路：使用数组的 sort 方法并应用比较函数进行排序，创建新数组避免修改原数组。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4227,10 +4245,10 @@ takeLast(1, ['foo', 'bar', 'baz']); //=> ['baz']
 takeLast(2, ['foo', 'bar', 'baz']); //=> ['bar', 'baz']
 takeLast(3, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
 takeLast(4, ['foo', 'bar', 'baz']); //=> ['foo', 'bar', 'baz']
-takeLast(3, 'ramda');               //=> 'mda'
+takeLast(3, 'ramda'); //=> 'mda'
 ```
 
-思路：使用数组的slice方法截取数组的后n个元素。
+思路：使用数组的 slice 方法截取数组的后 n 个元素。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4245,8 +4263,8 @@ const update = (idx, val, arr) => {
   return result;
 };
 
-update(1, '_', ['a', 'b', 'c']);      //=> ['a', '_', 'c']
-update(-1, '_', ['a', 'b', 'c']);     //=> ['a', 'b', '_']
+update(1, '_', ['a', 'b', 'c']); //=> ['a', '_', 'c']
+update(-1, '_', ['a', 'b', 'c']); //=> ['a', 'b', '_']
 ```
 
 思路：创建数组副本并替换指定索引位置的元素。
@@ -4260,10 +4278,10 @@ update(-1, '_', ['a', 'b', 'c']);     //=> ['a', 'b', '_']
 向对象添加或更新属性
 
 ```js
-const assoc = (prop, val, obj) => ({...obj, [prop]: val});
+const assoc = (prop, val, obj) => ({ ...obj, [prop]: val });
 
-assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-assoc('c', 3, {a: 1, b: 2, c: 4}); //=> {a: 1, b: 2, c: 3}
+assoc('c', 3, { a: 1, b: 2 }); //=> {a: 1, b: 2, c: 3}
+assoc('c', 3, { a: 1, b: 2, c: 4 }); //=> {a: 1, b: 2, c: 3}
 ```
 
 思路：创建对象副本并设置指定属性值。
@@ -4276,12 +4294,12 @@ assoc('c', 3, {a: 1, b: 2, c: 4}); //=> {a: 1, b: 2, c: 3}
 
 ```js
 const dissoc = (prop, obj) => {
-  const result = {...obj};
+  const result = { ...obj };
   delete result[prop];
   return result;
 };
 
-dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
+dissoc('b', { a: 1, b: 2, c: 3 }); //=> {a: 1, c: 3}
 ```
 
 思路：创建对象副本并删除指定属性。
@@ -4295,20 +4313,20 @@ dissoc('b', {a: 1, b: 2, c: 3}); //=> {a: 1, c: 3}
 ```js
 const lens = (getter, setter) => ({
   get: getter,
-  set: setter
+  set: setter,
 });
 
 const nameLens = lens(
   obj => obj.name,
-  (val, obj) => ({...obj, name: val})
+  (val, obj) => ({ ...obj, name: val })
 );
 
-const person = {name: 'Alice', age: 30};
+const person = { name: 'Alice', age: 30 };
 nameLens.get(person); //=> 'Alice'
 nameLens.set('Bob', person); //=> {name: 'Bob', age: 30}
 ```
 
-思路：返回一个包含getter和setter函数的对象，用于聚焦特定属性。
+思路：返回一个包含 getter 和 setter 函数的对象，用于聚焦特定属性。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4326,9 +4344,9 @@ const path = (pathArr, obj) => {
   return val;
 };
 
-path(['a', 'b'], {a: {b: 2}}); //=> 2
-path(['a', 'b'], {c: {b: 2}}); //=> undefined
-path(['a', 'b', 'c'], {a: {b: {c: 3}}}); //=> 3
+path(['a', 'b'], { a: { b: 2 } }); //=> 2
+path(['a', 'b'], { c: { b: 2 } }); //=> undefined
+path(['a', 'b', 'c'], { a: { b: { c: 3 } } }); //=> 3
 ```
 
 思路：递归遍历对象的嵌套属性。
@@ -4342,7 +4360,7 @@ path(['a', 'b', 'c'], {a: {b: {c: 3}}}); //=> 3
 ```js
 const prop = (p, obj) => obj[p];
 
-prop('x', {x: 100}); //=> 100
+prop('x', { x: 100 }); //=> 100
 prop('x', {}); //=> undefined
 prop(0, [100]); //=> 100
 ```
@@ -4373,14 +4391,18 @@ t(); //=> 'Tee'
 从右到左组合函数
 
 ```js
-const compose = (...fns) => x => fns.reduceRight((acc, fn) => fn(acc), x);
+const compose =
+  (...fns) =>
+  x =>
+    fns.reduceRight((acc, fn) => fn(acc), x);
 
-const classyGreeting = name => "The name's " + name.last + ", " + name.first + " " + name.last;
+const classyGreeting = name =>
+  "The name's " + name.last + ', ' + name.first + ' ' + name.last;
 const yellGreeting = compose(s => s.toUpperCase(), classyGreeting);
-yellGreeting({first: 'James', last: 'Bond'}); //=> "THE NAME'S BOND, JAMES BOND"
+yellGreeting({ first: 'James', last: 'Bond' }); //=> "THE NAME'S BOND, JAMES BOND"
 ```
 
-思路：使用reduceRight从右到左依次应用函数。
+思路：使用 reduceRight 从右到左依次应用函数。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4389,7 +4411,10 @@ yellGreeting({first: 'James', last: 'Bond'}); //=> "THE NAME'S BOND, JAMES BOND"
 翻转函数参数
 
 ```js
-const flip = fn => (a, b, ...args) => fn(b, a, ...args);
+const flip =
+  fn =>
+  (a, b, ...args) =>
+    fn(b, a, ...args);
 
 const mergeThree = (a, b, c) => [].concat(a, b, c);
 flip(mergeThree)(1, 2, 3); //=> [2, 1, 3]
@@ -4418,13 +4443,20 @@ identity(1); //=> 1
 从左到右组合函数
 
 ```js
-const pipe = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x);
+const pipe =
+  (...fns) =>
+  x =>
+    fns.reduce((acc, fn) => fn(acc), x);
 
-const f = pipe(Math.pow, x => x + 1, x => x * 2);
+const f = pipe(
+  Math.pow,
+  x => x + 1,
+  x => x * 2
+);
 f(3, 4); // 首先计算 3^4 = 81，然后 + 1 = 82，最后 * 2 = 164
 ```
 
-思路：使用reduce从左到右依次应用函数。
+思路：使用 reduce 从左到右依次应用函数。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4459,7 +4491,7 @@ all(x => x <= 5, [1, 2, 3, 4, 5]); //=> true
 all(x => x <= 4, [1, 2, 3, 4, 5]); //=> false
 ```
 
-思路：使用数组的every方法检查所有元素是否满足条件。
+思路：使用数组的 every 方法检查所有元素是否满足条件。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4474,7 +4506,7 @@ any(x => x > 4, [1, 2, 3, 4, 5]); //=> true
 any(x => x > 5, [1, 2, 3, 4, 5]); //=> false
 ```
 
-思路：使用数组的some方法检查是否存在满足条件的元素。
+思路：使用数组的 some 方法检查是否存在满足条件的元素。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4483,7 +4515,10 @@ any(x => x > 5, [1, 2, 3, 4, 5]); //=> false
 组合两个谓词函数，返回二者的逻辑与
 
 ```js
-const both = (pred1, pred2) => (...args) => pred1(...args) && pred2(...args);
+const both =
+  (pred1, pred2) =>
+  (...args) =>
+    pred1(...args) && pred2(...args);
 
 const gt10 = x => x > 10;
 const lt20 = x => x < 20;
@@ -4501,7 +4536,10 @@ f(30); //=> false
 组合两个谓词函数，返回二者的逻辑或
 
 ```js
-const either = (pred1, pred2) => (...args) => pred1(...args) || pred2(...args);
+const either =
+  (pred1, pred2) =>
+  (...args) =>
+    pred1(...args) || pred2(...args);
 
 const gt20 = x => x > 20;
 const lt5 = x => x < 5;
@@ -4578,7 +4616,7 @@ not(0); //=> true
 not(1); //=> false
 ```
 
-思路：应用JavaScript的逻辑非操作符。
+思路：应用 JavaScript 的逻辑非操作符。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4595,7 +4633,7 @@ match(/([a-z]a)/g, 'bananas'); //=> ['ba', 'na', 'na']
 match(/a/, 'b'); //=> []
 ```
 
-思路：应用字符串的match方法，如果没有匹配则返回空数组。
+思路：应用字符串的 match 方法，如果没有匹配则返回空数组。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4604,14 +4642,15 @@ match(/a/, 'b'); //=> []
 替换字符串中的子字符串
 
 ```js
-const replace = (pattern, replacement, str) => str.replace(pattern, replacement);
+const replace = (pattern, replacement, str) =>
+  str.replace(pattern, replacement);
 
 replace('foo', 'bar', 'foo foo foo'); //=> 'bar foo foo'
 replace(/foo/, 'bar', 'foo foo foo'); //=> 'bar foo foo'
 replace(/foo/g, 'bar', 'foo foo foo'); //=> 'bar bar bar'
 ```
 
-思路：应用字符串的replace方法。
+思路：应用字符串的 replace 方法。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4625,7 +4664,7 @@ const split = (sep, str) => str.split(sep);
 split('.', 'a.b.c.xyz.d'); //=> ['a', 'b', 'c', 'xyz', 'd']
 ```
 
-思路：应用字符串的split方法。
+思路：应用字符串的 split 方法。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4640,7 +4679,7 @@ test(/^x/, 'xyz'); //=> true
 test(/^y/, 'xyz'); //=> false
 ```
 
-思路：应用正则表达式的test方法。
+思路：应用正则表达式的 test 方法。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4654,7 +4693,7 @@ const toLower = str => str.toLowerCase();
 toLower('XYZ'); //=> 'xyz'
 ```
 
-思路：应用字符串的toLowerCase方法。
+思路：应用字符串的 toLowerCase 方法。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4668,7 +4707,7 @@ const toUpper = str => str.toUpperCase();
 toUpper('abc'); //=> 'ABC'
 ```
 
-思路：应用字符串的toUpperCase方法。
+思路：应用字符串的 toUpperCase 方法。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4682,7 +4721,7 @@ const trim = str => str.trim();
 trim('   xyz  '); //=> 'xyz'
 ```
 
-思路：应用字符串的trim方法。
+思路：应用字符串的 trim 方法。
 
 **[⬆ 返回顶部](#ramda-函数列表)**
 
@@ -4758,6 +4797,7 @@ const Counter = () => {
 ```
 
 **面试要点：**
+
 - useState 返回一个数组，包含当前状态值和更新状态的函数
 - 状态更新是异步的，可能会被批处理
 - 函数式更新：`setCount(prev => prev + 1)` 确保基于最新状态更新
@@ -4788,6 +4828,7 @@ const Timer = () => {
 ```
 
 **面试要点：**
+
 - 第二个参数是依赖数组，控制 effect 的执行时机
 - 返回清理函数用于清理副作用
 - 常见用途：数据获取、订阅、手动 DOM 操作
@@ -4805,9 +4846,9 @@ const ThemeContext = createContext();
 
 const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light');
-  
+
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
@@ -4819,13 +4860,13 @@ const ThemeProvider = ({ children }) => {
 
 const ThemedButton = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  
+
   return (
-    <button 
+    <button
       onClick={toggleTheme}
-      style={{ 
+      style={{
         background: theme === 'light' ? '#fff' : '#333',
-        color: theme === 'light' ? '#333' : '#fff'
+        color: theme === 'light' ? '#333' : '#fff',
       }}
     >
       Toggle Theme ({theme})
@@ -4835,6 +4876,7 @@ const ThemedButton = () => {
 ```
 
 **面试要点：**
+
 - 避免 prop drilling 问题
 - 只有当 Provider 的 value 改变时，消费组件才会重新渲染
 - 过度使用可能导致性能问题
@@ -4859,9 +4901,10 @@ const useLocalStorage = (key, initialValue) => {
     }
   });
 
-  const setValue = (value) => {
+  const setValue = value => {
     try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
@@ -4875,11 +4918,11 @@ const useLocalStorage = (key, initialValue) => {
 // 使用示例
 const Settings = () => {
   const [name, setName] = useLocalStorage('name', '');
-  
+
   return (
     <input
       value={name}
-      onChange={(e) => setName(e.target.value)}
+      onChange={e => setName(e.target.value)}
       placeholder="Enter your name"
     />
   );
@@ -4887,6 +4930,7 @@ const Settings = () => {
 ```
 
 **面试要点：**
+
 - 封装了 localStorage 的读写逻辑
 - 处理了 JSON 序列化和错误情况
 - 支持函数式更新
@@ -4931,7 +4975,7 @@ const SearchInput = () => {
   return (
     <input
       value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
+      onChange={e => setSearchTerm(e.target.value)}
       placeholder="Search..."
     />
   );
@@ -4939,6 +4983,7 @@ const SearchInput = () => {
 ```
 
 **面试要点：**
+
 - 防抖可以减少不必要的 API 调用
 - 常用于搜索输入、窗口 resize 等场景
 - 通过 setTimeout 和 clearTimeout 实现
@@ -4951,7 +4996,7 @@ const SearchInput = () => {
 
 ```jsx
 // withLoading HOC
-const withLoading = (WrappedComponent) => {
+const withLoading = WrappedComponent => {
   return function WithLoadingComponent({ isLoading, ...props }) {
     if (isLoading) {
       return <div>Loading...</div>;
@@ -4961,10 +5006,10 @@ const withLoading = (WrappedComponent) => {
 };
 
 // withAuth HOC
-const withAuth = (WrappedComponent) => {
+const withAuth = WrappedComponent => {
   return function WithAuthComponent(props) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    
+
     useEffect(() => {
       const token = localStorage.getItem('authToken');
       setIsAuthenticated(!!token);
@@ -4990,7 +5035,8 @@ const ProtectedUserProfile = withAuth(withLoading(UserProfile));
 ```
 
 **面试要点：**
- - HOC 是复用组件逻辑的一种高级技巧
+
+- HOC 是复用组件逻辑的一种高级技巧
 - 不要在 render 方法中使用 HOC
 - 务必复制静态方法
 - Refs 不会被传递
@@ -5004,13 +5050,13 @@ const ProtectedUserProfile = withAuth(withLoading(UserProfile));
 ```jsx
 import { useRef, useEffect } from 'react';
 
-const usePrevious = (value) => {
+const usePrevious = value => {
   const ref = useRef();
-  
+
   useEffect(() => {
     ref.current = value;
   });
-  
+
   return ref.current;
 };
 
@@ -5018,10 +5064,12 @@ const usePrevious = (value) => {
 const Counter = () => {
   const [count, setCount] = useState(0);
   const prevCount = usePrevious(count);
-  
+
   return (
     <div>
-      <h1>Now: {count}, before: {prevCount}</h1>
+      <h1>
+        Now: {count}, before: {prevCount}
+      </h1>
       <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
   );
@@ -5029,6 +5077,7 @@ const Counter = () => {
 ```
 
 **面试要点：**
+
 - 使用 useRef 存储前一个值
 - useEffect 在渲染后更新 ref
 - 常用于比较前后状态变化
@@ -5044,21 +5093,19 @@ import { useState, useCallback } from 'react';
 
 const useToggle = (initialValue = false) => {
   const [value, setValue] = useState(initialValue);
-  
+
   const toggle = useCallback(() => setValue(v => !v), []);
-  
+
   return [value, toggle];
 };
 
 // 使用示例
 const ToggleComponent = () => {
   const [isVisible, toggleVisible] = useToggle(false);
-  
+
   return (
     <div>
-      <button onClick={toggleVisible}>
-        {isVisible ? 'Hide' : 'Show'}
-      </button>
+      <button onClick={toggleVisible}>{isVisible ? 'Hide' : 'Show'}</button>
       {isVisible && <p>This content is toggleable!</p>}
     </div>
   );
@@ -5066,6 +5113,7 @@ const ToggleComponent = () => {
 ```
 
 **面试要点：**
+
 - 封装了布尔值的切换逻辑
 - 使用 useCallback 优化性能
 - 简化了开关状态的管理
@@ -5079,7 +5127,7 @@ const ToggleComponent = () => {
 ```jsx
 import { useState, useEffect, useCallback } from 'react';
 
-const useInfiniteScroll = (fetchMore) => {
+const useInfiniteScroll = fetchMore => {
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
@@ -5093,7 +5141,12 @@ const useInfiniteScroll = (fetchMore) => {
   }, [isFetching]);
 
   const handleScroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isFetching) return;
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight ||
+      isFetching
+    )
+      return;
     setIsFetching(true);
   };
 
@@ -5118,7 +5171,9 @@ const InfiniteList = () => {
 
   return (
     <div>
-      {items.map(item => <div key={item.id}>{item.name}</div>)}
+      {items.map(item => (
+        <div key={item.id}>{item.name}</div>
+      ))}
       {isFetching && <p>Fetching more items...</p>}
     </div>
   );
@@ -5126,6 +5181,7 @@ const InfiniteList = () => {
 ```
 
 **面试要点：**
+
 - 监听滚动事件实现无限加载
 - 防止重复请求的状态管理
 - 性能优化：及时清理事件监听器
@@ -5156,10 +5212,10 @@ const useFormValidation = (initialState, validate) => {
     }
   }, [errors, isSubmitting]);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -5168,7 +5224,7 @@ const useFormValidation = (initialState, validate) => {
     setErrors(validationErrors);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     const validationErrors = validate(values);
     setErrors(validationErrors);
@@ -5181,13 +5237,13 @@ const useFormValidation = (initialState, validate) => {
     handleSubmit,
     values,
     errors,
-    isSubmitting
+    isSubmitting,
   };
 };
 
 // 使用示例
 const LoginForm = () => {
-  const validate = (values) => {
+  const validate = values => {
     let errors = {};
     if (!values.email) {
       errors.email = 'Email is required';
@@ -5204,7 +5260,7 @@ const LoginForm = () => {
     handleSubmit,
     values,
     errors,
-    isSubmitting
+    isSubmitting,
   } = useFormValidation({ email: '', password: '' }, validate);
 
   return (
@@ -5218,7 +5274,7 @@ const LoginForm = () => {
         placeholder="Email"
       />
       {errors.email && <p>{errors.email}</p>}
-      
+
       <input
         name="password"
         type="password"
@@ -5228,7 +5284,7 @@ const LoginForm = () => {
         placeholder="Password"
       />
       {errors.password && <p>{errors.password}</p>}
-      
+
       <button type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Submitting...' : 'Submit'}
       </button>
@@ -5238,6 +5294,7 @@ const LoginForm = () => {
 ```
 
 **面试要点：**
+
 - 封装了表单状态和验证逻辑
 - 支持实时验证和提交验证
 - 提供了完整的表单处理流程
@@ -5258,12 +5315,12 @@ const useDrag = () => {
   const elementRef = useRef(null);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = e => {
       if (!isDragging) return;
-      
+
       const newX = e.clientX - dragStart.x;
       const newY = e.clientY - dragStart.y;
-      
+
       setPosition({ x: newX, y: newY });
     };
 
@@ -5282,11 +5339,11 @@ const useDrag = () => {
     };
   }, [isDragging, dragStart]);
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = e => {
     const rect = elementRef.current.getBoundingClientRect();
     setDragStart({
       x: e.clientX - rect.left,
-      y: e.clientY - rect.top
+      y: e.clientY - rect.top,
     });
     setIsDragging(true);
   };
@@ -5295,7 +5352,7 @@ const useDrag = () => {
     elementRef,
     position,
     isDragging,
-    handleMouseDown
+    handleMouseDown,
   };
 };
 
@@ -5315,7 +5372,7 @@ const DraggableBox = () => {
         height: 100,
         backgroundColor: isDragging ? 'lightblue' : 'lightgray',
         cursor: isDragging ? 'grabbing' : 'grab',
-        userSelect: 'none'
+        userSelect: 'none',
       }}
     >
       Drag me!
@@ -5325,6 +5382,7 @@ const DraggableBox = () => {
 ```
 
 **面试要点：**
+
 - 处理鼠标事件实现拖拽功能
 - 计算相对位置避免跳跃
 - 及时清理事件监听器防止内存泄漏
@@ -5344,12 +5402,12 @@ class Mouse extends React.Component {
     this.state = { x: 0, y: 0 };
   }
 
-  handleMouseMove = (event) => {
+  handleMouseMove = event => {
     this.setState({
       x: event.clientX,
-      y: event.clientY
+      y: event.clientY,
     });
-  }
+  };
 
   render() {
     return (
@@ -5363,14 +5421,19 @@ class Mouse extends React.Component {
 // 使用示例
 const App = () => (
   <div>
-    <Mouse render={({ x, y }) => (
-      <h1>The mouse position is ({x}, {y})</h1>
-    )}/>
+    <Mouse
+      render={({ x, y }) => (
+        <h1>
+          The mouse position is ({x}, {y})
+        </h1>
+      )}
+    />
   </div>
 );
 ```
 
 **面试要点：**
+
 - 通过 prop 传递渲染逻辑
 - 比 HOC 更灵活，避免了嵌套地狱
 - 可以在运行时动态决定渲染内容
@@ -5395,7 +5458,7 @@ class ErrorBoundary extends React.Component {
   componentDidCatch(error, errorInfo) {
     this.setState({
       error: error,
-      errorInfo: errorInfo
+      errorInfo: errorInfo,
     });
   }
 
@@ -5426,11 +5489,13 @@ const App = () => (
 ```
 
 **面试要点：**
+
 - 只能捕获子组件的错误，不能捕获自身错误
 - 不能捕获事件处理器、异步代码、服务端渲染的错误
 - 只有类组件可以成为错误边界
 
-**[⬆ 返回顶部](#react-面试题列表)** 
+**[⬆ 返回顶部](#react-面试题列表)**
+
 ## Vue 面试题
 
 > Vue.js 是一套用于构建用户界面的渐进式框架
@@ -5471,7 +5536,7 @@ Vue2 使用 Object.defineProperty 实现响应式
 // 简化版 Vue2 响应式实现
 function defineReactive(obj, key, val) {
   const dep = new Dep();
-  
+
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
@@ -5487,7 +5552,7 @@ function defineReactive(obj, key, val) {
       val = newVal;
       // 派发更新
       dep.notify();
-    }
+    },
   });
 }
 
@@ -5495,13 +5560,13 @@ class Dep {
   constructor() {
     this.subs = [];
   }
-  
+
   depend() {
     if (Dep.target) {
       this.subs.push(Dep.target);
     }
   }
-  
+
   notify() {
     this.subs.forEach(watcher => watcher.update());
   }
@@ -5514,14 +5579,14 @@ class Watcher {
     this.getter = expOrFn;
     this.value = this.get();
   }
-  
+
   get() {
     Dep.target = this;
     const value = this.getter.call(this.vm);
     Dep.target = null;
     return value;
   }
-  
+
   update() {
     const newValue = this.get();
     const oldValue = this.value;
@@ -5532,6 +5597,7 @@ class Watcher {
 ```
 
 **面试要点：**
+
 - 通过 Object.defineProperty 劫持对象属性
 - 无法检测数组索引和长度的变化
 - 无法检测对象属性的添加或删除
@@ -5552,12 +5618,12 @@ function track(target, key) {
   if (!depsMap) {
     targetMap.set(target, (depsMap = new Map()));
   }
-  
+
   let dep = depsMap.get(key);
   if (!dep) {
     depsMap.set(key, (dep = new Set()));
   }
-  
+
   if (activeEffect) {
     dep.add(activeEffect);
   }
@@ -5566,7 +5632,7 @@ function track(target, key) {
 function trigger(target, key) {
   const depsMap = targetMap.get(target);
   if (!depsMap) return;
-  
+
   const dep = depsMap.get(key);
   if (dep) {
     dep.forEach(effect => effect());
@@ -5580,12 +5646,12 @@ function reactive(target) {
       track(target, key);
       return result;
     },
-    
+
     set(target, key, value, receiver) {
       const result = Reflect.set(target, key, value, receiver);
       trigger(target, key);
       return result;
-    }
+    },
   });
 }
 
@@ -5599,6 +5665,7 @@ function effect(fn) {
 ```
 
 **面试要点：**
+
 - 使用 Proxy 可以监听整个对象
 - 可以检测数组索引和长度的变化
 - 可以检测对象属性的添加或删除
@@ -5615,53 +5682,54 @@ export default {
   name: 'LifecycleDemo',
   data() {
     return {
-      message: 'Hello Vue2'
+      message: 'Hello Vue2',
     };
   },
-  
+
   // 创建阶段
   beforeCreate() {
     console.log('beforeCreate: 实例初始化之后，数据观测和事件配置之前');
   },
-  
+
   created() {
     console.log('created: 实例创建完成，可以访问data、computed、methods等');
     // 适合进行数据初始化、API调用
   },
-  
+
   // 挂载阶段
   beforeMount() {
     console.log('beforeMount: 挂载开始之前，render函数首次被调用');
   },
-  
+
   mounted() {
     console.log('mounted: 实例挂载完成，可以访问DOM');
     // 适合进行DOM操作、启动定时器等
   },
-  
+
   // 更新阶段
   beforeUpdate() {
     console.log('beforeUpdate: 数据更新时调用，发生在虚拟DOM重新渲染之前');
   },
-  
+
   updated() {
     console.log('updated: 数据更新导致的虚拟DOM重新渲染完成');
     // 注意避免在此更新数据，可能导致无限循环
   },
-  
+
   // 销毁阶段
   beforeDestroy() {
     console.log('beforeDestroy: 实例销毁之前调用');
     // 适合清理定时器、取消订阅等
   },
-  
+
   destroyed() {
     console.log('destroyed: 实例销毁后调用');
-  }
+  },
 };
 ```
 
 **面试要点：**
+
 - created 中可以访问数据，但无法访问 DOM
 - mounted 中可以访问 DOM，适合进行 DOM 操作
 - beforeDestroy 中进行清理工作
@@ -5676,10 +5744,7 @@ export default {
 <!-- 父组件 -->
 <template>
   <div>
-    <child-component 
-      :message="parentMessage"
-      @child-event="handleChildEvent"
-    />
+    <child-component :message="parentMessage" @child-event="handleChildEvent" />
   </div>
 </template>
 
@@ -5688,18 +5753,18 @@ import ChildComponent from './ChildComponent.vue';
 
 export default {
   components: {
-    ChildComponent
+    ChildComponent,
   },
   data() {
     return {
-      parentMessage: 'Hello from parent'
+      parentMessage: 'Hello from parent',
     };
   },
   methods: {
     handleChildEvent(data) {
       console.log('Received from child:', data);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -5716,19 +5781,20 @@ export default {
   props: {
     message: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     sendToParent() {
       this.$emit('child-event', 'Hello from child');
-    }
-  }
+    },
+  },
 };
 </script>
 ```
 
 **面试要点：**
+
 - Props 向下传递数据
 - Events 向上传递数据
 - Props 是只读的，不应该直接修改
@@ -5743,44 +5809,45 @@ export default {
     return {
       firstName: 'John',
       lastName: 'Doe',
-      fullName: 'John Doe'
+      fullName: 'John Doe',
     };
   },
-  
+
   computed: {
     // 计算属性：基于依赖缓存，只有依赖发生改变才会重新计算
     computedFullName() {
       console.log('computed executed');
       return this.firstName + ' ' + this.lastName;
-    }
+    },
   },
-  
+
   watch: {
     // 侦听器：观察和响应数据的变化
     firstName(newVal, oldVal) {
       console.log(`firstName changed from ${oldVal} to ${newVal}`);
       this.fullName = newVal + ' ' + this.lastName;
     },
-    
+
     lastName: {
       handler(newVal, oldVal) {
         this.fullName = this.firstName + ' ' + newVal;
       },
-      immediate: true // 立即执行
+      immediate: true, // 立即执行
     },
-    
+
     // 深度侦听
     user: {
       handler(newVal, oldVal) {
         console.log('User object changed');
       },
-      deep: true
-    }
-  }
+      deep: true,
+    },
+  },
 };
 ```
 
 **面试要点：**
+
 - computed 有缓存，依赖不变时不会重新计算
 - watch 适合执行异步操作或开销较大的操作
 - computed 适合计算衍生数据
@@ -5854,6 +5921,7 @@ let bigInt = 123456789012345678901234567890n;
 ```
 
 **面试要点：**
+
 - 基本类型存储在栈内存中
 - Symbol 每次创建都是唯一的
 - BigInt 可以表示任意精度的整数
@@ -5864,18 +5932,18 @@ let bigInt = 123456789012345678901234567890n;
 
 ```js
 // typeof 操作符
-console.log(typeof 42);          // "number"
-console.log(typeof 'hello');     // "string"
-console.log(typeof true);        // "boolean"
-console.log(typeof undefined);   // "undefined"
-console.log(typeof null);        // "object" (这是一个历史遗留bug)
-console.log(typeof {});          // "object"
-console.log(typeof []);          // "object"
-console.log(typeof function(){}); // "function"
+console.log(typeof 42); // "number"
+console.log(typeof 'hello'); // "string"
+console.log(typeof true); // "boolean"
+console.log(typeof undefined); // "undefined"
+console.log(typeof null); // "object" (这是一个历史遗留bug)
+console.log(typeof {}); // "object"
+console.log(typeof []); // "object"
+console.log(typeof function () {}); // "function"
 
 // instanceof 操作符
-console.log([] instanceof Array);        // true
-console.log({} instanceof Object);       // true
+console.log([] instanceof Array); // true
+console.log({} instanceof Object); // true
 console.log(new Date() instanceof Date); // true
 
 // Object.prototype.toString.call()
@@ -5883,9 +5951,9 @@ function getType(value) {
   return Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
 }
 
-console.log(getType([]));        // "array"
-console.log(getType({}));        // "object"
-console.log(getType(null));      // "null"
+console.log(getType([])); // "array"
+console.log(getType({})); // "object"
+console.log(getType(null)); // "null"
 console.log(getType(new Date())); // "date"
 
 // 自定义类型检测函数
@@ -5903,6 +5971,7 @@ function isFunction(value) {
 ```
 
 **面试要点：**
+
 - typeof null 返回 "object" 是历史遗留问题
 - instanceof 检测原型链
 - Object.prototype.toString.call() 是最准确的类型检测方法
@@ -5918,13 +5987,13 @@ function isFunction(value) {
 function outerFunction(x) {
   // 外部函数的变量
   let outerVariable = x;
-  
+
   // 内部函数
   function innerFunction(y) {
     // 访问外部函数的变量
     console.log(outerVariable + y);
   }
-  
+
   return innerFunction;
 }
 
@@ -5933,15 +6002,15 @@ closure(5); // 输出: 15
 
 // 闭包的经典问题
 for (var i = 0; i < 3; i++) {
-  setTimeout(function() {
+  setTimeout(function () {
     console.log(i); // 输出: 3, 3, 3
   }, 100);
 }
 
 // 解决方案1: 使用立即执行函数
 for (var i = 0; i < 3; i++) {
-  (function(j) {
-    setTimeout(function() {
+  (function (j) {
+    setTimeout(function () {
       console.log(j); // 输出: 0, 1, 2
     }, 100);
   })(i);
@@ -5949,29 +6018,29 @@ for (var i = 0; i < 3; i++) {
 
 // 解决方案2: 使用 let
 for (let i = 0; i < 3; i++) {
-  setTimeout(function() {
+  setTimeout(function () {
     console.log(i); // 输出: 0, 1, 2
   }, 100);
 }
 
 // 模块模式
-const module = (function() {
+const module = (function () {
   let privateVariable = 0;
-  
+
   function privateFunction() {
     console.log('This is private');
   }
-  
+
   return {
-    publicMethod: function() {
+    publicMethod: function () {
       privateVariable++;
       privateFunction();
       return privateVariable;
     },
-    
-    getPrivateVariable: function() {
+
+    getPrivateVariable: function () {
       return privateVariable;
-    }
+    },
   };
 })();
 
@@ -5980,6 +6049,7 @@ console.log(module.getPrivateVariable()); // 1
 ```
 
 **面试要点：**
+
 - 闭包可以访问外部函数的变量
 - 闭包会保持对外部变量的引用
 - 常用于模块模式、回调函数等场景
@@ -5998,11 +6068,11 @@ function Person(name, age) {
 }
 
 // 在原型上添加方法
-Person.prototype.sayHello = function() {
+Person.prototype.sayHello = function () {
   console.log(`Hello, I'm ${this.name}`);
 };
 
-Person.prototype.getAge = function() {
+Person.prototype.getAge = function () {
   return this.age;
 };
 
@@ -6034,7 +6104,7 @@ Student.prototype = Object.create(Person.prototype);
 Student.prototype.constructor = Student;
 
 // 添加子类方法
-Student.prototype.study = function() {
+Student.prototype.study = function () {
   console.log(`${this.name} is studying`);
 };
 
@@ -6044,7 +6114,8 @@ student.study(); // "Charlie is studying"
 ```
 
 **面试要点：**
-- 每个对象都有 __proto__ 属性指向其原型
+
+- 每个对象都有 **proto** 属性指向其原型
 - 构造函数的 prototype 属性是实例的原型
 - 原型链是 JavaScript 实现继承的机制
 
@@ -6058,7 +6129,7 @@ Promise 是异步编程的一种解决方案
 // 基本 Promise 用法
 const promise = new Promise((resolve, reject) => {
   const success = Math.random() > 0.5;
-  
+
   setTimeout(() => {
     if (success) {
       resolve('操作成功');
@@ -6088,19 +6159,21 @@ const promise1 = Promise.resolve(1);
 const promise2 = Promise.resolve(2);
 const promise3 = Promise.resolve(3);
 
-Promise.all([promise1, promise2, promise3])
-  .then(values => {
-    console.log(values); // [1, 2, 3]
-  });
+Promise.all([promise1, promise2, promise3]).then(values => {
+  console.log(values); // [1, 2, 3]
+});
 
 // Promise.race - 竞速
-const fastPromise = new Promise(resolve => setTimeout(() => resolve('fast'), 100));
-const slowPromise = new Promise(resolve => setTimeout(() => resolve('slow'), 200));
+const fastPromise = new Promise(resolve =>
+  setTimeout(() => resolve('fast'), 100)
+);
+const slowPromise = new Promise(resolve =>
+  setTimeout(() => resolve('slow'), 200)
+);
 
-Promise.race([fastPromise, slowPromise])
-  .then(value => {
-    console.log(value); // 'fast'
-  });
+Promise.race([fastPromise, slowPromise]).then(value => {
+  console.log(value); // 'fast'
+});
 
 // 手动实现简单的 Promise
 class MyPromise {
@@ -6111,7 +6184,7 @@ class MyPromise {
     this.onFulfilledCallbacks = [];
     this.onRejectedCallbacks = [];
 
-    const resolve = (value) => {
+    const resolve = value => {
       if (this.state === 'pending') {
         this.state = 'fulfilled';
         this.value = value;
@@ -6119,7 +6192,7 @@ class MyPromise {
       }
     };
 
-    const reject = (reason) => {
+    const reject = reason => {
       if (this.state === 'pending') {
         this.state = 'rejected';
         this.reason = reason;
@@ -6159,7 +6232,7 @@ class MyPromise {
             reject(error);
           }
         });
-        
+
         this.onRejectedCallbacks.push(() => {
           try {
             const result = onRejected(this.reason);
@@ -6175,6 +6248,7 @@ class MyPromise {
 ```
 
 **面试要点：**
+
 - Promise 有三种状态：pending、fulfilled、rejected
 - Promise 状态一旦改变就不能再变
 - then 方法返回新的 Promise，支持链式调用
@@ -6222,7 +6296,7 @@ TypeScript 支持与 JavaScript 几乎相同的数据类型
 // 基本类型
 let isDone: boolean = false;
 let decimal: number = 6;
-let color: string = "blue";
+let color: string = 'blue';
 
 // 数组
 let list1: number[] = [1, 2, 3];
@@ -6230,21 +6304,25 @@ let list2: Array<number> = [1, 2, 3];
 
 // 元组 Tuple
 let x: [string, number];
-x = ["hello", 10]; // OK
+x = ['hello', 10]; // OK
 // x = [10, "hello"]; // Error
 
 // 枚举
-enum Color {Red, Green, Blue}
+enum Color {
+  Red,
+  Green,
+  Blue,
+}
 let c: Color = Color.Green;
 
 // Any - 任意类型
 let notSure: any = 4;
-notSure = "maybe a string instead";
+notSure = 'maybe a string instead';
 notSure = false;
 
 // Void - 空值
 function warnUser(): void {
-    console.log("This is my warning message");
+  console.log('This is my warning message');
 }
 
 // Null 和 Undefined
@@ -6253,7 +6331,7 @@ let n: null = null;
 
 // Never - 永不存在的值的类型
 function error(message: string): never {
-    throw new Error(message);
+  throw new Error(message);
 }
 
 // Object
@@ -6264,6 +6342,7 @@ create(null); // OK
 ```
 
 **面试要点：**
+
 - TypeScript 是 JavaScript 的超集
 - 提供静态类型检查
 - 编译时进行类型检查
@@ -6291,8 +6370,8 @@ interface SquareConfig {
   width?: number;
 }
 
-function createSquare(config: SquareConfig): {color: string; area: number} {
-  let newSquare = {color: "white", area: 100};
+function createSquare(config: SquareConfig): { color: string; area: number } {
+  let newSquare = { color: 'white', area: 100 };
   if (config.color) {
     newSquare.color = config.color;
   }
@@ -6317,10 +6396,10 @@ interface SearchFunc {
 }
 
 let mySearch: SearchFunc;
-mySearch = function(source: string, subString: string) {
+mySearch = function (source: string, subString: string) {
   let result = source.search(subString);
   return result > -1;
-}
+};
 
 // 可索引的类型
 interface StringArray {
@@ -6328,7 +6407,7 @@ interface StringArray {
 }
 
 let myArray: StringArray;
-myArray = ["Bob", "Fred"];
+myArray = ['Bob', 'Fred'];
 
 // 类类型接口
 interface ClockInterface {
@@ -6341,11 +6420,12 @@ class Clock implements ClockInterface {
   setTime(d: Date) {
     this.currentTime = d;
   }
-  constructor(h: number, m: number) { }
+  constructor(h: number, m: number) {}
 }
 ```
 
 **面试要点：**
+
 - 接口定义对象的结构
 - 支持可选属性、只读属性
 - 可以描述函数类型、数组类型等
@@ -6362,8 +6442,8 @@ function identity<T>(arg: T): T {
   return arg;
 }
 
-let output1 = identity<string>("myString");
-let output2 = identity("myString"); // 类型推论
+let output1 = identity<string>('myString');
+let output2 = identity('myString'); // 类型推论
 
 // 泛型数组
 function loggingIdentity<T>(arg: T[]): T[] {
@@ -6390,7 +6470,9 @@ class GenericNumber<T> {
 
 let myGenericNumber = new GenericNumber<number>();
 myGenericNumber.zeroValue = 0;
-myGenericNumber.add = function(x, y) { return x + y; };
+myGenericNumber.add = function (x, y) {
+  return x + y;
+};
 
 // 泛型约束
 interface Lengthwise {
@@ -6403,7 +6485,7 @@ function loggingIdentity2<T extends Lengthwise>(arg: T): T {
 }
 
 // loggingIdentity2(3); // Error
-loggingIdentity2({length: 10, value: 3}); // OK
+loggingIdentity2({ length: 10, value: 3 }); // OK
 
 // 在泛型约束中使用类型参数
 function getProperty<T, K extends keyof T>(obj: T, key: K) {
@@ -6411,11 +6493,12 @@ function getProperty<T, K extends keyof T>(obj: T, key: K) {
 }
 
 let x = { a: 1, b: 2, c: 3, d: 4 };
-getProperty(x, "a"); // OK
+getProperty(x, 'a'); // OK
 // getProperty(x, "m"); // Error
 ```
 
 **面试要点：**
+
 - 泛型提供了类型安全的同时保持了灵活性
 - 可以对泛型进行约束
 - 支持多个泛型参数
@@ -6443,7 +6526,7 @@ interface Props {
   b?: string;
 }
 
-const obj: Required<Props> = { a: 5, b: "hello" };
+const obj: Required<Props> = { a: 5, b: 'hello' };
 
 // Readonly<T> - 将T中的所有属性设为只读
 interface Todo2 {
@@ -6451,7 +6534,7 @@ interface Todo2 {
 }
 
 const todo: Readonly<Todo2> = {
-  title: "Delete inactive users",
+  title: 'Delete inactive users',
 };
 
 // todo.title = "Hello"; // Error
@@ -6463,35 +6546,35 @@ interface Todo3 {
   completed: boolean;
 }
 
-type TodoPreview = Pick<Todo3, "title" | "completed">;
+type TodoPreview = Pick<Todo3, 'title' | 'completed'>;
 
 const todo2: TodoPreview = {
-  title: "Clean up desktop",
+  title: 'Clean up desktop',
   completed: false,
 };
 
 // Omit<T, K> - 从T中排除一组属性K
-type TodoInfo = Omit<Todo3, "completed">;
+type TodoInfo = Omit<Todo3, 'completed'>;
 
 const todoInfo: TodoInfo = {
-  title: "Pick up kids",
-  description: "Kindergarten closes at 5pm",
+  title: 'Pick up kids',
+  description: 'Kindergarten closes at 5pm',
 };
 
 // Record<K, T> - 构造一个类型，其属性名的类型为K，属性值的类型为T
-type Page = "home" | "about" | "contact";
+type Page = 'home' | 'about' | 'contact';
 
 const nav: Record<Page, string> = {
-  home: "/",
-  about: "/about",
-  contact: "/contact",
+  home: '/',
+  about: '/about',
+  contact: '/contact',
 };
 
 // Exclude<T, U> - 从T中排除可以赋值给U的类型
-type T0 = Exclude<"a" | "b" | "c", "a">; // "b" | "c"
+type T0 = Exclude<'a' | 'b' | 'c', 'a'>; // "b" | "c"
 
 // Extract<T, U> - 从T中提取可以赋值给U的类型
-type T1 = Extract<"a" | "b" | "c", "a" | "f">; // "a"
+type T1 = Extract<'a' | 'b' | 'c', 'a' | 'f'>; // "a"
 
 // NonNullable<T> - 从T中排除null和undefined
 type T2 = NonNullable<string | number | undefined>; // string | number
@@ -6502,39 +6585,1082 @@ type T3 = ReturnType<typeof f1>; // { a: number; b: string }
 ```
 
 **面试要点：**
+
 - 工具类型提供了类型转换的便利
 - 常用于处理已有类型的变形
 - 提高了代码的复用性和类型安全性
 
-**[⬆ 返回顶部](#typescript-面试题列表)** 
- ---
+**[⬆ 返回顶部](#typescript-面试题列表)**
+
+## CSS 面试题
+
+> CSS 是前端开发的基础，掌握 CSS 对于前端工程师至关重要
+
+### CSS 面试题列表
+
+**[布局](#布局)**
+
+1. [Flexbox 布局](#flexbox-布局)
+1. [Grid 布局](#grid-布局)
+1. [定位布局](#定位布局)
+
+**[选择器](#选择器)**
+
+1. [选择器优先级](#选择器优先级)
+1. [伪类和伪元素](#伪类和伪元素)
+
+**[盒模型](#盒模型)**
+
+1. [标准盒模型](#标准盒模型)
+1. [BFC](#bfc)
+
+### 布局
+
+### Flexbox 布局
+
+Flexbox 是一种一维布局方法，用于在容器中排列项目
+
+```css
+/* Flex 容器属性 */
+.flex-container {
+  display: flex;
+  flex-direction: row; /* 主轴方向 */
+  flex-wrap: nowrap; /* 换行 */
+  justify-content: flex-start; /* 主轴对齐 */
+  align-items: stretch; /* 交叉轴对齐 */
+  gap: 10px; /* 间距 */
+}
+
+/* Flex 项目属性 */
+.flex-item {
+  flex-grow: 0; /* 放大比例 */
+  flex-shrink: 1; /* 缩小比例 */
+  flex-basis: auto; /* 基础大小 */
+  flex: 0 1 auto; /* 简写 */
+  align-self: auto; /* 单独对齐 */
+  order: 0; /* 排序 */
+}
+```
+
+**面试要点：**
+
+- 主轴和交叉轴的概念
+- justify-content 控制主轴对齐，align-items 控制交叉轴对齐
+- flex-grow、flex-shrink、flex-basis 的作用
+- flex: 1 表示 flex: 1 1 0%
+
+**[⬆ 返回顶部](#css-面试题列表)**
+
+### 选择器优先级
+
+CSS 选择器优先级决定了样式的应用顺序
+
+```css
+/* 优先级计算规则 */
+/* 内联样式: 1000 */
+/* ID选择器: 100 */
+/* 类选择器、属性选择器、伪类: 10 */
+/* 元素选择器、伪元素: 1 */
+
+/* 示例 */
+#header .nav li a:hover {
+  /* 100 + 10 + 1 + 1 + 10 = 122 */
+}
+.nav ul li a {
+  /* 10 + 1 + 1 + 1 = 13 */
+}
+ul li a {
+  /* 1 + 1 + 1 = 3 */
+}
+
+/* !important 最高优先级 */
+.text {
+  color: red !important;
+}
+```
+
+**面试要点：**
+
+- 优先级计算：内联样式 > ID > 类/属性/伪类 > 元素/伪元素
+- !important 具有最高优先级
+- 相同优先级时，后定义的样式覆盖先定义的
+- 继承的样式优先级最低
+
+**[⬆ 返回顶部](#css-面试题列表)**
+
+### BFC
+
+块级格式化上下文（Block Formatting Context）是页面中的一块渲染区域
+
+```css
+/* 创建 BFC 的方法 */
+.bfc {
+  overflow: hidden; /* overflow 不为 visible */
+  float: left; /* float 不为 none */
+  position: absolute; /* position 为 absolute 或 fixed */
+  display: inline-block; /* display 为特定值 */
+}
+```
+
+**面试要点：**
+
+- BFC 是一个独立的渲染区域，内外元素不会相互影响
+- 创建 BFC：overflow 非 visible、float 非 none、position 为 absolute/fixed、display 为 inline-block 等
+- 应用：清除浮动、防止 margin 重叠、实现自适应布局
+- BFC 内的浮动元素会参与高度计算
+
+**[⬆ 返回顶部](#css-面试题列表)**
+
+## 浏览器原理
+
+> 了解浏览器工作原理有助于编写高性能的前端代码
+
+### 浏览器原理面试题列表
+
+**[渲染机制](#渲染机制)**
+
+1. [浏览器渲染流程](#浏览器渲染流程)
+1. [重排和重绘](#重排和重绘)
+
+**[JavaScript 引擎](#javascript-引擎)**
+
+1. [V8 引擎](#v8-引擎)
+1. [事件循环](#事件循环)
+
+**[缓存机制](#缓存机制)**
+
+1. [HTTP 缓存](#http-缓存-1)
+1. [浏览器缓存](#浏览器缓存)
+
+### 渲染机制
+
+### 浏览器渲染流程
+
+浏览器将 HTML、CSS、JavaScript 转换为用户可见页面的过程
+
+```javascript
+// 浏览器渲染流程
+const renderingProcess = {
+  // 1. 解析 HTML，构建 DOM 树
+  parseHTML: '解析 HTML 标记，构建 DOM 树',
+
+  // 2. 解析 CSS，构建 CSSOM 树
+  parseCSS: '解析 CSS 样式，构建 CSSOM 树',
+
+  // 3. 合并 DOM 和 CSSOM，构建渲染树
+  buildRenderTree: '合并 DOM 和 CSSOM，构建渲染树',
+
+  // 4. 布局（Layout/Reflow）
+  layout: '计算每个节点的几何信息',
+
+  // 5. 绘制（Paint）
+  paint: '将渲染树转换为屏幕上的像素',
+
+  // 6. 合成（Composite）
+  composite: '将各个图层合成最终图像',
+};
+```
+
+**面试要点：**
+
+- 渲染流程：解析 HTML → 解析 CSS → 构建渲染树 → 布局 → 绘制 → 合成
+- DOM 和 CSSOM 可以并行构建
+- JavaScript 会阻塞 DOM 解析
+- CSS 会阻塞渲染
+
+**[⬆ 返回顶部](#浏览器原理面试题列表)**
+
+### 事件循环
+
+JavaScript 的事件循环机制决定了代码的执行顺序
+
+```javascript
+// 事件循环示例
+console.log('1'); // 同步代码
+
+setTimeout(() => {
+  console.log('2'); // 宏任务
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('3'); // 微任务
+});
+
+console.log('4'); // 同步代码
+
+// 输出顺序：1, 4, 3, 2
+// 解释：
+// 1. 同步代码先执行：1, 4
+// 2. 微任务优先于宏任务：3
+// 3. 最后执行宏任务：2
+```
+
+**面试要点：**
+
+- 事件循环：调用栈 → 微任务队列 → 宏任务队列
+- 微任务优先级高于宏任务
+- 每次宏任务执行完后，会清空所有微任务
+- 微任务：Promise.then、queueMicrotask
+- 宏任务：setTimeout、setInterval、I/O
+
+**[⬆ 返回顶部](#浏览器原理面试题列表)**
+
+## 性能优化
+
+> 性能优化是前端开发的重要技能，直接影响用户体验
+
+### 性能优化面试题列表
+
+**[加载性能](#加载性能)**
+
+1. [资源优化](#资源优化)
+1. [懒加载](#懒加载)
+1. [预加载](#预加载)
+
+**[运行时性能](#运行时性能)**
+
+1. [DOM 操作优化](#dom-操作优化)
+1. [内存管理](#内存管理-1)
+
+**[监控分析](#监控分析)**
+
+1. [性能指标](#性能指标)
+1. [监控工具](#监控工具)
+
+### 加载性能
+
+### 资源优化
+
+通过优化资源来提升页面加载速度
+
+```javascript
+// 图片懒加载实现
+const imageObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src;
+      img.classList.remove('lazy');
+      imageObserver.unobserve(img);
+    }
+  });
+});
+
+document.querySelectorAll('img[data-src]').forEach(img => {
+  imageObserver.observe(img);
+});
+
+// 代码分割
+const loadModule = async () => {
+  const module = await import('./heavy-module.js');
+  return module.default;
+};
+
+// 预加载关键资源
+const preloadResource = (href, as) => {
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.href = href;
+  link.as = as;
+  document.head.appendChild(link);
+};
+```
+
+**面试要点：**
+
+- 图片优化：选择合适格式、响应式图片、懒加载
+- CSS 优化：关键 CSS 内联、异步加载、压缩合并
+- JavaScript 优化：代码分割、Tree Shaking、压缩混淆
+- 字体优化：预加载、font-display、子集化
+
+**[⬆ 返回顶部](#性能优化面试题列表)**
+
+### DOM 操作优化
+
+优化 DOM 操作可以显著提升页面性能
+
+```javascript
+// 批量 DOM 操作
+const batchDOMOperations = () => {
+  const list = document.getElementById('list');
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < 1000; i++) {
+    const item = document.createElement('li');
+    item.textContent = `Item ${i}`;
+    fragment.appendChild(item);
+  }
+
+  list.appendChild(fragment); // 只触发一次重排
+};
+
+// 事件委托
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('button')) {
+    handleClick(e);
+  }
+});
+
+// 防抖
+const debounce = (func, delay) => {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+};
+
+// 节流
+const throttle = (func, delay) => {
+  let lastCall = 0;
+  return function (...args) {
+    const now = Date.now();
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      func.apply(this, args);
+    }
+  };
+};
+```
+
+**面试要点：**
+
+- 批量 DOM 操作：使用 DocumentFragment 减少重排
+- 虚拟滚动：只渲染可见区域的元素
+- 事件委托：减少事件监听器数量
+- 防抖节流：控制事件触发频率
+- 减少重排重绘：批量样式修改、使用 transform
+
+**[⬆ 返回顶部](#性能优化面试题列表)**
+
+## 网络协议
+
+> 网络协议是前端开发中必须掌握的基础知识
+
+### 网络协议面试题列表
+
+**[HTTP 协议](#http-协议)**
+
+1. [HTTP 状态码详解](#http-状态码详解)
+2. [HTTP 请求方法](#http-请求方法)
+3. [HTTP 缓存机制](#http-缓存机制)
+4. [HTTPS 工作原理](#https-工作原理)
+
+**[TCP/IP 协议](#tcpip-协议)**
+
+1. [TCP 三次握手](#tcp-三次握手)
+2. [TCP 四次挥手](#tcp-四次挥手)
+3. [TCP 与 UDP 区别](#tcp-与-udp-区别)
+
+**[跨域问题](#跨域问题)**
+
+1. [同源策略](#同源策略)
+2. [CORS 跨域资源共享](#cors-跨域资源共享)
+3. [JSONP 跨域](#jsonp-跨域)
+
+### HTTP 协议
+
+### HTTP 状态码详解
+
+HTTP 状态码表示服务器对请求的处理结果
+
+```javascript
+// 常见状态码处理
+const handleHttpStatus = response => {
+  switch (Math.floor(response.status / 100)) {
+    case 2: // 2xx 成功
+      console.log('请求成功');
+      return response.json();
+    case 3: // 3xx 重定向
+      console.log('重定向');
+      break;
+    case 4: // 4xx 客户端错误
+      console.log('客户端错误');
+      throw new Error(`客户端错误: ${response.status}`);
+    case 5: // 5xx 服务器错误
+      console.log('服务器错误');
+      throw new Error(`服务器错误: ${response.status}`);
+  }
+};
+
+// 状态码分类
+const statusCodes = {
+  success: {
+    200: 'OK - 请求成功',
+    201: 'Created - 资源创建成功',
+    204: 'No Content - 请求成功但无返回内容',
+  },
+  redirect: {
+    301: 'Moved Permanently - 永久重定向',
+    302: 'Found - 临时重定向',
+    304: 'Not Modified - 资源未修改，使用缓存',
+  },
+  clientError: {
+    400: 'Bad Request - 请求语法错误',
+    401: 'Unauthorized - 未授权',
+    403: 'Forbidden - 服务器拒绝请求',
+    404: 'Not Found - 资源不存在',
+  },
+  serverError: {
+    500: 'Internal Server Error - 服务器内部错误',
+    502: 'Bad Gateway - 网关错误',
+    503: 'Service Unavailable - 服务不可用',
+  },
+};
+```
+
+**面试要点：**
+
+- 2xx：成功状态码，200 OK、201 Created、204 No Content
+- 3xx：重定向状态码，301 永久重定向、302 临时重定向、304 缓存
+- 4xx：客户端错误，400 请求错误、401 未授权、403 禁止、404 未找到
+- 5xx：服务器错误，500 内部错误、502 网关错误、503 服务不可用
+
+**[⬆ 返回顶部](#网络协议面试题列表)**
 
 ## 总结
 
-本项目提供了完整的前端面试题库，包括：
+### CORS 跨域资源共享
 
-### 工具库实现
-- **Lodash**: 80+ 个常用方法的完整实现
-- **Ramda**: 50+ 个函数式编程方法的实现
+CORS 是解决跨域问题的标准方案
 
-### 前端框架面试题
-- **React**: Hooks、组件模式、性能优化等核心概念
-- **Vue**: 响应式原理、生命周期、组件通信等重点内容
+```javascript
+// CORS 配置示例
+const corsConfig = {
+  // 简单请求
+  simple: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': 'true',
+  },
 
-### 基础技术面试题
-- **JavaScript**: 数据类型、闭包、原型链、异步编程等基础知识
-- **TypeScript**: 类型系统、泛型、工具类型等进阶内容
+  // 预检请求
+  preflight: {
+    'Access-Control-Allow-Origin': 'https://example.com',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Max-Age': '86400',
+  },
+};
 
-### 特色功能
-- 📚 **完整的代码示例**: 每个知识点都有详细的代码实现
-- 🎯 **面试要点总结**: 突出重点，便于快速复习
-- 🔗 **便捷的导航**: 支持快速跳转和返回顶部
-- ✅ **单元测试**: 提供完整的测试用例
+// 前端 CORS 请求
+async function corsRequest() {
+  const response = await fetch('https://api.example.com/data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer token',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ data: 'test' }),
+  });
 
-### 使用建议
-1. **系统学习**: 按照目录顺序逐一学习各个知识点
-2. **重点突破**: 针对薄弱环节进行专项练习
-3. **实践验证**: 运行测试用例验证理解程度
-4. **面试准备**: 重点关注"面试要点"部分
+  return response.json();
+}
+```
 
-希望这个项目能够帮助你在前端面试中取得好成绩！🚀 
+**面试要点：**
+
+- 简单请求：GET/POST/HEAD，特定 Content-Type，无自定义头
+- 复杂请求：其他方法、自定义头、特殊 Content-Type
+- 预检请求：OPTIONS 方法，检查是否允许实际请求
+- 关键头：Access-Control-Allow-Origin、Methods、Headers
+
+**[⬆ 返回顶部](#网络协议面试题列表)**
+
+### TCP 三次握手
+
+TCP 连接建立需要三次握手
+
+```javascript
+// TCP 三次握手模拟
+const tcpHandshake = {
+  step1: {
+    from: 'Client',
+    to: 'Server',
+    flags: { SYN: 1 },
+    message: '客户端请求建立连接',
+  },
+  step2: {
+    from: 'Server',
+    to: 'Client',
+    flags: { SYN: 1, ACK: 1 },
+    message: '服务器确认连接并请求建立连接',
+  },
+  step3: {
+    from: 'Client',
+    to: 'Server',
+    flags: { ACK: 1 },
+    message: '客户端确认连接建立',
+  },
+};
+
+// 为什么需要三次握手
+const whyThreeWay = {
+  purpose: '确保双方都有发送和接收能力',
+  step1: '客户端有发送能力',
+  step2: '服务器有发送和接收能力',
+  step3: '客户端有接收能力',
+};
+```
+
+**面试要点：**
+
+- 三次握手目的：确保双方都有发送和接收能力
+- SYN：同步序列号，用于建立连接
+- ACK：确认号，确认收到对方数据
+- 为什么不是两次：无法确认客户端接收能力
+
+**[⬆ 返回顶部](#网络协议面试题列表)**
+
+---
+
+## 算法与数据结构
+
+> 算法与数据结构是编程的基础，也是面试的重点
+
+### 算法与数据结构面试题列表
+
+**[数据结构](#数据结构)**
+
+1. [数组与链表](#数组与链表)
+2. [栈与队列](#栈与队列)
+
+**[排序算法](#排序算法)**
+
+1. [快速排序](#快速排序)
+2. [归并排序](#归并排序)
+
+**[搜索算法](#搜索算法)**
+
+1. [二分查找](#二分查找)
+2. [深度优先搜索](#深度优先搜索)
+
+### 数据结构
+
+### 数组与链表
+
+数组和链表是最基础的数据结构
+
+```javascript
+// 链表实现
+class ListNode {
+  constructor(val, next = null) {
+    this.val = val;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  // 反转链表
+  reverse() {
+    let prev = null;
+    let current = this.head;
+
+    while (current) {
+      const next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+
+    this.head = prev;
+  }
+}
+
+// 数组操作
+const arrayOps = {
+  unique: arr => [...new Set(arr)],
+  flatten: arr => arr.flat(Infinity),
+  groupBy: (arr, key) =>
+    arr.reduce((groups, item) => {
+      const group = item[key];
+      groups[group] = groups[group] || [];
+      groups[group].push(item);
+      return groups;
+    }, {}),
+};
+```
+
+**面试要点：**
+
+- 数组：随机访问 O(1)，插入删除 O(n)
+- 链表：顺序访问 O(n)，插入删除 O(1)
+- 应用：数组适合查找，链表适合频繁插入删除
+
+**[⬆ 返回顶部](#算法与数据结构面试题列表)**
+
+### 排序算法
+
+### 快速排序
+
+快速排序是最常用的排序算法
+
+```javascript
+// 快速排序
+function quickSort(arr, left = 0, right = arr.length - 1) {
+  if (left < right) {
+    const pivotIndex = partition(arr, left, right);
+    quickSort(arr, left, pivotIndex - 1);
+    quickSort(arr, pivotIndex + 1, right);
+  }
+  return arr;
+}
+
+function partition(arr, left, right) {
+  const pivot = arr[right];
+  let i = left - 1;
+
+  for (let j = left; j < right; j++) {
+    if (arr[j] <= pivot) {
+      i++;
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+
+  [arr[i + 1], arr[right]] = [arr[right], arr[i + 1]];
+  return i + 1;
+}
+
+// 归并排序
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
+}
+
+function merge(left, right) {
+  const result = [];
+  let i = 0,
+    j = 0;
+
+  while (i < left.length && j < right.length) {
+    if (left[i] <= right[j]) {
+      result.push(left[i++]);
+    } else {
+      result.push(right[j++]);
+    }
+  }
+
+  return result.concat(left.slice(i)).concat(right.slice(j));
+}
+```
+
+**面试要点：**
+
+- 快排：平均 O(n log n)，最坏 O(n²)，不稳定
+- 归并：稳定 O(n log n)，需要额外空间
+- 选择：数据量大用快排，要求稳定用归并
+
+**[⬆ 返回顶部](#算法与数据结构面试题列表)**
+
+### 搜索算法
+
+### 二分查找
+
+二分查找是高效的搜索算法
+
+```javascript
+// 二分查找
+function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+
+    if (arr[mid] === target) {
+      return mid;
+    } else if (arr[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+
+  return -1;
+}
+
+// 深度优先搜索
+function dfs(graph, start, visited = new Set()) {
+  visited.add(start);
+
+  for (let neighbor of graph[start] || []) {
+    if (!visited.has(neighbor)) {
+      dfs(graph, neighbor, visited);
+    }
+  }
+}
+
+// 动态规划：斐波那契数列
+function fibonacci(n) {
+  if (n <= 1) return n;
+
+  let prev = 0,
+    curr = 1;
+  for (let i = 2; i <= n; i++) {
+    const temp = curr;
+    curr = prev + curr;
+    prev = temp;
+  }
+
+  return curr;
+}
+```
+
+**面试要点：**
+
+- 二分查找：O(log n)，要求数组有序
+- DFS：深度优先，适合路径搜索
+- 动态规划：避免重复计算，自底向上
+
+**[⬆ 返回顶部](#算法与数据结构面试题列表)**
+
+---
+
+## 工程化工具
+
+> 现代前端开发离不开工程化工具的支持
+
+### 工程化工具面试题列表
+
+**[构建工具](#构建工具)**
+
+1. [Webpack 配置](#webpack-配置)
+2. [Vite 特性](#vite-特性)
+
+**[包管理](#包管理)**
+
+1. [npm vs yarn vs pnpm](#npm-vs-yarn-vs-pnpm)
+
+**[代码质量](#代码质量)**
+
+1. [ESLint 配置](#eslint-配置)
+
+### 构建工具
+
+### Webpack 配置
+
+Webpack 是最流行的模块打包工具
+
+```javascript
+// webpack.config.js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: './src/index.js',
+
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+    clean: true,
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+    }),
+  ],
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+};
+
+// Vite 配置
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+        },
+      },
+    },
+  },
+});
+```
+
+**面试要点：**
+
+- Webpack：配置复杂，功能强大，生态丰富
+- Vite：开发快速，基于 ESM，生产环境用 Rollup
+- 配置：Entry、Output、Loaders、Plugins
+- 优化：代码分割、Tree Shaking、缓存
+
+**[⬆ 返回顶部](#工程化工具面试题列表)**
+
+### 包管理
+
+### npm vs yarn vs pnpm
+
+不同包管理器的特点
+
+```javascript
+// 包管理器对比
+const packageManagers = {
+  npm: {
+    pros: ['官方工具', '生态完善'],
+    cons: ['速度较慢', '磁盘占用大'],
+    lockFile: 'package-lock.json',
+  },
+
+  yarn: {
+    pros: ['速度快', '工作区支持'],
+    cons: ['额外依赖'],
+    lockFile: 'yarn.lock',
+  },
+
+  pnpm: {
+    pros: ['节省空间', '速度快'],
+    cons: ['生态较新'],
+    lockFile: 'pnpm-lock.yaml',
+  },
+};
+
+// 版本管理
+const versions = {
+  exact: '1.2.3', // 精确版本
+  patch: '~1.2.3', // 补丁版本
+  minor: '^1.2.3', // 次版本
+};
+```
+
+**面试要点：**
+
+- npm：官方工具，稳定但速度慢
+- yarn：速度快，工作区支持
+- pnpm：节省空间，严格依赖管理
+- 版本：语义化版本，^、~、精确版本
+
+**[⬆ 返回顶部](#工程化工具面试题列表)**
+
+### 代码质量
+
+### ESLint 配置
+
+ESLint 是代码检查工具
+
+```javascript
+// .eslintrc.js
+module.exports = {
+  env: {
+    browser: true,
+    es2021: true
+  },
+
+  extends: [
+    'eslint:recommended',
+    '@typescript-eslint/recommended',
+    'prettier'
+  ],
+
+  parser: '@typescript-eslint/parser',
+
+  rules: {
+    'no-console': 'warn',
+    'no-unused-vars': 'error',
+    'prefer-const': 'error'
+  }
+};
+
+// Prettier 配置
+{
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 80,
+  "tabWidth": 2
+}
+
+// Husky 配置
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
+```
+
+**面试要点：**
+
+- ESLint：代码检查，规则配置
+- Prettier：代码格式化
+- Husky：Git hooks，pre-commit 检查
+- 工作流：提交前自动检查和格式化
+
+**[⬆ 返回顶部](#工程化工具面试题列表)**
+
+---
+
+## 总结
+
+这个项目包含了前端面试中最常见和最重要的技术点，涵盖了以下几个方面：
+
+### 📚 内容覆盖
+
+1. **Lodash 工具库** - 80+ 个常用方法的实现和测试
+
+   - 数组方法：chunk, compact, difference, flatten, uniq 等
+   - 集合方法：filter, map, reduce, forEach 等
+   - 函数方法：debounce, throttle 等
+   - 对象方法：get, set, merge, pick, omit 等
+
+2. **Ramda 函数式编程库** - 50+ 个函数式编程方法
+
+   - 数组操作：append, drop, filter, map, reduce 等
+   - 对象操作：assoc, dissoc, merge, path, prop 等
+   - 函数组合：compose, curry, pipe 等
+   - 逻辑运算：all, any, equals, isEmpty 等
+
+3. **React 面试题** - 现代 React 开发核心概念
+
+   - React Hooks：useState, useEffect, useContext, useReducer 等
+   - 自定义 Hooks：useLocalStorage, useDebounce, usePrevious 等
+   - 高阶组件：withLoading, withAuth
+   - 性能优化：useMemo, useCallback, React.memo
+   - 错误边界和组件模式
+
+4. **Vue 面试题** - Vue 2/3 核心知识点
+
+   - 响应式原理：Object.defineProperty vs Proxy
+   - 生命周期：Vue 2/3 生命周期对比
+   - 组件通信：父子、兄弟、跨级组件通信
+   - 计算属性与侦听器
+
+5. **JavaScript 基础** - 语言核心特性
+
+   - 数据类型与类型转换
+   - 闭包与作用域链
+   - 原型与继承
+   - 异步编程：Promise、async/await、事件循环
+
+6. **TypeScript** - 类型系统和高级特性
+
+   - 基础类型：基本类型、数组、元组、枚举
+   - 接口与类型别名
+   - 泛型编程
+   - 高级类型：映射类型、条件类型、工具类型
+
+7. **CSS 面试题** - 样式和布局核心知识
+
+   - 布局方式：Flexbox、Grid、定位
+   - 选择器优先级和特异性
+   - 盒模型和 BFC
+   - 响应式设计和媒体查询
+
+8. **浏览器原理** - 浏览器工作机制
+
+   - 渲染流程：解析、布局、绘制、合成
+   - JavaScript 引擎和事件循环
+   - 缓存机制和存储方式
+   - 安全策略：同源策略、CSP、XSS、CSRF
+
+9. **性能优化** - 前端性能优化策略
+
+   - 加载性能：资源优化、懒加载、预加载
+   - 运行时性能：DOM 操作、内存管理、算法优化
+   - 监控分析：性能指标、监控工具、分析方法
+
+10. **网络协议** - 网络通信基础
+
+    - HTTP 协议：状态码、方法、缓存、HTTPS
+    - TCP/IP：三次握手、四次挥手
+    - 跨域解决方案：CORS、JSONP、代理
+
+11. **算法与数据结构** - 编程基础
+
+    - 数据结构：数组、链表、栈、队列、树、图
+    - 排序算法：冒泡、选择、插入、快排、归并、堆排序
+    - 搜索算法：二分查找、深度优先、广度优先
+    - 动态规划和贪心算法
+
+12. **工程化工具** - 现代前端开发工具链
+    - 构建工具：Webpack、Vite、Rollup 配置和优化
+    - 包管理：npm、yarn、pnpm 对比和最佳实践
+    - 代码质量：ESLint、Prettier、Husky 配置
+
+### 🎯 使用建议
+
+1. **系统学习**：按照章节顺序逐步学习，每个知识点都有详细的代码示例
+2. **实践为主**：运行测试用例，理解每个方法的实现原理
+3. **举一反三**：基于现有实现，尝试优化或扩展功能
+4. **面试准备**：重点关注"面试要点"部分，这些是面试官常问的问题
+5. **项目实战**：将学到的知识应用到实际项目中
+
+### 🚀 技术特色
+
+- **完整的测试覆盖**：111 个测试用例，确保代码质量
+- **现代 JavaScript**：使用 ES6+ 语法，符合现代开发标准
+- **函数式编程**：避免副作用，代码更加可靠和可测试
+- **详细的注释**：每个函数都有清晰的注释和使用示例
+- **面试导向**：针对前端面试常见问题设计内容
+
+### 📈 持续更新
+
+这个项目会持续更新，添加更多的面试题和实现：
+
+- [ ] 更多 React 高级特性（Suspense、Concurrent Mode）
+- [ ] Vue 3 Composition API 深入应用
+- [ ] Node.js 后端面试题
+- [ ] 微前端架构和实现
+- [ ] WebAssembly 应用
+- [ ] PWA 和 Service Worker
+- [ ] 移动端开发和优化
+
+### 🤝 贡献指南
+
+欢迎提交 Issue 和 Pull Request：
+
+1. Fork 本仓库
+2. 创建特性分支：`git checkout -b feature/new-feature`
+3. 提交更改：`git commit -am 'Add new feature'`
+4. 推送分支：`git push origin feature/new-feature`
+5. 提交 Pull Request
+
+### 📄 许可证
+
+本项目采用 MIT 许可证，详见 [LICENSE](LICENSE) 文件。
+
+---
+
+希望这个项目能够帮助你在前端面试中取得好成绩！🚀
+
+如果觉得有用，请给个 ⭐️ Star 支持一下！
+
+---
