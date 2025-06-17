@@ -1,0 +1,37 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 项目概览
+
+这是一个前端常用工具库及高频面试题的代码库，主要包含 Lodash、Ramda、React 等前端技术的面试题和实现。
+
+## 项目结构
+
+- **主要源码文件**：
+  - [src/lodash.js](mdc:src/lodash.js) - Lodash 工具函数的手写实现
+  - [src/ramda.js](mdc:src/ramda.js) - Ramda 函数式编程库的实现
+  - [src/react-interview.js](mdc:src/react-interview.js) - React 相关面试题和解答
+  - [src/index.ts](mdc:src/index.ts) - 项目入口文件
+
+- **测试文件**：
+  - [__tests__/lodash.test.js](mdc:__tests__/lodash.test.js) - Lodash 函数测试
+  - [__tests__/ramda.test.js](mdc:__tests__/ramda.test.js) - Ramda 函数测试
+
+- **配置文件**：
+  - [package.json](mdc:package.json) - 项目依赖和脚本配置
+  - [tsconfig.json](mdc:tsconfig.json) - TypeScript 配置
+  - [.eslintrc.js](mdc:.eslintrc.js) - ESLint 代码规范配置
+  - [jest.config.js](mdc:jest.config.js) - Jest 测试配置
+
+- **文档**：
+  - [README.md](mdc:README.md) - 详细的项目文档，包含所有函数的实现和说明
+
+## 技术栈
+
+- **语言**: JavaScript, TypeScript
+- **测试框架**: Jest
+- **构建工具**: esbuild
+- **代码规范**: ESLint + Prettier
+- **包管理**: npm/yarn

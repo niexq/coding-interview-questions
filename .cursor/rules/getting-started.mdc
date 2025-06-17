@@ -1,0 +1,84 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 快速入门
+
+欢迎来到前端面试题代码库！这里收集了常用工具库的手写实现和高频面试题。
+
+## 🚀 快速开始
+
+### 环境设置
+```bash
+# 安装依赖
+npm install
+
+# 开发模式
+npm run dev
+
+# 运行测试
+npm test
+
+# 代码检查
+npm run lint
+
+# 代码格式化
+npm run format
+```
+
+### 项目结构概览
+- 📁 [src/](mdc:src) - 主要源码
+  - 📄 [lodash.js](mdc:src/lodash.js) - Lodash 工具函数实现
+  - 📄 [ramda.js](mdc:src/ramda.js) - Ramda 函数式编程库
+  - 📄 [react-interview.js](mdc:src/react-interview.js) - React 面试题
+- 📁 [__tests__/](mdc:__tests__) - 测试文件
+- 📄 [README.md](mdc:README.md) - 详细文档和面试题集合
+
+## 📝 贡献指南
+
+### 1. 添加工具函数
+参考 [函数实现指导](mdc:function-implementation.mdc) 了解详细步骤：
+- 选择合适的文件位置
+- 使用标准的函数模板
+- 添加完整的测试用例
+- 更新文档说明
+
+### 2. 添加面试题
+参考 [面试题指导](mdc:interview-questions.mdc) 了解格式要求：
+- 按技术栈和知识领域分类
+- 提供完整的问题描述和答案
+- 包含代码示例和实现
+
+### 3. 代码规范
+遵循 [编码规范](mdc:coding-standards.mdc) 确保代码质量：
+- 使用 ESLint + Prettier 进行格式化
+- 编写清晰的注释和文档
+- 保持函数的纯净性和可测试性
+
+## 🔍 查找内容
+
+### 按技术栈查找
+- **JavaScript**: 查看 [README.md](mdc:README.md) 中的 JavaScript 面试题部分
+- **React**: 查看 [src/react-interview.js](mdc:src/react-interview.js) 和相关文档
+- **工具库**: 查看 [src/lodash.js](mdc:src/lodash.js) 和 [src/ramda.js](mdc:src/ramda.js)
+
+### 按功能查找
+- **数组操作**: Lodash 和 Ramda 中的数组处理函数
+- **对象操作**: 对象遍历、合并、转换等工具函数
+- **函数式编程**: 柯里化、组合、管道等高阶函数
+
+## 💡 最佳实践
+
+1. **先看文档**: 查看 [README.md](mdc:README.md) 了解现有内容
+2. **运行测试**: 确保所有测试通过后再提交
+3. **保持一致**: 遵循现有的代码风格和命名规范
+4. **完善测试**: 每个函数都需要对应的测试用例
+5. **更新文档**: 及时更新相关文档和示例
+
+## 🤝 获取帮助
+
+- 查看现有的实现作为参考
+- 运行测试了解预期行为
+- 参考 ESLint 配置了解代码规范
+- 查看 Git 提交历史了解项目演进

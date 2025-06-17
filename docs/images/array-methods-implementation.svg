@@ -1,0 +1,131 @@
+<svg width="100%" height="100%" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 滤镜定义 -->
+  <defs>
+    <!-- 边框滤镜 -->
+    <filter id="sketch-border" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="42" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <!-- 文字滤镜 -->
+    <filter id="sketch-text" x="-2%" y="-2%" width="104%" height="104%">
+      <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" seed="15" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <!-- 标题 -->
+  <text x="450" y="40" font-family="Comic Sans MS, Virgil, cursive" font-size="24" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">数组方法实现原理与最佳实践</text>
+
+  <!-- 输入数据 -->
+  <g transform="translate(50, 80)">
+    <rect width="150" height="80" rx="15" ry="15" fill="#f7e8e8" stroke="#000000" stroke-width="2" filter="url(#sketch-border)"/>
+    <text x="75" y="25" font-family="Comic Sans MS, Virgil, cursive" font-size="14" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">原始数据</text>
+    <text x="75" y="45" font-family="Comic Sans MS, Virgil, cursive" font-size="12" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">[1, 2, 3, 4, 5]</text>
+    <text x="75" y="60" font-family="Comic Sans MS, Virgil, cursive" font-size="10" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">输入数组</text>
+  </g>
+
+  <!-- 方法选择 -->
+  <g transform="translate(250, 80)">
+    <rect width="180" height="80" rx="15" ry="15" fill="#e0f5e0" stroke="#000000" stroke-width="2" filter="url(#sketch-border)"/>
+    <text x="90" y="25" font-family="Comic Sans MS, Virgil, cursive" font-size="14" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">方法选择</text>
+    <text x="90" y="45" font-family="Comic Sans MS, Virgil, cursive" font-size="12" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">chunk(arr, 2)</text>
+    <text x="90" y="60" font-family="Comic Sans MS, Virgil, cursive" font-size="10" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">选择合适的方法</text>
+  </g>
+
+  <!-- 处理过程 -->
+  <g transform="translate(480, 80)">
+    <rect width="180" height="80" rx="15" ry="15" fill="#fff3cd" stroke="#000000" stroke-width="2" filter="url(#sketch-border)"/>
+    <text x="90" y="25" font-family="Comic Sans MS, Virgil, cursive" font-size="14" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">处理过程</text>
+    <text x="90" y="45" font-family="Comic Sans MS, Virgil, cursive" font-size="12" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">Array.from + slice</text>
+    <text x="90" y="60" font-family="Comic Sans MS, Virgil, cursive" font-size="10" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">内部实现机制</text>
+  </g>
+
+  <!-- 输出结果 -->
+  <g transform="translate(700, 80)">
+    <rect width="150" height="80" rx="15" ry="15" fill="#d1ecf1" stroke="#000000" stroke-width="2" filter="url(#sketch-border)"/>
+    <text x="75" y="25" font-family="Comic Sans MS, Virgil, cursive" font-size="14" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">处理结果</text>
+    <text x="75" y="45" font-family="Comic Sans MS, Virgil, cursive" font-size="12" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">[[1,2], [3,4], [5]]</text>
+    <text x="75" y="60" font-family="Comic Sans MS, Virgil, cursive" font-size="10" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">输出数组</text>
+  </g>
+
+  <!-- 流程箭头 -->
+  <g stroke-linecap="round">
+    <!-- 第一个箭头 -->
+    <path d="M200 120 C220 120, 230 120, 250 120" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M235 115 C240 118, 245 120, 250 120" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M235 125 C240 122, 245 120, 250 120" stroke="#000000" stroke-width="2" fill="none"></path>
+
+    <!-- 第二个箭头 -->
+    <path d="M430 120 C450 120, 460 120, 480 120" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M465 115 C470 118, 475 120, 480 120" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M465 125 C470 122, 475 120, 480 120" stroke="#000000" stroke-width="2" fill="none"></path>
+
+    <!-- 第三个箭头 -->
+    <path d="M660 120 C680 120, 690 120, 700 120" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M685 115 C690 118, 695 120, 700 120" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M685 125 C690 122, 695 120, 700 120" stroke="#000000" stroke-width="2" fill="none"></path>
+  </g>
+
+  <!-- 实现原理详解 -->
+  <g transform="translate(50, 220)">
+    <rect width="800" height="120" rx="20" ry="20" fill="#f8f9fa" stroke="#000000" stroke-width="2" filter="url(#sketch-border)"/>
+    <text x="400" y="25" font-family="Comic Sans MS, Virgil, cursive" font-size="18" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">核心实现原理</text>
+    <line x1="20" y1="35" x2="780" y2="35" stroke="#000000" stroke-width="1" filter="url(#sketch-border)"/>
+
+    <text x="50" y="60" font-family="Comic Sans MS, Virgil, cursive" font-size="14" fill="#000000" filter="url(#sketch-text)">1. 函数式编程思想：</text>
+    <text x="70" y="80" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• 纯函数设计，避免副作用</text>
+    <text x="70" y="95" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• 不可变性原则，返回新数组</text>
+
+    <text x="450" y="60" font-family="Comic Sans MS, Virgil, cursive" font-size="14" fill="#000000" filter="url(#sketch-text)">2. 高阶函数应用：</text>
+    <text x="470" y="80" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• map, filter, reduce组合</text>
+    <text x="470" y="95" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• 链式调用支持</text>
+  </g>
+
+  <!-- 性能优化策略 -->
+  <g transform="translate(50, 380)">
+    <rect width="380" height="160" rx="20" ry="20" fill="#e8f5e8" stroke="#000000" stroke-width="2" filter="url(#sketch-border)"/>
+    <text x="190" y="25" font-family="Comic Sans MS, Virgil, cursive" font-size="16" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">性能优化策略</text>
+    <line x1="20" y1="35" x2="360" y2="35" stroke="#000000" stroke-width="1" filter="url(#sketch-border)"/>
+
+    <text x="30" y="60" font-family="Comic Sans MS, Virgil, cursive" font-size="14" fill="#000000" filter="url(#sketch-text)">时间复杂度考虑：</text>
+    <text x="40" y="80" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• O(n) 线性时间算法优先</text>
+    <text x="40" y="95" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• 避免嵌套循环</text>
+
+    <text x="30" y="120" font-family="Comic Sans MS, Virgil, cursive" font-size="14" fill="#000000" filter="url(#sketch-text)">空间复杂度优化：</text>
+    <text x="40" y="140" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• 减少中间数组创建</text>
+  </g>
+
+  <!-- 最佳实践 -->
+  <g transform="translate(470, 380)">
+    <rect width="380" height="160" rx="20" ry="20" fill="#fff0f0" stroke="#000000" stroke-width="2" filter="url(#sketch-border)"/>
+    <text x="190" y="25" font-family="Comic Sans MS, Virgil, cursive" font-size="16" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">开发最佳实践</text>
+    <line x1="20" y1="35" x2="360" y2="35" stroke="#000000" stroke-width="1" filter="url(#sketch-border)"/>
+
+    <text x="30" y="60" font-family="Comic Sans MS, Virgil, cursive" font-size="14" fill="#000000" filter="url(#sketch-text)">代码可读性：</text>
+    <text x="40" y="80" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• 语义化方法命名</text>
+    <text x="40" y="95" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• 链式调用适度使用</text>
+
+    <text x="30" y="120" font-family="Comic Sans MS, Virgil, cursive" font-size="14" fill="#000000" filter="url(#sketch-text)">错误处理：</text>
+    <text x="40" y="140" font-family="Comic Sans MS, Virgil, cursive" font-size="12" fill="#000000" filter="url(#sketch-text)">• 边界条件检查</text>
+  </g>
+
+  <!-- 连接线 -->
+  <g stroke-linecap="round">
+    <!-- 从流程到原理 -->
+    <path d="M450 180 C450 190, 450 200, 450 220" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M445 210 C447 213, 450 220, 450 220" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M455 210 C453 213, 450 220, 450 220" stroke="#000000" stroke-width="2" fill="none"></path>
+
+    <!-- 从原理到实践 -->
+    <path d="M450 340 C450 350, 450 360, 450 380" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M445 370 C447 373, 450 380, 450 380" stroke="#000000" stroke-width="2" fill="none"></path>
+    <path d="M455 370 C453 373, 450 380, 450 380" stroke="#000000" stroke-width="2" fill="none"></path>
+  </g>
+
+  <!-- 底部总结 -->
+  <text x="450" y="580" font-family="Comic Sans MS, Virgil, cursive" font-size="16" text-anchor="middle" fill="#000000" filter="url(#sketch-text)">掌握原理 → 优化性能 → 提升开发效率</text>
+</svg>
